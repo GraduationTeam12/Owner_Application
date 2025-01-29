@@ -6,6 +6,8 @@ import 'package:user_app/constants/pages_name.dart';
 import 'package:user_app/core/api/end_points.dart';
 import 'package:user_app/core/cache/cache_helper.dart';
 import 'package:user_app/firebase_options.dart';
+import 'package:user_app/presentation/screens/owner_screens/add_members_screen.dart';
+import 'package:user_app/presentation/widgets/get_fcmtoken.dart';
 import 'package:user_app/routing.dart';
 
 Future<void> main() async {
@@ -19,6 +21,12 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  await Future.wait([
+    PushNotificationsService.init(),
+    AddMembersScreenState.init(),
+     
+  ]);
   runApp(DevicePreview(
     enabled: true,
     builder: (context)=> MyApp(
@@ -36,13 +44,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'SATARS',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       onGenerateRoute: appRouter.generationRoute,
-      initialRoute: splashScreen ,
+      initialRoute:  addMembersScreen ,
       // initialRoute:  userInfoScreen,
     );
   }

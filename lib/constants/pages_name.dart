@@ -6,3 +6,6 @@ const forgotPasswordPhoneScreen = '/forgotpasswordbyphone-screen';
 const resetPasswordEmailScreen = '/resetbyemail-screen';
 const resetPasswordPhoneScreen = '/resetbyphone-screen';
 const changePasswordScreen = '/change-screen';
+const addMembersScreen = '/members-screen';
+const carSplashScreen = '/carsplash-screen';
+const homePageScreen = '/home-screen';
