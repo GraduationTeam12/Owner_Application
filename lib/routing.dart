@@ -8,10 +8,13 @@ import 'package:user_app/core/api/dio_consumer.dart';
 import 'package:user_app/core/data/repo/auth_repo.dart';
 import 'package:user_app/core/logic/forgot_password_cubit/cubit/forgot_password_cubit.dart';
 import 'package:user_app/core/logic/login_cubit/login_cubit.dart';
+import 'package:user_app/presentation/screens/owner_screens/add_members_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/change_password.dart';
 import 'package:user_app/presentation/screens/owner_screens/forgot_password_email_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/forgot_password_phone_screen.dart';
+import 'package:user_app/presentation/screens/owner_screens/home_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/on_boarding.dart';
+import 'package:user_app/presentation/screens/owner_screens/owner_car_splash.dart';
 import 'package:user_app/presentation/screens/owner_screens/reset_password_emal_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/reset_password_phone_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/sign_in_screen.dart';
@@ -23,14 +26,8 @@ class AppRouter {
       case splashScreen:
         return MaterialPageRoute(builder: (context) => const SplashScreen());
 
-      
-
       case onBoardingScreen:
-         
-        return MaterialPageRoute(
-            builder: (context) => OnBoardingScreen(
-                   
-                ));
+        return MaterialPageRoute(builder: (context) => OnBoardingScreen());
 
       case signInScreen:
         return MaterialPageRoute(
@@ -39,8 +36,6 @@ class AppRouter {
                       AuthRepository(apiConsumer: DioConsumer(dio: Dio()))),
                   child: const SignInScreen(),
                 ));
-
-       
 
       case forgotPasswordEmailScreen:
         return MaterialPageRoute(
@@ -77,11 +72,17 @@ class AppRouter {
                   child: const ChangePassword(),
                 ));
 
-       
+      case addMembersScreen:
+        return MaterialPageRoute(
+            builder: (_) => const  AddMembersScreen());
 
-     
+      case carSplashScreen:
+        return MaterialPageRoute(
+            builder: (_) => const  OwnerCarSplashScreen());
 
-     
+        case homePageScreen:
+        return MaterialPageRoute(
+            builder: (_) => const  HomeScreen());
     }
   }
 }

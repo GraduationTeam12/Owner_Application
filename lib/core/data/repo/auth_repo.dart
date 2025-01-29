@@ -7,16 +7,18 @@ import 'package:user_app/core/error/exceptions.dart';
 class AuthRepository {
   final ApiConsumer apiConsumer;
 
+
   AuthRepository({required this.apiConsumer});
 
   Future<Either<String, LoginModel>> login({
     required String email,
     required String password,
+    required String? fcmToken,
   }) async {
     try {
       final response = await apiConsumer.post(
         EndPoint.logIn,
-        data: {ApiKeys.email: email, ApiKeys.password: password},
+        data: {ApiKeys.email: email, ApiKeys.password: password , 'fcmToken' : fcmToken},
       );
       return Right(LoginModel.fromJson(response));
     } on ServerException catch (error) {

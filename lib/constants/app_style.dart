@@ -73,6 +73,15 @@ abstract class AppStyle {
     );
   }
 
+  static TextStyle styleSemiBold22(BuildContext context) {
+    return TextStyle(
+      color: const Color(0xFFFFFFFF),
+      fontSize: getResponsiveFontSize(context , fontSize: 22),
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w600,
+    );
+  }
+
   static TextStyle styleSemiBold25(BuildContext context) {
     return TextStyle(
       color: const Color(0xFFFFFFFF),

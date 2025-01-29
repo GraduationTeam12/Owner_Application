@@ -8,9 +8,10 @@ import 'package:user_app/presentation/widgets/dots_indicator.dart';
 import 'package:user_app/presentation/widgets/on_boarding_pageview.dart';
 
 class OnBoardingSection extends StatefulWidget {
-  const OnBoardingSection({super.key,  });
+  const OnBoardingSection({
+    super.key,
+  });
 
-   
   @override
   State<OnBoardingSection> createState() => _OnBoardingSectionState();
 }
@@ -72,13 +73,15 @@ class _OnBoardingSectionState extends State<OnBoardingSection> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextButton(
-                  onPressed: goToPreviousPage,
-                  child: currentIndex == 0? Text('') : Text(
-                    "Back",
-                    style: AppStyle.styleSemiBold18(context)
-                        .copyWith(color: const Color(0xFF5C5858)),
-                  )),
+              currentIndex == 0
+                  ? Text('')
+                  : TextButton(
+                      onPressed: goToPreviousPage,
+                      child: Text(
+                        "Back",
+                        style: AppStyle.styleSemiBold18(context)
+                            .copyWith(color: const Color(0xFF5C5858)),
+                      )),
               currentIndex == 2
                   ? SizedBox(
                       // width: 111,
@@ -89,7 +92,7 @@ class _OnBoardingSectionState extends State<OnBoardingSection> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25))),
                           onPressed: () {
-                              Navigator.pushNamed(context, signInScreen);
+                            Navigator.pushNamed(context, signInScreen);
                           },
                           child: FittedBox(
                             child: Padding(
