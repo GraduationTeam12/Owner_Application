@@ -53,7 +53,7 @@ class OnBoardingBody extends StatelessWidget {
         Center(
           child: Text(
             items[index].title,
-            style: AppStyle.styleBold25(context),
+            style: AppStyle.styleBold30(context),
           ),
         ),
         const SizedBox(height: 15),

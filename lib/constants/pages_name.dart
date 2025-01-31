@@ -9,3 +9,6 @@ const changePasswordScreen = '/change-screen';
 const addMembersScreen = '/members-screen';
 const carSplashScreen = '/carsplash-screen';
 const homePageScreen = '/home-screen';
+const knockSensorScreen = '/nock-screen';
+const waterSensorScreen = '/water-screen';
+const tempSensorScreen = '/temp-screen';

@@ -28,11 +28,29 @@ abstract class AppStyle {
     );
   }
 
-  static TextStyle styleBold25(BuildContext context) {
+  static TextStyle styleBold30(BuildContext context) {
     return  TextStyle(
       color: const Color(0xFF5C5858),
       fontSize: getResponsiveFontSize(context , fontSize: 30),
       fontFamily: 'Inter',
+      fontWeight: FontWeight.w700,
+    );
+  }
+
+  static TextStyle styleBold40(BuildContext context) {
+    return  TextStyle(
+      color: const Color(0xFF5C5858),
+      fontSize: getResponsiveFontSize(context , fontSize: 40),
+      fontFamily: 'Inter',
+      fontWeight: FontWeight.w700,
+    );
+  }
+
+  static TextStyle styleBold25(BuildContext context) {
+    return  TextStyle(
+      color: const Color(0xFF5C5858),
+      fontSize: getResponsiveFontSize(context , fontSize: 25),
+      fontFamily: 'Roboto',
       fontWeight: FontWeight.w700,
     );
   }
