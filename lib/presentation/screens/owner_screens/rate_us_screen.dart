@@ -129,7 +129,7 @@ class _RateUsScreenState extends State<RateUsScreen> {
                             ),
                           ),
                           child: Text(
-                            "Send",
+                            "Submit",
                             style: AppStyle.styleRegular25(context).copyWith(
                                 fontFamily: 'Inter', color: Colors.white),
                           ),
