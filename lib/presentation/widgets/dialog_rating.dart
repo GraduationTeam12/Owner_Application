@@ -20,7 +20,7 @@ void showRatingDialog(BuildContext context) {
                 height: 10,
               ),
               const Text(
-                "Thank you for Rating As",
+                "Thank you for rating us",
                 style: TextStyle(
                     fontSize: 25,
                     color: Colors.black,
