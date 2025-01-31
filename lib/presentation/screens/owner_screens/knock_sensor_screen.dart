@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
+import 'package:user_app/constants/pages_name.dart';
 import 'package:user_app/presentation/screens/owner_screens/check_car_scrren.dart';
 import 'package:user_app/presentation/screens/owner_screens/home_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/location_screen.dart';
@@ -51,7 +52,9 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
           Padding(
             padding: const EdgeInsets.only(right: 20),
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, notificationScreen);
+              },
               child: SvgPicture.asset(
                   width: MediaQuery.sizeOf(context).width > 600 ? 60 : null,
                   height: MediaQuery.sizeOf(context).width > 600 ? 60 : null,
