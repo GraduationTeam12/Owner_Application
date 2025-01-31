@@ -13,12 +13,15 @@ import 'package:user_app/presentation/screens/owner_screens/change_password.dart
 import 'package:user_app/presentation/screens/owner_screens/forgot_password_email_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/forgot_password_phone_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/home_screen.dart';
+import 'package:user_app/presentation/screens/owner_screens/knock_sensor_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/on_boarding.dart';
 import 'package:user_app/presentation/screens/owner_screens/owner_car_splash.dart';
 import 'package:user_app/presentation/screens/owner_screens/reset_password_emal_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/reset_password_phone_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/sign_in_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/splash_screen.dart';
+import 'package:user_app/presentation/screens/owner_screens/temp_sensor_screen.dart';
+import 'package:user_app/presentation/screens/owner_screens/water_sensor_screen.dart';
 
 class AppRouter {
   Route? generationRoute(RouteSettings settings) {
@@ -80,9 +83,21 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (_) => const  OwnerCarSplashScreen());
 
-        case homePageScreen:
+      case homePageScreen:
         return MaterialPageRoute(
-            builder: (_) => const  HomeScreen());
+            builder: (_) =>    HomeScreen());
+
+      case knockSensorScreen:
+        return MaterialPageRoute(
+            builder: (_) => const  KnockSensorScreen());
+
+      case waterSensorScreen:
+        return MaterialPageRoute(
+            builder: (_) => const  WaterSensorScreen());
+
+      case tempSensorScreen:
+        return MaterialPageRoute(
+            builder: (_) => const  TempSensorScreen());  
     }
   }
 }
