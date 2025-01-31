@@ -12,3 +12,5 @@ const homePageScreen = '/home-screen';
 const knockSensorScreen = '/nock-screen';
 const waterSensorScreen = '/water-screen';
 const tempSensorScreen = '/temp-screen';
+const contactScreen = '/contact-screen';
+const rateScreen= '/rate-screen';
