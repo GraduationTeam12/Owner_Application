@@ -16,13 +16,13 @@ class CheckCarScrren extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Text(
-                'Car effectiveness',
-                style: AppStyle.styleBold30(context),
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 10),
+            //   child: Text(
+            //     'Car effectiveness',
+            //     style: AppStyle.styleBold30(context),
+            //   ),
+            // ),
             SizedBox(
               height: MediaQuery.sizeOf(context).width > 600 &&
                       MediaQuery.sizeOf(context).width < 1050

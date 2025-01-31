@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
+import 'package:user_app/constants/pages_name.dart';
 import 'package:user_app/presentation/models/drawer_model.dart';
+import 'package:user_app/presentation/screens/owner_screens/home_screen.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});
@@ -32,15 +34,29 @@ class _MyDrawerState extends State<MyDrawer> {
       DrawerModel(
           title: 'My Car',
           img: 'assets/images/auth_images/mycar.svg',
-          onTap: () {}),
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => HomeScreen(
+                          index: 0,
+                        )));
+          }),
       DrawerModel(
           title: 'Location',
           img: 'assets/images/auth_images/location.svg',
-          onTap: () {}),
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => HomeScreen(
+                          index: 1,
+                        )));
+          }),
       DrawerModel(
           title: 'Contact Us',
           img: 'assets/images/auth_images/contact.svg',
-          onTap: () {}),
+          onTap: () {
+            Navigator.pushNamed(context, contactScreen);
+          }),
       DrawerModel(
           title: 'Privacy Policy',
           img: 'assets/images/auth_images/privacy.svg',
@@ -52,7 +68,9 @@ class _MyDrawerState extends State<MyDrawer> {
       DrawerModel(
           title: 'Rate Us',
           img: 'assets/images/auth_images/star.svg',
-          onTap: () {}),
+          onTap: () {
+            Navigator.pushNamed(context, rateScreen);
+          }),
       DrawerModel(
           title: 'Settings',
           img: 'assets/images/auth_images/settings.svg',

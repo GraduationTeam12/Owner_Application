@@ -10,12 +10,14 @@ import 'package:user_app/core/logic/forgot_password_cubit/cubit/forgot_password_
 import 'package:user_app/core/logic/login_cubit/login_cubit.dart';
 import 'package:user_app/presentation/screens/owner_screens/add_members_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/change_password.dart';
+import 'package:user_app/presentation/screens/owner_screens/contact_us_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/forgot_password_email_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/forgot_password_phone_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/home_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/knock_sensor_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/on_boarding.dart';
 import 'package:user_app/presentation/screens/owner_screens/owner_car_splash.dart';
+import 'package:user_app/presentation/screens/owner_screens/rate_us_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/reset_password_emal_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/reset_password_phone_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/sign_in_screen.dart';
@@ -97,7 +99,15 @@ class AppRouter {
 
       case tempSensorScreen:
         return MaterialPageRoute(
-            builder: (_) => const  TempSensorScreen());  
+            builder: (_) => const  TempSensorScreen());
+
+      case contactScreen:
+        return MaterialPageRoute(
+            builder: (_) => const  ContactUsScreen()); 
+
+        case rateScreen:
+        return MaterialPageRoute(
+            builder: (_) => const  RateUsScreen()); 
     }
   }
 }

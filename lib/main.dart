@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
       ),
       onGenerateRoute: appRouter.generationRoute,
       initialRoute: token == null ? splashScreen : homePageScreen ,
-      // initialRoute:  userInfoScreen,
+      //  initialRoute: rateScreen,
     );
   }
 }
