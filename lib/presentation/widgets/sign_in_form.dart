@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_app/constants/app_style.dart';
@@ -5,6 +7,7 @@ import 'package:user_app/constants/colors.dart';
 import 'package:user_app/constants/pages_name.dart';
 import 'package:user_app/core/cache/cache_helper.dart';
 import 'package:user_app/core/logic/login_cubit/login_cubit.dart';
+import 'package:user_app/presentation/widgets/loading_dialog.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({super.key});
@@ -21,16 +24,12 @@ class _SignInFormState extends State<SignInForm> {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginLoadingState) {
-          const Center(
-            child: CircularProgressIndicator(
-              backgroundColor: Colors.amber,
-            ),
-          );
+          showLoadingDialog(context);
         }
         if (state is LoginSuccessState) {
-          String message = state.message;
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(message)));
+          // String message = state.message;
+          // ScaffoldMessenger.of(context)
+          //     .showSnackBar(SnackBar(content: Text(message)));
 
           final visitedPage = CacheHelper().getData(key: 'AddMemberScreen');
           visitedPage == null

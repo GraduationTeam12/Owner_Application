@@ -23,6 +23,7 @@ class _SignInScreenState extends State<SignInScreen> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
+         
         backgroundColor: Colors.white,
         appBar: buildCustomAppBar(context, 'Welcome Back !'),
         body: Padding(

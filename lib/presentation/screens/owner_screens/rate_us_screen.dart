@@ -63,20 +63,26 @@ class _RateUsScreenState extends State<RateUsScreen> {
               Center(
                 child: Column(
                   children: [
-                    Text(
-                      'We worked super hard to make Glose ',
-                      style: AppStyle.styleSemiBold22(context)
-                          .copyWith(color: Color(0xFFA8A1A1)),
+                    FittedBox(
+                      child: Text(
+                        'We worked super hard to make Glose ',
+                        style: AppStyle.styleSemiBold22(context)
+                            .copyWith(color: Color(0xFFA8A1A1)),
+                      ),
                     ),
-                    Text(
-                      'better for you ,and would  love to know',
-                      style: AppStyle.styleSemiBold22(context)
-                          .copyWith(color: Color(0xFFA8A1A1)),
+                    FittedBox(
+                      child: Text(
+                        'better for you ,and would  love to know',
+                        style: AppStyle.styleSemiBold22(context)
+                            .copyWith(color: Color(0xFFA8A1A1)),
+                      ),
                     ),
-                    Text(
-                      'How would you rate our App?  ',
-                      style: AppStyle.styleSemiBold22(context)
-                          .copyWith(color: Color(0xFFA8A1A1)),
+                    FittedBox(
+                      child: Text(
+                        'How would you rate our App?  ',
+                        style: AppStyle.styleSemiBold22(context)
+                            .copyWith(color: Color(0xFFA8A1A1)),
+                      ),
                     ),
                     SizedBox(
                       height: 40,

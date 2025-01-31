@@ -5,6 +5,7 @@ import 'package:user_app/constants/colors.dart';
 import 'package:user_app/constants/pages_name.dart';
 import 'package:user_app/presentation/models/drawer_model.dart';
 import 'package:user_app/presentation/screens/owner_screens/home_screen.dart';
+import 'package:user_app/presentation/widgets/dialog_logout.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});
@@ -35,10 +36,12 @@ class _MyDrawerState extends State<MyDrawer> {
           title: 'My Car',
           img: 'assets/images/auth_images/mycar.svg',
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(
+            Navigator.push(
+                context,
+                MaterialPageRoute(
                     builder: (context) => HomeScreen(
-                          index: 0,
-                        )));
+                      index: 0,
+                    )));
           }),
       DrawerModel(
           title: 'Location',
@@ -58,9 +61,12 @@ class _MyDrawerState extends State<MyDrawer> {
             Navigator.pushNamed(context, contactScreen);
           }),
       DrawerModel(
-          title: 'Privacy Policy',
-          img: 'assets/images/auth_images/privacy.svg',
-          onTap: () {}),
+        title: 'Privacy Policy',
+        img: 'assets/images/auth_images/privacy.svg',
+        onTap: () {
+          Navigator.pushNamed(context, privacyScreen);
+        },
+      ),
       DrawerModel(
           title: 'Share this app',
           img: 'assets/images/auth_images/shareapp.svg',
@@ -199,9 +205,12 @@ class _MyDrawerState extends State<MyDrawer> {
                     child: SizedBox(
                       height:
                           MediaQuery.sizeOf(context).width > 600 ? 70 : null,
-                      width: MediaQuery.sizeOf(context).width > 600 ? 250 : 150,
+                      width:
+                          MediaQuery.sizeOf(context).width > 600 ? 250 : 150,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          showLogOutDialog(context);
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
@@ -231,8 +240,9 @@ class _MyDrawerState extends State<MyDrawer> {
                     ),
                   ),
                   SizedBox(
-                      height:
-                          MediaQuery.sizeOf(context).height > 1800 ? 300 : 26),
+                      height: MediaQuery.sizeOf(context).height > 1800
+                          ? 300
+                          : 26),
                 ],
               ),
             ),

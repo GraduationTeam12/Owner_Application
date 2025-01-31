@@ -15,8 +15,10 @@ import 'package:user_app/presentation/screens/owner_screens/forgot_password_emai
 import 'package:user_app/presentation/screens/owner_screens/forgot_password_phone_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/home_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/knock_sensor_screen.dart';
+import 'package:user_app/presentation/screens/owner_screens/notification_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/on_boarding.dart';
 import 'package:user_app/presentation/screens/owner_screens/owner_car_splash.dart';
+import 'package:user_app/presentation/screens/owner_screens/privacy_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/rate_us_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/reset_password_emal_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/reset_password_phone_screen.dart';
@@ -78,36 +80,35 @@ class AppRouter {
                 ));
 
       case addMembersScreen:
-        return MaterialPageRoute(
-            builder: (_) => const  AddMembersScreen());
+        return MaterialPageRoute(builder: (_) => const AddMembersScreen());
 
       case carSplashScreen:
-        return MaterialPageRoute(
-            builder: (_) => const  OwnerCarSplashScreen());
+        return MaterialPageRoute(builder: (_) => const OwnerCarSplashScreen());
 
       case homePageScreen:
         return MaterialPageRoute(
-            builder: (_) =>    HomeScreen());
+            builder: (_) => HomeScreen());
 
       case knockSensorScreen:
-        return MaterialPageRoute(
-            builder: (_) => const  KnockSensorScreen());
+        return MaterialPageRoute(builder: (_) => const KnockSensorScreen());
 
       case waterSensorScreen:
-        return MaterialPageRoute(
-            builder: (_) => const  WaterSensorScreen());
+        return MaterialPageRoute(builder: (_) => const WaterSensorScreen());
 
       case tempSensorScreen:
-        return MaterialPageRoute(
-            builder: (_) => const  TempSensorScreen());
+        return MaterialPageRoute(builder: (_) => const TempSensorScreen());
 
       case contactScreen:
-        return MaterialPageRoute(
-            builder: (_) => const  ContactUsScreen()); 
+        return MaterialPageRoute(builder: (_) => const ContactUsScreen());
 
-        case rateScreen:
-        return MaterialPageRoute(
-            builder: (_) => const  RateUsScreen()); 
+      case rateScreen:
+        return MaterialPageRoute(builder: (_) => const RateUsScreen());
+
+      case privacyScreen:
+        return MaterialPageRoute(builder: (_) => const PrivacyScreen());
+
+      case notificationScreen:
+        return MaterialPageRoute(builder: (_) => const NotificationScreen());
     }
   }
 }
