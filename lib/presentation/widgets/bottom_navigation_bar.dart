@@ -15,15 +15,24 @@ class CustomBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.sizeOf(context).width > 600 ? 120 : 70,
+      height: MediaQuery.sizeOf(context).width > 600 ? 110 : 60,
       // width: double.infinity,
       decoration: ShapeDecoration(
-        color: Colors.white,
-          image: DecorationImage(
-              fit: BoxFit.fill,
-              image: AssetImage('assets/images/auth_images/bottombar.png')),
+        gradient: LinearGradient(colors: [
+          Color(0xFF475A74),
+          Color(0xFF8C9EB7)
+        ]),
+          // image: DecorationImage(
+          //     fit: BoxFit.fill,
+          //     image: AssetImage('assets/images/auth_images/bottombar.png')),
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(0))),
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(5),
+                  topRight: Radius.circular(5),
+                 
+                )
+              )),
       child: Stack(
         children: [
           Row(

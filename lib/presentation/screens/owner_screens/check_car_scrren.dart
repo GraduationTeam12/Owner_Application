@@ -47,7 +47,12 @@ class CheckCarScrren extends StatelessWidget {
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: SizedBox(
-                height: MediaQuery.sizeOf(context).width > 600 ? 250 : 150,
+                height: MediaQuery.sizeOf(context).width > 600
+                    ? 250
+                    : MediaQuery.sizeOf(context).width > 500 &&
+                            MediaQuery.sizeOf(context).width < 600
+                        ? 160
+                        : 150,
                 child: Row(
                   children: [
                     Wrap(
@@ -60,7 +65,12 @@ class CheckCarScrren extends StatelessWidget {
                           child: Container(
                             padding: EdgeInsets.all(15),
                             width: MediaQuery.sizeOf(context).width * 0.5,
-                            // height: MediaQuery.sizeOf(context).height * 0.16,
+                            height: MediaQuery.sizeOf(context).width < 500
+                                ? 140
+                                : MediaQuery.sizeOf(context).width > 500 &&
+                                        MediaQuery.sizeOf(context).width < 600
+                                    ? 150
+                                    : null,
                             decoration: ShapeDecoration(
                                 shadows: [
                                   BoxShadow(
@@ -109,7 +119,12 @@ class CheckCarScrren extends StatelessWidget {
                           child: Container(
                             padding: EdgeInsets.all(15),
                             width: MediaQuery.sizeOf(context).width * 0.5,
-                            // height: MediaQuery.sizeOf(context).height * 0.16,
+                            height: MediaQuery.sizeOf(context).width < 500
+                                ? 140
+                                : MediaQuery.sizeOf(context).width > 500 &&
+                                        MediaQuery.sizeOf(context).width < 600
+                                    ? 150
+                                    : null,
                             decoration: ShapeDecoration(
                                 shadows: [
                                   BoxShadow(
@@ -158,7 +173,12 @@ class CheckCarScrren extends StatelessWidget {
                           child: Container(
                             padding: EdgeInsets.all(15),
                             width: MediaQuery.sizeOf(context).width * 0.5,
-                            // height: MediaQuery.sizeOf(context).height * 0.16,
+                            height: MediaQuery.sizeOf(context).width < 500
+                                ? 140
+                                : MediaQuery.sizeOf(context).width > 500 &&
+                                        MediaQuery.sizeOf(context).width < 600
+                                    ? 150
+                                    : null,
                             decoration: ShapeDecoration(
                                 shadows: [
                                   BoxShadow(
