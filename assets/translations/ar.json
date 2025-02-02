@@ -1,0 +1,122 @@
+{
+
+  "Authentication" : {
+    "appbar" :   "مرحبًا بعودتك !",
+    "email" : "البريد الالكتروني",
+    "password" : "كلمة المرور",
+    "phoneNumber" : "رقم الجوال",
+    "forgotPassword" : "نسيت كلمة المرور",
+    "tryAnotherWay" : "طريقة اخرى",
+    "resetPassword" : "استعادة كلمة المرور",
+    "changePassword" : "تغيير كلمة المرور",
+    "newPassword" : "كلمة المرور الجديدة",
+    "confirmPassword" : "تأكيد كلمة المرور",
+    "login" : "تسجيل الدخول",
+    "sendCode" : "ارسل الرمز",
+    "confirm" : "تأكيد"
+  },
+
+  "onBoarding" : {
+    "team" :   "فريقنا",
+    "goal" : "هدفنا",
+    "vision" : "رؤيتنا",
+    "skip" : "تخطى",
+    "back" : "رجوع",
+    "start" : "بدأ"
+     
+  },
+
+
+
+
+
+  "ContactAdmin" : {
+    "appbar" : "تواصل معنا",
+    "headerText" :  "يمكنك التواصل مع الدعم الفني لإيجاد حل لمشكلتك",
+    "contactAdmin" : "تواصل مع المشرف",
+    "message" : "رسالتك",
+    "button" : "ارسل",
+    "or" : "او"
+
+  },
+
+
+  "carPage" : {
+    "appbar" : "سيارتي",
+    "knockSensor" :  "مستشعر الصدمات",
+    "waterSensor" : "مستشعر المياه",
+    "TempSensor" : "مستشعر الحرارة"
+  },
+
+  "knockSensorPage" : {
+    "title" :  "مستشعر الصدمات",
+    "subtitle" : "خمسة جوانب لسيارتي",
+    "center" : "الوسط",
+    "topRight" : "اعلي اليمين",
+    "topLeft" : "اعلي اليسار",
+    "bottomRight" : "اسفل اليمين",
+    "bottomLeft" : "اسفل اليسار"
+  },
+
+
+  "WaterSensorPage" : {
+    "title" :  "مستشعر المياه",
+    "subtitle" : " جانبان لسيارتي",
+    "center" : "الوسط",
+    "top" : "اعلي السيارة",
+    "bottom" : "اسفل السيارة"
+  },
+
+  "TempSensorPage" : {
+    "title" :  "مستشعر الحرارة",
+    "subtitle" : " جانب وحيد لسيارتي"
+  },
+
+  "SensorsState" : {
+    "good" :  "علي ما يرام",
+    "normal" : "متوسط",
+    "problem" : " مشكلة"
+  },
+
+  "Drawer" : {
+    "profile" :  "حسابي",
+    "car" : "سيارتي",
+    "location" : "موقعي",
+    "contact" : "تواصل معنا",
+    "privacyPolicy" : "سياسة الخصوصية",
+    "shareApp" : "مشاركة التطبيق",
+    "rate" : "التقييم",
+    "settings" : "الاعدادات",
+    "logout" : "تسجيل الخروج"
+
+  },
+
+
+  "ratingPage" : {
+    "headerText" :  "رأيك يهمنا!",
+    "title1" : "لقد عملنا بجد لجعل التطبيق أفضل بالنسبة لك،",
+    "title2": "ونود أن نعرف: كيف تقيم تطبيقنا؟  ",
+    "submit" : "ارسل",
+    "later" : " ربما لاحقا"
+     
+
+  },
+
+  "DialogRating" : "نشكرك علي تقييمنا ",
+
+  "LogOutDialog" : {
+    "headerText" :  "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+    "yes" : "نعم",
+    "no" : "لا"
+     
+     
+
+  },
+
+  "NotificationsPage" : {
+    "appbar" :  "الاشعارات",
+    "title" : " هناك مشكلة في مستشعر الحرارة"
+
+  }
+
+}

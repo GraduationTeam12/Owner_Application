@@ -1,10 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:user_app/constants/app_constants.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
 import 'package:user_app/constants/pages_name.dart';
 import 'package:user_app/core/logic/forgot_password_cubit/cubit/forgot_password_cubit.dart';
 import 'package:user_app/core/logic/forgot_password_cubit/cubit/forgot_password_state.dart';
+import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/widgets/custom_elevated_button.dart';
 
 class ForgotPasswordEmailField extends StatefulWidget {
@@ -68,7 +71,7 @@ class ForgotPasswordEmailFieldState extends State<ForgotPasswordEmailField> {
                     ),
                     // hintText: "E-mail",
                     // hintStyle: AppStyle.styleRegular16(context),
-                    labelText: "E-mail",
+                    labelText: LocaleKeys.Authentication_email.tr(),
                     labelStyle: AppStyle.styleRegular16(context),
                     focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
@@ -88,7 +91,7 @@ class ForgotPasswordEmailFieldState extends State<ForgotPasswordEmailField> {
                     border: buildBorder()),
                 validator: (email) {
                   if (email!.isEmpty) {
-                    return "Please enter your email";
+                    return AppConstants.lang == 'ar' ? 'من فضلك ادخل بريدك الالكتروني'  : "Please enter your email";
                   }
                   return null;
                 },
@@ -103,7 +106,7 @@ class ForgotPasswordEmailFieldState extends State<ForgotPasswordEmailField> {
                 height: 25,
               ),
               CustomElevatedButton(
-                  title: "Send Code",
+                  title: LocaleKeys.Authentication_sendCode.tr(),
                   onPressed: () {
                     if (!BlocProvider.of<ForgotPasswordCubit>(context)
                         .sendCodeKey
@@ -126,7 +129,7 @@ class ForgotPasswordEmailFieldState extends State<ForgotPasswordEmailField> {
                     Navigator.pushNamed(context, forgotPasswordPhoneScreen);
                   },
                   child: Text(
-                    "Try Another Way ?",
+                    LocaleKeys.Authentication_tryAnotherWay.tr(),
                     style: AppStyle.styleBold17(context).copyWith(
                       color: const Color(0xFF3D6498),
                     ),

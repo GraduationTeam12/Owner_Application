@@ -1,9 +1,11 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/pages_name.dart';
+import 'package:user_app/generated/locale_keys.g.dart';
 
 class CheckCarScrren extends StatelessWidget {
   const CheckCarScrren({super.key});
@@ -89,7 +91,7 @@ class CheckCarScrren extends StatelessWidget {
                               children: [
                                 FittedBox(
                                   child: Text(
-                                    'Knock Sensor',
+                                    LocaleKeys.carPage_knockSensor.tr(),
                                     style: AppStyle.styleRegular25(context)
                                         .copyWith(color: Colors.white),
                                   ),
@@ -143,7 +145,7 @@ class CheckCarScrren extends StatelessWidget {
                               children: [
                                 FittedBox(
                                   child: Text(
-                                    'Water Sensor',
+                                    LocaleKeys.carPage_waterSensor.tr(),
                                     style: AppStyle.styleRegular25(context)
                                         .copyWith(color: Colors.white),
                                   ),
@@ -197,7 +199,7 @@ class CheckCarScrren extends StatelessWidget {
                               children: [
                                 FittedBox(
                                   child: Text(
-                                    'Temperature sensor',
+                                    LocaleKeys.carPage_TempSensor.tr(),
                                     style: AppStyle.styleRegular25(context)
                                         .copyWith(color: Colors.white),
                                   ),

@@ -1,7 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:user_app/constants/app_constants.dart';
 import 'package:user_app/constants/app_images.dart';
 import 'package:user_app/constants/app_style.dart';
+import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/models/on_board_model_pageview.dart';
 
 class OnBoardingBody extends StatelessWidget {
@@ -14,21 +17,21 @@ class OnBoardingBody extends StatelessWidget {
   static List<OnBoardModelPageview> items = [
     OnBoardModelPageview(
         img: Assets.imagesAuthImagesOnBoarding1,
-        title: "Team",
-        description1: "We are a cohesive team striving to achieve and",
-        discription2: "ensure safety for everyone."),
+        title: LocaleKeys.onBoarding_team.tr(),
+        description1: AppConstants.lang == 'ar' ?  "نحن فريق متماسك يسعى لتحقيق وضمان السلامة للجميع." : "We are a cohesive team striving to achieve and",
+        discription2: AppConstants.lang == 'ar' ? '' : "ensure safety for everyone."),
     OnBoardModelPageview(
         img: Assets.imagesAuthImagesOnBoarding2,
-        title: "Goal",
-        description1: "The goal is to facilitate the prompt arrival of",
-        discription2: "rescue teams at the nearest hospital or",
-        discription3: "emergency center."),
+        title: LocaleKeys.onBoarding_goal.tr(),
+        description1: AppConstants.lang == 'ar' ? 'الهدف هو تسهيل الوصول الفوري لفرق الإنقاذ' : "The goal is to facilitate the prompt arrival of",
+        discription2:  AppConstants.lang == 'ar' ? 'إلى أقرب مستشفى أو مركز طوارئ.' : "rescue teams at the nearest hospital or",
+        discription3: AppConstants.lang == 'ar' ? '' : "emergency center."),
     OnBoardModelPageview(
         img: Assets.imagesAuthImagesOnBoarding3,
-        title: "Vision",
-        description1: "Improvement Project using sensors is to",
-        discription2: "revolutionize how road accidents are managed",
-        discription3: "by integrating advanced technology"),
+        title: LocaleKeys.onBoarding_vision.tr(),
+        description1: AppConstants.lang == 'ar' ? 'يهدف مشروع التحسين باستخدام أجهزة الاستشعار إلى إحداث ثورة في' : "Improvement Project using sensors is to",
+        discription2: AppConstants.lang == 'ar' ? 'كيفية إدارة حوادث الطرق من خلال دمج التكنولوجيا المتقدمة' : "revolutionize how road accidents are managed",
+        discription3: AppConstants.lang == 'ar' ? '' : "by integrating advanced technology"),
   ];
 
   @override

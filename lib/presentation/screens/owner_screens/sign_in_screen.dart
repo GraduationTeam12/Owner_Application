@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:user_app/constants/app_images.dart';
+import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/widgets/custom_app_bar.dart';
 import 'package:user_app/presentation/widgets/sign_in_form.dart';
 
@@ -25,7 +27,7 @@ class _SignInScreenState extends State<SignInScreen> {
       child: Scaffold(
          
         backgroundColor: Colors.white,
-        appBar: buildCustomAppBar(context, 'Welcome Back !'),
+        appBar: buildCustomAppBar(context, LocaleKeys.Authentication_appbar.tr(),),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: CustomScrollView(

@@ -1,9 +1,11 @@
 // ignore_for_file: must_be_immutable, deprecated_member_use
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/pages_name.dart';
+import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/screens/owner_screens/check_car_scrren.dart';
 import 'package:user_app/presentation/screens/owner_screens/location_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/profile_screeen.dart';
@@ -54,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 toolbarHeight: MediaQuery.sizeOf(context).height * 0.08,
                 leadingWidth: MediaQuery.sizeOf(context).width > 600 ? 80 : null,
                 leading: Padding(
-                  padding: const EdgeInsets.only(left: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: InkWell(
                     onTap: () {
                       scaffoldKey.currentState!.openDrawer();
@@ -68,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 title: _selectedIndex == 0 || widget.index == 0
                     ? Text(
-                        'My Car',
+                        LocaleKeys.carPage_appbar.tr(),
                         style: AppStyle.styleBold30(context),
                       )
                     : Row(
@@ -90,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 actions: _selectedIndex == 0 || widget.index == 0
                     ? [
                         Padding(
-                          padding: const EdgeInsets.only(right: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: InkWell(
                             onTap: () {
                               Navigator.pushNamed(context, notificationScreen);

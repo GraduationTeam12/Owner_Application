@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/pages_name.dart';
 import 'package:user_app/core/logic/logout_cubit/logout_cubit.dart';
 import 'package:user_app/core/logic/logout_cubit/logout_state.dart';
+import 'package:user_app/generated/locale_keys.g.dart';
 
 void showLogOutDialog(BuildContext context) {
   showDialog(
@@ -43,7 +45,7 @@ void showLogOutDialog(BuildContext context) {
                         ),
                         FittedBox(
                           child: Text(
-                            "Are you sure you want to log out?",
+                            LocaleKeys.LogOutDialog_headerText.tr(),
                             style: AppStyle.styleSemiBold22(context)
                                 .copyWith(color: Colors.black),
                           ),
@@ -73,7 +75,7 @@ void showLogOutDialog(BuildContext context) {
                                           left: 20,
                                           top: 6,
                                           bottom: 6))),
-                              child: Text("NO",
+                              child: Text(LocaleKeys.LogOutDialog_no.tr(),
                                   style: AppStyle.styleBold16(context).copyWith(
                                       color: Colors.white,
                                       fontFamily: 'Roboto')),
@@ -102,7 +104,7 @@ void showLogOutDialog(BuildContext context) {
                                           left: 20,
                                           top: 6,
                                           bottom: 6))),
-                              child: Text("Yes",
+                              child: Text(LocaleKeys.LogOutDialog_yes.tr(),
                                   style: AppStyle.styleBold16(context).copyWith(
                                       color: Color(0xFF565656),
                                       fontFamily: 'Roboto')),

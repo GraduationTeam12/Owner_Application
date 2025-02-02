@@ -1,0 +1,85 @@
+// DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
+
+// ignore_for_file: constant_identifier_names
+
+abstract class  LocaleKeys {
+  static const Authentication_appbar = 'Authentication.appbar';
+  static const Authentication_email = 'Authentication.email';
+  static const Authentication_password = 'Authentication.password';
+  static const Authentication_phoneNumber = 'Authentication.phoneNumber';
+  static const Authentication_forgotPassword = 'Authentication.forgotPassword';
+  static const Authentication_tryAnotherWay = 'Authentication.tryAnotherWay';
+  static const Authentication_resetPassword = 'Authentication.resetPassword';
+  static const Authentication_changePassword = 'Authentication.changePassword';
+  static const Authentication_newPassword = 'Authentication.newPassword';
+  static const Authentication_confirmPassword = 'Authentication.confirmPassword';
+  static const Authentication_login = 'Authentication.login';
+  static const Authentication_sendCode = 'Authentication.sendCode';
+  static const Authentication_confirm = 'Authentication.confirm';
+  static const Authentication = 'Authentication';
+  static const onBoarding_team = 'onBoarding.team';
+  static const onBoarding_goal = 'onBoarding.goal';
+  static const onBoarding_vision = 'onBoarding.vision';
+  static const onBoarding_skip = 'onBoarding.skip';
+  static const onBoarding_back = 'onBoarding.back';
+  static const onBoarding_start = 'onBoarding.start';
+  static const onBoarding = 'onBoarding';
+  static const ContactAdmin_appbar = 'ContactAdmin.appbar';
+  static const ContactAdmin_headerText = 'ContactAdmin.headerText';
+  static const ContactAdmin_contactAdmin = 'ContactAdmin.contactAdmin';
+  static const ContactAdmin_message = 'ContactAdmin.message';
+  static const ContactAdmin_button = 'ContactAdmin.button';
+  static const ContactAdmin_or = 'ContactAdmin.or';
+  static const ContactAdmin = 'ContactAdmin';
+  static const carPage_appbar = 'carPage.appbar';
+  static const carPage_knockSensor = 'carPage.knockSensor';
+  static const carPage_waterSensor = 'carPage.waterSensor';
+  static const carPage_TempSensor = 'carPage.TempSensor';
+  static const carPage = 'carPage';
+  static const knockSensorPage_title = 'knockSensorPage.title';
+  static const knockSensorPage_subtitle = 'knockSensorPage.subtitle';
+  static const knockSensorPage_center = 'knockSensorPage.center';
+  static const knockSensorPage_topRight = 'knockSensorPage.topRight';
+  static const knockSensorPage_topLeft = 'knockSensorPage.topLeft';
+  static const knockSensorPage_bottomRight = 'knockSensorPage.bottomRight';
+  static const knockSensorPage_bottomLeft = 'knockSensorPage.bottomLeft';
+  static const knockSensorPage = 'knockSensorPage';
+  static const WaterSensorPage_title = 'WaterSensorPage.title';
+  static const WaterSensorPage_subtitle = 'WaterSensorPage.subtitle';
+  static const WaterSensorPage_center = 'WaterSensorPage.center';
+  static const WaterSensorPage_top = 'WaterSensorPage.top';
+  static const WaterSensorPage_bottom = 'WaterSensorPage.bottom';
+  static const WaterSensorPage = 'WaterSensorPage';
+  static const TempSensorPage_title = 'TempSensorPage.title';
+  static const TempSensorPage_subtitle = 'TempSensorPage.subtitle';
+  static const TempSensorPage = 'TempSensorPage';
+  static const SensorsState_good = 'SensorsState.good';
+  static const SensorsState_normal = 'SensorsState.normal';
+  static const SensorsState_problem = 'SensorsState.problem';
+  static const SensorsState = 'SensorsState';
+  static const Drawer_profile = 'Drawer.profile';
+  static const Drawer_car = 'Drawer.car';
+  static const Drawer_location = 'Drawer.location';
+  static const Drawer_contact = 'Drawer.contact';
+  static const Drawer_privacyPolicy = 'Drawer.privacyPolicy';
+  static const Drawer_shareApp = 'Drawer.shareApp';
+  static const Drawer_rate = 'Drawer.rate';
+  static const Drawer_settings = 'Drawer.settings';
+  static const Drawer_logout = 'Drawer.logout';
+  static const Drawer = 'Drawer';
+  static const ratingPage_headerText = 'ratingPage.headerText';
+  static const ratingPage_title1 = 'ratingPage.title1';
+  static const ratingPage_title2 = 'ratingPage.title2';
+  static const ratingPage_submit = 'ratingPage.submit';
+  static const ratingPage_later = 'ratingPage.later';
+  static const ratingPage = 'ratingPage';
+  static const DialogRating = 'DialogRating';
+  static const LogOutDialog_headerText = 'LogOutDialog.headerText';
+  static const LogOutDialog_yes = 'LogOutDialog.yes';
+  static const LogOutDialog_no = 'LogOutDialog.no';
+  static const LogOutDialog = 'LogOutDialog';
+  static const NotificationsPage_appbar = 'NotificationsPage.appbar';
+  static const NotificationsPage_title = 'NotificationsPage.title';
+  static const NotificationsPage = 'NotificationsPage';
+
+}

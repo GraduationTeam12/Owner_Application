@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/pages_name.dart';
+import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/widgets/on_boarding_section.dart';
  
 
@@ -28,7 +30,7 @@ class OnBoardingScreen extends StatelessWidget {
                       
                     },
                     child: Text(
-                      "Skip",
+                      LocaleKeys.onBoarding_skip.tr(),
                       style: AppStyle.styleBold16(context),
                     )),
               )
