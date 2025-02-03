@@ -1,9 +1,12 @@
 // ignore_for_file: unused_field, deprecated_member_use
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:user_app/constants/app_constants.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/pages_name.dart';
+import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/screens/owner_screens/check_car_scrren.dart';
 import 'package:user_app/presentation/screens/owner_screens/home_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/location_screen.dart';
@@ -50,7 +53,9 @@ class _WaterSensorScreenState extends State<WaterSensorScreen> {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 20),
+            padding: AppConstants.lang == 'ar'
+                ? const EdgeInsets.symmetric(horizontal: 20)
+                : const EdgeInsets.only(right: 20),
             child: InkWell(
               onTap: () {
                 Navigator.pushNamed(context, notificationScreen);
@@ -87,12 +92,12 @@ class _WaterSensorScreenState extends State<WaterSensorScreen> {
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Text(
-                  'Water Sensor',
+                  LocaleKeys.WaterSensorPage_title.tr(),
                   style: AppStyle.styleBold25(context),
                 ),
               ),
               Text(
-                'One side of my car',
+                LocaleKeys.WaterSensorPage_subtitle.tr(),
                 style: AppStyle.styleRegular17(context)
                     .copyWith(color: Color(0xFF9B9090)),
               ),
@@ -114,7 +119,7 @@ class _WaterSensorScreenState extends State<WaterSensorScreen> {
                   )
                 ]
                 ),
-                child: SensorChart(percent: '15.66%', title: 'Unnormal',))
+                child: SensorChart(percent: '15.66%', title: LocaleKeys.SensorsState_problem.tr(),))
           ],
         ),
       ),

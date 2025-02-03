@@ -1,12 +1,15 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:user_app/constants/app_constants.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
 import 'package:user_app/constants/pages_name.dart';
 import 'package:user_app/core/cache/cache_helper.dart';
 import 'package:user_app/core/logic/login_cubit/login_cubit.dart';
+import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/widgets/loading_dialog.dart';
 
 class SignInForm extends StatefulWidget {
@@ -66,7 +69,7 @@ class _SignInFormState extends State<SignInForm> {
                         size: MediaQuery.sizeOf(context).width > 600 ? 40 : 25,
                       ),
                     ),
-                    labelText: "E-mail",
+                    labelText: LocaleKeys.Authentication_email.tr(),
                     labelStyle: AppStyle.styleRegular16(context),
                     focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
@@ -86,7 +89,7 @@ class _SignInFormState extends State<SignInForm> {
                     border: buildBorder()),
                 validator: (email) {
                   if (email!.isEmpty) {
-                    return "Please enter your email";
+                    return AppConstants.lang == 'ar' ? 'من فضلك ادخل بريدك الالكتروني'  :"Please enter your email";
                   }
                   return null;
                 },
@@ -133,7 +136,7 @@ class _SignInFormState extends State<SignInForm> {
                                     ? 45
                                     : 25,
                               )),
-                    labelText: "Password",
+                    labelText: LocaleKeys.Authentication_password.tr(),
                     labelStyle: AppStyle.styleRegular16(context),
                     focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
@@ -153,7 +156,7 @@ class _SignInFormState extends State<SignInForm> {
                     border: buildBorder()),
                 validator: (password) {
                   if (password!.isEmpty) {
-                    return "Please enter your password";
+                    return AppConstants.lang == 'ar' ? 'من فضلك ادخل كلمة المرور'  : "Please enter your password";
                   }
                   return null;
                 },
@@ -169,7 +172,7 @@ class _SignInFormState extends State<SignInForm> {
                           context, forgotPasswordEmailScreen);
                     },
                     child: Text(
-                      "Forgot Password?",
+                      LocaleKeys.Authentication_forgotPassword.tr(),
                       style: AppStyle.styleSemiBold16(context)
                           .copyWith(color: MyColors.premiumColor),
                     )),
@@ -196,7 +199,7 @@ class _SignInFormState extends State<SignInForm> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15))),
                     child: Text(
-                      "Log In",
+                      LocaleKeys.Authentication_login.tr(),
                       style: AppStyle.styleSemiBold18(context),
                     ),
                   )),

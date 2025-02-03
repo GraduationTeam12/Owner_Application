@@ -1,10 +1,13 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:user_app/constants/app_constants.dart';
 import 'package:user_app/constants/app_images.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/pages_name.dart';
+import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/widgets/reset_password_pin_code.dart';
 import 'package:user_app/presentation/widgets/reset_password_text.dart';
 
@@ -40,11 +43,12 @@ class ResetPasswordEmailScreen extends StatelessWidget {
                     size: MediaQuery.sizeOf(context).width > 600 ? 40 : 25,
                   ),
                 )),
-            title: Center(
-                child: Text(
-              'Reset Password',
-              style: AppStyle.styleRegular30(context),
-            )),
+            title: Text(
+                          LocaleKeys.Authentication_resetPassword.tr(),
+                          style: AppStyle.styleRegular30(context),
+                        ),
+
+                        centerTitle: true,
           ),
 
           // buildCustomAppBar(context, 'Reset Password'),
@@ -84,7 +88,7 @@ class ResetPasswordEmailScreen extends StatelessWidget {
                       TextButton(
                           onPressed: () {},
                           child: Text(
-                            "Resend Code",
+                            AppConstants.lang == 'ar' ? 'اعادة الارسال' : "Resend Code",
                             style: AppStyle.styleRegular17(context)
                                 .copyWith(color: const Color(0xFF3D6498)),
                           ))

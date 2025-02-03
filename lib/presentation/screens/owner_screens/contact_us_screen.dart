@@ -1,9 +1,11 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
+import 'package:user_app/generated/locale_keys.g.dart';
 
 class ContactUsScreen extends StatefulWidget {
   const ContactUsScreen({super.key});
@@ -22,7 +24,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         backgroundColor: Colors.white,
         toolbarHeight: MediaQuery.sizeOf(context).height / 8,
         title: Text(
-          'Support',
+          LocaleKeys.ContactAdmin_appbar.tr(),
           style: AppStyle.styleBold30(context).copyWith(color: Colors.black),
         ),
         centerTitle: true,
@@ -62,13 +64,13 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                      "You can contact technical support to find a solution for your issue",
+                       LocaleKeys.ContactAdmin_headerText.tr(),
                       style: AppStyle.styleSemiBold25(context)
                           .copyWith(color: Colors.black)),
                   const SizedBox(
                     height: 50,
                   ),
-                  Text("Contact With technical support",
+                  Text(LocaleKeys.ContactAdmin_contactAdmin.tr(),
                       style: AppStyle.styleSemiBold20(context)
                           .copyWith(color: Color(0xFF5C5858))),
                   const SizedBox(
@@ -108,7 +110,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                   minWidth: 0,
                                   minHeight: 0,
                                 ),
-                                hintText: "Message...",
+                                hintText: LocaleKeys.ContactAdmin_message.tr(),
                                 hintStyle: AppStyle.styleRegular17(context),
                                 border: const OutlineInputBorder(
                                     borderSide: BorderSide.none),
@@ -140,7 +142,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                           ),
                         ),
                         child: Text(
-                          "Send",
+                          LocaleKeys.ContactAdmin_button.tr(),
                           style: AppStyle.styleRegular25(context).copyWith(
                               fontFamily: 'Inter', color: Colors.white),
                         ),
@@ -164,7 +166,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                               height: 1),
                         ),
                       ),
-                      Text("OR", style: AppStyle.styleRegular25(context)),
+                      Text(LocaleKeys.ContactAdmin_or.tr(), style: AppStyle.styleRegular25(context)),
                       Expanded(
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 10),

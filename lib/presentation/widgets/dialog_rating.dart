@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:user_app/generated/locale_keys.g.dart';
 
 void showRatingDialog(BuildContext context) {
   showDialog(
@@ -19,8 +21,8 @@ void showRatingDialog(BuildContext context) {
               const SizedBox(
                 height: 10,
               ),
-              const Text(
-                "Thank you for rating us",
+                Text(
+                LocaleKeys.DialogRating.tr(),
                 style: TextStyle(
                     fontSize: 25,
                     color: Colors.black,

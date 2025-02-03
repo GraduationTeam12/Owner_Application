@@ -1,7 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:user_app/constants/app_constants.dart';
 import 'package:user_app/constants/app_images.dart';
 import 'package:user_app/constants/app_style.dart';
+import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/widgets/custom_app_bar.dart';
 import 'package:user_app/presentation/widgets/forgot_password_phone_field.dart';
 
@@ -17,7 +20,7 @@ class ForgotPasswordPhoneScreen extends StatelessWidget {
         },
         child: Scaffold(
           backgroundColor: Colors.white,
-          appBar: buildCustomAppBar(context, 'Forgot Password'),
+          appBar: buildCustomAppBar(context, LocaleKeys.Authentication_forgotPassword.tr()),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: CustomScrollView(
@@ -41,7 +44,20 @@ class ForgotPasswordPhoneScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 50),
                       Column(
-                        children: [
+                        children:
+
+                        AppConstants.lang == 'ar' ? [
+                          FittedBox(
+                                    child: Text(
+                                        'من فضلك ادخل رقم الجوال الخاص بك لتلقي رمز التحقق',
+                                        style: AppStyle.styleSemiBold25(context)
+                                            .copyWith(
+                                          fontWeight: FontWeight.w600,
+                                          color: const Color(0xFF5C5858),
+                                        ))),
+                        ] : 
+                        
+                        [
                           FittedBox(
                             child: Text(
                               "Please enter your phone number to",

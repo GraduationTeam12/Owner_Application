@@ -1,0 +1,107 @@
+{
+
+
+  "Authentication": {
+    "appbar": "Welcome Back !",
+    "email": "Email",
+    "password": "Password",
+    "phoneNumber": "Phone Number",
+    "forgotPassword": "Forgot Password",
+    "tryAnotherWay": "Try Another Way",
+    "resetPassword": "Reset Password",
+    "changePassword": "Change Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "login": "Login",
+    "sendCode": "Send Code",
+    "confirm": "Confirm"
+  },
+
+  "onBoarding": {
+    "team": "Team",
+    "goal": "Goal",
+    "vision": "Vision",
+    "skip": "Skip",
+    "back": "Back",
+    "start": "Start"
+  },
+
+
+  "ContactAdmin": {
+    "appbar": "Contact Us",
+    "headerText": "You can contact technical support to find a solution to your problem",
+    "contactAdmin": "Contact the Admin",
+    "message": "Your Message",
+    "button": "Send",
+    "or" : "or"
+  },
+
+  "carPage": {
+    "appbar": "My Car",
+    "knockSensor": "Knock Sensor",
+    "waterSensor": "Water Sensor",
+    "TempSensor": "Temperature Sensor"
+  },
+
+  "knockSensorPage": {
+    "title": "Knock Sensor",
+    "subtitle": "Five sides of my car",
+    "center": "Center",
+    "topRight": "Top Right",
+    "topLeft": "Top Left",
+    "bottomRight": "Bottom Right",
+    "bottomLeft": "Bottom Left"
+  },
+
+  "WaterSensorPage": {
+    "title": "Water Sensor",
+    "subtitle": "Two sides of my car",
+    "center": "Center",
+    "top": "Top of the Car",
+    "bottom": "Bottom of the Car"
+  },
+
+  "TempSensorPage": {
+    "title": "Temperature Sensor",
+    "subtitle": "Only one side of my car"
+  },
+
+  "SensorsState": {
+    "good": "All is Well",
+    "normal": "normal",
+    "problem": "Problem"
+  },
+
+  "Drawer": {
+    "profile": "My Account",
+    "car": "My Car",
+    "location": "My Location",
+    "contact": "Contact Us",
+    "privacyPolicy": "Privacy Policy",
+    "shareApp": "Share App",
+    "rate": "Rate Us",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+
+  "ratingPage": {
+    "headerText": "Your opinion matters to us!",
+    "title1": "We have worked hard to make the app better for you,",
+    "title2": "and we would like to know: How do you rate our app?",
+    "submit": "submit",
+    "later": "Maybe Later"
+  },
+
+  "DialogRating": "Thank you for rating us",
+
+  "LogOutDialog": {
+    "headerText": "Are you sure you want to log out?",
+    "yes": "Yes",
+    "no": "No"
+  },
+
+  "NotificationsPage": {
+    "appbar": "Notifications",
+    "title": "There is a problem with the temperature sensor"
+  }
+}

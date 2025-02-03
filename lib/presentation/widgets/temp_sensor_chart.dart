@@ -1,9 +1,11 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
+import 'package:user_app/generated/locale_keys.g.dart';
 
 class CircularGauge extends StatelessWidget {
   const CircularGauge({super.key});
@@ -96,7 +98,7 @@ class CircularGauge extends StatelessWidget {
                       height: 15,
                     ),
                     FittedBox(
-                      child: Text('Problem',
+                      child: Text(LocaleKeys.SensorsState_problem.tr(),
                           style: AppStyle.styleBold40(context).copyWith(
                             color: Color(0xFF5C5858),
                             fontFamily: 'Roboto',

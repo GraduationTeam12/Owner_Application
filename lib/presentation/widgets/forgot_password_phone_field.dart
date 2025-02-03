@@ -1,6 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:user_app/constants/app_constants.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
+import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/widgets/custom_elevated_button.dart';
 
 class ForgotPasswordByPhoneField extends StatefulWidget {
@@ -95,7 +98,7 @@ class _ForgotPasswordByPhoneFieldState
                 ],
               ),
             ),
-            labelText: "Phone Number",
+            labelText: LocaleKeys.Authentication_phoneNumber.tr(),
             labelStyle: AppStyle.styleRegular16(context),
             focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15),
@@ -117,7 +120,7 @@ class _ForgotPasswordByPhoneFieldState
           ),
           validator: (phone) {
             if (phone!.isEmpty) {
-              return "Please enter your phone number";
+              return AppConstants.lang == 'ar' ? 'من فضلك ادخل رقم الجوال'  : "Please enter your phone number";
             }
             return null;
           },
@@ -138,7 +141,7 @@ class _ForgotPasswordByPhoneFieldState
         //   ),
         // ),
         const SizedBox(height: 25),
-        CustomElevatedButton(title: "Send Code", onPressed: () {}),
+        CustomElevatedButton(title: LocaleKeys.Authentication_sendCode.tr(), onPressed: () {}),
       ],
     );
   }

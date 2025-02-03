@@ -1,10 +1,13 @@
 // ignore_for_file: unused_field, deprecated_member_use
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:user_app/constants/app_constants.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
 import 'package:user_app/constants/pages_name.dart';
+import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/screens/owner_screens/check_car_scrren.dart';
 import 'package:user_app/presentation/screens/owner_screens/home_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/location_screen.dart';
@@ -50,7 +53,9 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 20),
+            padding: AppConstants.lang == 'ar'
+                ? const EdgeInsets.symmetric(horizontal: 20)
+                : const EdgeInsets.only(right: 20),
             child: InkWell(
               onTap: () {
                 Navigator.pushNamed(context, notificationScreen);
@@ -87,12 +92,12 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Text(
-                  'Knock Sensor',
+                  LocaleKeys.knockSensorPage_title.tr(),
                   style: AppStyle.styleBold25(context),
                 ),
               ),
               Text(
-                'Five sides of my car',
+                LocaleKeys.knockSensorPage_subtitle.tr(),
                 style: AppStyle.styleRegular17(context)
                     .copyWith(color: Color(0xFF9B9090)),
               ),
@@ -100,7 +105,7 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
                 height: 30,
               ),
               Text(
-                'Center',
+                LocaleKeys.knockSensorPage_center.tr(),
                 style: AppStyle.styleRegular20(context)
                     .copyWith(fontFamily: 'Roboto', color: Colors.black),
               ),
@@ -123,7 +128,9 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20))),
                   child: PartDiagramSensorChart(
-                      title: "Problem", percent: 0.20, myColor: Colors.red),
+                      title: LocaleKeys.SensorsState_problem.tr(),
+                      percent: 0.20,
+                      myColor: Colors.red),
                 ),
               ),
               SizedBox(
@@ -142,7 +149,7 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Top Right',
+                                LocaleKeys.knockSensorPage_topRight.tr(),
                                 style: AppStyle.styleRegular20(context)
                                     .copyWith(
                                         fontFamily: 'Roboto',
@@ -179,7 +186,7 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
                                           borderRadius:
                                               BorderRadius.circular(20))),
                                   child: PartDiagramSensorChart(
-                                      title: "Good",
+                                      title: LocaleKeys.SensorsState_good.tr(),
                                       percent: 1,
                                       myColor: Colors.greenAccent),
                                 ),
@@ -190,7 +197,7 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Top Left',
+                                LocaleKeys.knockSensorPage_topLeft.tr(),
                                 style: AppStyle.styleRegular20(context)
                                     .copyWith(
                                         fontFamily: 'Roboto',
@@ -227,7 +234,7 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
                                           borderRadius:
                                               BorderRadius.circular(20))),
                                   child: PartDiagramSensorChart(
-                                      title: "Good",
+                                      title: LocaleKeys.SensorsState_good.tr(),
                                       percent: 1,
                                       myColor: Colors.greenAccent),
                                 ),
@@ -256,7 +263,7 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Bottom Right',
+                                LocaleKeys.knockSensorPage_bottomRight.tr(),
                                 style: AppStyle.styleRegular20(context)
                                     .copyWith(
                                         fontFamily: 'Roboto',
@@ -293,7 +300,8 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
                                           borderRadius:
                                               BorderRadius.circular(20))),
                                   child: PartDiagramSensorChart(
-                                      title: "Normal",
+                                      title:
+                                          LocaleKeys.SensorsState_normal.tr(),
                                       percent: 0.90,
                                       myColor: Colors.amber),
                                 ),
@@ -304,7 +312,7 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Bottom Left',
+                                LocaleKeys.knockSensorPage_bottomLeft.tr(),
                                 style: AppStyle.styleRegular20(context)
                                     .copyWith(
                                         fontFamily: 'Roboto',
@@ -341,7 +349,8 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
                                           borderRadius:
                                               BorderRadius.circular(20))),
                                   child: PartDiagramSensorChart(
-                                      title: "Normal",
+                                      title:
+                                          LocaleKeys.SensorsState_normal.tr(),
                                       percent: 0.90,
                                       myColor: Colors.amber),
                                 ),

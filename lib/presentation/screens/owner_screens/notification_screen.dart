@@ -1,7 +1,9 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:user_app/constants/app_style.dart';
+import 'package:user_app/generated/locale_keys.g.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -31,7 +33,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           ),
         ),
         title: Text(
-          'Notifications',
+          LocaleKeys.NotificationsPage_appbar.tr(),
           style: AppStyle.styleBold30(context).copyWith(color: Colors.black),
         ),
         centerTitle: true,
@@ -90,7 +92,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                       ),
                       
                                       Expanded(
-                                        child: Text('There is problem in Temperature sensor ', style: AppStyle.styleRegular20(context).copyWith(
+                                        child: Text(LocaleKeys.NotificationsPage_title.tr(), style: AppStyle.styleRegular20(context).copyWith(
                                           color: Colors.black,
                                           
                                         ),

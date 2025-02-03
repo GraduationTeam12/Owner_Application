@@ -1,7 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:user_app/constants/app_constants.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
+import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/widgets/dialog_rating.dart';
 
 class RateUsScreen extends StatefulWidget {
@@ -52,7 +55,7 @@ class _RateUsScreenState extends State<RateUsScreen> {
               ),
               Center(
                 child: Text(
-                  'Your opinion matter to us!',
+                  LocaleKeys.ratingPage_headerText.tr(),
                   style: AppStyle.styleBold30(context)
                       .copyWith(color: Colors.black),
                 ),
@@ -64,28 +67,50 @@ class _RateUsScreenState extends State<RateUsScreen> {
                 child: Column(
                   children: [
                     FittedBox(
-                      child: Text(
+                      child:  AppConstants.lang == 'ar' ? 
+                      Text(
+                        "لقد عملنا بجد لجعل التطبيق أفضل بالنسبة لك،",
+                        style: AppStyle.styleSemiBold22(context)
+                            .copyWith(color: Color(0xFFA8A1A1)),
+                      )
+                       :  Text(
                         'We worked super hard to make Glose ',
                         style: AppStyle.styleSemiBold22(context)
                             .copyWith(color: Color(0xFFA8A1A1)),
                       ),
                     ),
                     FittedBox(
-                      child: Text(
+                      child: 
+                       AppConstants.lang == 'ar' ? 
+                      Text(
+                        "ونود أن نعرف: كيف تقيم تطبيقنا؟",
+                        style: AppStyle.styleSemiBold22(context)
+                            .copyWith(color: Color(0xFFA8A1A1)),
+                      )
+                       : 
+                      
+                      Text(
                         'better for you ,and would  love to know',
                         style: AppStyle.styleSemiBold22(context)
                             .copyWith(color: Color(0xFFA8A1A1)),
                       ),
                     ),
                     FittedBox(
-                      child: Text(
+                      child:
+                       AppConstants.lang == 'ar' ? 
+                      Text(
+                        "",
+                         
+                      )
+                       : 
+                       Text(
                         'How would you rate our App?  ',
                         style: AppStyle.styleSemiBold22(context)
                             .copyWith(color: Color(0xFFA8A1A1)),
                       ),
                     ),
                     SizedBox(
-                      height: 40,
+                      height: AppConstants.lang == 'ar' ? 10 : 40,
                     ),
                     RatingBar.builder(
                       initialRating: 0,
@@ -129,7 +154,7 @@ class _RateUsScreenState extends State<RateUsScreen> {
                             ),
                           ),
                           child: Text(
-                            "Submit",
+                            LocaleKeys.ratingPage_submit.tr(),
                             style: AppStyle.styleRegular25(context).copyWith(
                                 fontFamily: 'Inter', color: Colors.white),
                           ),
@@ -144,7 +169,7 @@ class _RateUsScreenState extends State<RateUsScreen> {
                         Navigator.pop(context);
                       },
                       child: Text(
-                        'No Thanks',
+                        LocaleKeys.ratingPage_later.tr(),
                         style: AppStyle.styleBold20(context)
                             .copyWith(color: Color(0xFFA8A1A1)),
                       ),

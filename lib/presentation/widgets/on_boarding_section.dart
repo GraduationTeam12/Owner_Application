@@ -1,9 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:user_app/constants/app_constants.dart';
 import 'package:user_app/constants/app_images.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
 import 'package:user_app/constants/pages_name.dart';
+import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/widgets/dots_indicator.dart';
 import 'package:user_app/presentation/widgets/on_boarding_pageview.dart';
 
@@ -78,7 +81,7 @@ class _OnBoardingSectionState extends State<OnBoardingSection> {
                   : TextButton(
                       onPressed: goToPreviousPage,
                       child: Text(
-                        "Back",
+                        LocaleKeys.onBoarding_back.tr(),
                         style: AppStyle.styleSemiBold18(context)
                             .copyWith(color: const Color(0xFF5C5858)),
                       )),
@@ -98,7 +101,7 @@ class _OnBoardingSectionState extends State<OnBoardingSection> {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                "Start",
+                                LocaleKeys.onBoarding_start.tr(),
                                 style: AppStyle.styleRegular16(context)
                                     .copyWith(color: Colors.white),
                               ),
@@ -112,7 +115,13 @@ class _OnBoardingSectionState extends State<OnBoardingSection> {
                               MediaQuery.sizeOf(context).width > 600 ? 65 : 35,
                           width:
                               MediaQuery.sizeOf(context).width > 600 ? 65 : 35,
-                          child: SvgPicture.asset(
+                          child: AppConstants.lang == 'ar' ? Container(
+                             decoration: ShapeDecoration(
+                              color: MyColors.premiumColor,
+                              shape: CircleBorder()),
+                            child: Icon(Icons.arrow_forward ,color: Colors.white,
+                            size: MediaQuery.sizeOf(context).width > 600 ? 45 : null,
+                            )) :  SvgPicture.asset(
                             Assets.imagesAuthImagesNext,
                             // fit: BoxFit.contain,
                           )),
