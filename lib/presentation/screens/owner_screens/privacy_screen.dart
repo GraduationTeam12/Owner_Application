@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:user_app/constants/app_constants.dart';
 import 'package:user_app/constants/app_style.dart';
 
 class PrivacyScreen extends StatelessWidget {
@@ -25,7 +26,7 @@ class PrivacyScreen extends StatelessWidget {
           ),
         ),
         title: Text(
-          'Privacy Policy',
+           AppConstants.lang == 'ar' ? 'سياسة الخصوصية' : 'Privacy Policy',
           style: AppStyle.styleBold30(context).copyWith(color: Colors.black),
         ),
         centerTitle: true,
@@ -52,7 +53,7 @@ class PrivacyScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: AppConstants.lang == 'ar' ? CrossAxisAlignment.end :CrossAxisAlignment.start,
                 children: [
                   Text(
                     'Privacy Policy for SATARS',
