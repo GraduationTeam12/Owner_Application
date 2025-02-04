@@ -4,7 +4,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:user_app/constants/app_constants.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
 import 'package:user_app/core/cache/cache_helper.dart';
@@ -72,7 +71,7 @@ class AddMembersScreenState extends State<AddMembersScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    AppConstants.lang == 'ar' ?  "مرحباً بك, أحمد" : 'Welcome ,Ahmed',
+                    context.locale.languageCode == 'ar' ?  "مرحباً بك, أحمد" : 'Welcome ,Ahmed',
                     style: AppStyle.styleSemiBold22(context)
                         .copyWith(color: Colors.white),
                   ),

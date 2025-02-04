@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:user_app/constants/app_constants.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
 import 'package:user_app/constants/pages_name.dart';
@@ -198,10 +197,10 @@ class _MyDrawerState extends State<MyDrawer> {
               ),
               SizedBox(
                 height: MediaQuery.sizeOf(context).width > 600 ? 70 : null,
-                width: AppConstants.lang == 'ar' &&
+                width: context.locale.languageCode == 'ar' &&
                         MediaQuery.sizeOf(context).width > 600
                     ? 350
-                    : AppConstants.lang == 'ar' &&
+                    : context.locale.languageCode == 'ar' &&
                             MediaQuery.sizeOf(context).width < 600
                         ? 200
                         : MediaQuery.sizeOf(context).width > 600
@@ -226,10 +225,12 @@ class _MyDrawerState extends State<MyDrawer> {
                         size: MediaQuery.sizeOf(context).width > 600 ? 40 : 24,
                       ),
                       const SizedBox(width: 10),
-                      Text(
-                        LocaleKeys.Drawer_logout.tr(),
-                        style: AppStyle.styleBold20(context).copyWith(
-                          color: const Color(0xFFA8A1A1),
+                      FittedBox(
+                        child: Text(
+                          LocaleKeys.Drawer_logout.tr(),
+                          style: AppStyle.styleBold20(context).copyWith(
+                            color: const Color(0xFFA8A1A1),
+                          ),
                         ),
                       )
                     ],

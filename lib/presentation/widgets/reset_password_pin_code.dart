@@ -1,7 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
-import 'package:user_app/constants/app_constants.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
 import 'package:user_app/constants/pages_name.dart';
@@ -76,7 +76,7 @@ class PinCode extends StatelessWidget {
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return AppConstants.lang == 'ar' ? 'الرجاء إدخال الرمز المكون من 4 أرقام لإعادة تعيين كلمة المرور الخاصة بك'  : "Please enter 4 digit code to reset your password";
+                    return context.locale.languageCode == 'ar' ? 'الرجاء إدخال الرمز المكون من 4 أرقام لإعادة تعيين كلمة المرور الخاصة بك'  : "Please enter 4 digit code to reset your password";
                   }
                   return null;
                 },
@@ -85,7 +85,7 @@ class PinCode extends StatelessWidget {
                 height: 25,
               ),
               CustomElevatedButton(
-                  title: AppConstants.lang == 'ar' ? 'التحقق من الرمز' : 'Verify Code',
+                  title: context.locale.languageCode == 'ar' ? 'التحقق من الرمز' : 'Verify Code',
                   onPressed: () {
                     if (!BlocProvider.of<ForgotPasswordCubit>(context)
                         .verifyCodeKey

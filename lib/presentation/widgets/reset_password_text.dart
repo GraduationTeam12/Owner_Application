@@ -1,8 +1,8 @@
 
 // ignore_for_file: prefer_typing_uninitialized_variables
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:user_app/constants/app_constants.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
 
@@ -16,7 +16,7 @@ class ResetPasswordText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: AppConstants.lang == 'ar' ? [
+      children: context.locale.languageCode == 'ar' ? [
 
         FittedBox(
           child: Text('الرجاء إدخال الرمز المكون من 4 أرقام المرسل إلى:',

@@ -3,7 +3,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:user_app/constants/app_constants.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/pages_name.dart';
 import 'package:user_app/generated/locale_keys.g.dart';
@@ -52,7 +51,7 @@ class _TempSensorScreenState extends State<TempSensorScreen> {
         ),
         actions: [
           Padding(
-            padding: AppConstants.lang == 'ar'
+            padding: context.locale.languageCode == 'ar'
                 ? const EdgeInsets.symmetric(horizontal: 20)
                 :const EdgeInsets.only(right: 20),
             child: InkWell(

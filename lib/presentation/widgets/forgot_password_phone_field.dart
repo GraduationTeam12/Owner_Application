@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:user_app/constants/app_constants.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
 import 'package:user_app/generated/locale_keys.g.dart';
@@ -120,7 +119,7 @@ class _ForgotPasswordByPhoneFieldState
           ),
           validator: (phone) {
             if (phone!.isEmpty) {
-              return AppConstants.lang == 'ar' ? 'من فضلك ادخل رقم الجوال'  : "Please enter your phone number";
+              return context.locale.languageCode == 'ar' ? 'من فضلك ادخل رقم الجوال'  : "Please enter your phone number";
             }
             return null;
           },

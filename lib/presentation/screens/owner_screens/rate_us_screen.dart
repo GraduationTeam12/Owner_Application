@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:user_app/constants/app_constants.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
 import 'package:user_app/generated/locale_keys.g.dart';
@@ -67,7 +66,7 @@ class _RateUsScreenState extends State<RateUsScreen> {
                 child: Column(
                   children: [
                     FittedBox(
-                      child:  AppConstants.lang == 'ar' ? 
+                      child:  context.locale.languageCode == 'ar' ? 
                       Text(
                         "لقد عملنا بجد لجعل التطبيق أفضل بالنسبة لك،",
                         style: AppStyle.styleSemiBold22(context)
@@ -81,7 +80,7 @@ class _RateUsScreenState extends State<RateUsScreen> {
                     ),
                     FittedBox(
                       child: 
-                       AppConstants.lang == 'ar' ? 
+                       context.locale.languageCode == 'ar' ? 
                       Text(
                         "ونود أن نعرف: كيف تقيم تطبيقنا؟",
                         style: AppStyle.styleSemiBold22(context)
@@ -97,7 +96,7 @@ class _RateUsScreenState extends State<RateUsScreen> {
                     ),
                     FittedBox(
                       child:
-                       AppConstants.lang == 'ar' ? 
+                       context.locale.languageCode == 'ar' ? 
                       Text(
                         "",
                          
@@ -110,7 +109,7 @@ class _RateUsScreenState extends State<RateUsScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: AppConstants.lang == 'ar' ? 10 : 40,
+                      height: context.locale.languageCode == 'ar' ? 10 : 40,
                     ),
                     RatingBar.builder(
                       initialRating: 0,

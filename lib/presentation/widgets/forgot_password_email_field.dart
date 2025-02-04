@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:user_app/constants/app_constants.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
 import 'package:user_app/constants/pages_name.dart';
@@ -91,7 +90,7 @@ class ForgotPasswordEmailFieldState extends State<ForgotPasswordEmailField> {
                     border: buildBorder()),
                 validator: (email) {
                   if (email!.isEmpty) {
-                    return AppConstants.lang == 'ar' ? 'من فضلك ادخل بريدك الالكتروني'  : "Please enter your email";
+                    return context.locale.languageCode == 'ar' ? 'من فضلك ادخل بريدك الالكتروني'  : "Please enter your email";
                   }
                   return null;
                 },

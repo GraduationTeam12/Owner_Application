@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:user_app/constants/app_constants.dart';
 import 'package:user_app/constants/app_images.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/generated/locale_keys.g.dart';
@@ -46,7 +45,7 @@ class ForgotPasswordPhoneScreen extends StatelessWidget {
                       Column(
                         children:
 
-                        AppConstants.lang == 'ar' ? [
+                      context.locale.languageCode == 'ar' ? [
                           FittedBox(
                                     child: Text(
                                         'من فضلك ادخل رقم الجوال الخاص بك لتلقي رمز التحقق',

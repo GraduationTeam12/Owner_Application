@@ -3,7 +3,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:user_app/constants/app_constants.dart';
 import 'package:user_app/constants/app_images.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/pages_name.dart';
@@ -88,7 +87,7 @@ class ResetPasswordEmailScreen extends StatelessWidget {
                       TextButton(
                           onPressed: () {},
                           child: Text(
-                            AppConstants.lang == 'ar' ? 'اعادة الارسال' : "Resend Code",
+                            context.locale.languageCode == 'ar' ? 'اعادة الارسال' : "Resend Code",
                             style: AppStyle.styleRegular17(context)
                                 .copyWith(color: const Color(0xFF3D6498)),
                           ))

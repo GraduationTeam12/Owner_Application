@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:user_app/constants/app_constants.dart';
 import 'package:user_app/constants/app_images.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/pages_name.dart';
@@ -69,7 +68,7 @@ class ForgotPasswordEmailScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 50),
                       Column(
-                        children: AppConstants.lang == 'ar'
+                        children: context.locale.languageCode == 'ar'
                             ? [
                                 FittedBox(
                                     child: Text(

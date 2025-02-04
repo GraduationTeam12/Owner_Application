@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:user_app/constants/app_constants.dart';
 import 'package:user_app/constants/app_images.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
@@ -115,7 +114,7 @@ class _OnBoardingSectionState extends State<OnBoardingSection> {
                               MediaQuery.sizeOf(context).width > 600 ? 65 : 35,
                           width:
                               MediaQuery.sizeOf(context).width > 600 ? 65 : 35,
-                          child: AppConstants.lang == 'ar' ? Container(
+                          child: context.locale.languageCode == 'ar' ? Container(
                              decoration: ShapeDecoration(
                               color: MyColors.premiumColor,
                               shape: CircleBorder()),
