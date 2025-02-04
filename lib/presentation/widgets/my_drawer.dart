@@ -169,7 +169,7 @@ class _MyDrawerState extends State<MyDrawer> {
                                   Icons.arrow_back_ios_new_outlined,
                                   color: Colors.white,
                                   size: MediaQuery.sizeOf(context).width > 600
-                                      ? 50
+                                      ? 40
                                       : 20,
                                 ),
                               ),
@@ -200,10 +200,10 @@ class _MyDrawerState extends State<MyDrawer> {
                 height: MediaQuery.sizeOf(context).width > 600 ? 70 : null,
                 width: AppConstants.lang == 'ar' &&
                         MediaQuery.sizeOf(context).width > 600
-                    ? 300
+                    ? 350
                     : AppConstants.lang == 'ar' &&
                             MediaQuery.sizeOf(context).width < 600
-                        ? 190
+                        ? 200
                         : MediaQuery.sizeOf(context).width > 600
                             ? 250
                             : 150,
@@ -218,28 +218,26 @@ class _MyDrawerState extends State<MyDrawer> {
                     ),
                   ),
                   child: Row(
-                    mainAxisAlignment: AppConstants.lang == 'ar'
-                        ? MainAxisAlignment.start
-                        : MainAxisAlignment.center,
+                    mainAxisAlignment:  MainAxisAlignment.start,
                     children: [
                       Icon(
                         Icons.logout,
                         color: const Color(0xFFA8A1A1),
-                        size: MediaQuery.sizeOf(context).width > 600 ? 50 : 24,
+                        size: MediaQuery.sizeOf(context).width > 600 ? 40 : 24,
                       ),
                       const SizedBox(width: 10),
-                      FittedBox(
-                        child: Text(
-                          LocaleKeys.Drawer_logout.tr(),
-                          style: AppStyle.styleBold20(context).copyWith(
-                            color: const Color(0xFFA8A1A1),
-                          ),
+                      Text(
+                        LocaleKeys.Drawer_logout.tr(),
+                        style: AppStyle.styleBold20(context).copyWith(
+                          color: const Color(0xFFA8A1A1),
                         ),
                       )
                     ],
                   ),
                 ),
               ),
+
+              SizedBox(height: 10,)
             ]),
           ),
         )));
