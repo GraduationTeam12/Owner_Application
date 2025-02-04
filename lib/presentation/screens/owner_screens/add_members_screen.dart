@@ -1,11 +1,14 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:user_app/constants/app_constants.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
 import 'package:user_app/core/cache/cache_helper.dart';
+import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/widgets/add_member_form.dart';
 import 'package:user_app/presentation/widgets/local_notifications.dart';
 
@@ -69,7 +72,7 @@ class AddMembersScreenState extends State<AddMembersScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Welcome ,Ahmed',
+                    AppConstants.lang == 'ar' ?  "مرحباً بك, أحمد" : 'Welcome ,Ahmed',
                     style: AppStyle.styleSemiBold22(context)
                         .copyWith(color: Colors.white),
                   ),
@@ -77,7 +80,7 @@ class AddMembersScreenState extends State<AddMembersScreen> {
                     height: 10,
                   ),
                   Text(
-                    'Please, for your safety enter the names and numbers of the two people closest to you to inform them in the event of any danger to you.',
+                   LocaleKeys.Authentication_title.tr(),
                     style: AppStyle.styleRegular20(context)
                         .copyWith(color: Colors.white),
                   ),

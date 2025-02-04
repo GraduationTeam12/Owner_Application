@@ -16,6 +16,12 @@ abstract class  LocaleKeys {
   static const Authentication_login = 'Authentication.login';
   static const Authentication_sendCode = 'Authentication.sendCode';
   static const Authentication_confirm = 'Authentication.confirm';
+  static const Authentication_firstMemeber = 'Authentication.firstMemeber';
+  static const Authentication_secondMemeber = 'Authentication.secondMemeber';
+  static const Authentication_fullName = 'Authentication.fullName';
+  static const Authentication_add = 'Authentication.add';
+  static const Authentication_skip = 'Authentication.skip';
+  static const Authentication_title = 'Authentication.title';
   static const Authentication = 'Authentication';
   static const onBoarding_team = 'onBoarding.team';
   static const onBoarding_goal = 'onBoarding.goal';

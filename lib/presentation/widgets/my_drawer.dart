@@ -155,7 +155,7 @@ class _MyDrawerState extends State<MyDrawer> {
                                       : 24,
                                 ),
                               ),
-                              const SizedBox(width: 20),
+                              const SizedBox(width: 12),
                               Expanded(
                                 child: Text(
                                   items[index].title,
@@ -228,13 +228,11 @@ class _MyDrawerState extends State<MyDrawer> {
                         size: MediaQuery.sizeOf(context).width > 600 ? 50 : 24,
                       ),
                       const SizedBox(width: 10),
-                      Expanded(
-                        child: FittedBox(
-                          child: Text(
-                            LocaleKeys.Drawer_logout.tr(),
-                            style: AppStyle.styleBold20(context).copyWith(
-                              color: const Color(0xFFA8A1A1),
-                            ),
+                      FittedBox(
+                        child: Text(
+                          LocaleKeys.Drawer_logout.tr(),
+                          style: AppStyle.styleBold20(context).copyWith(
+                            color: const Color(0xFFA8A1A1),
                           ),
                         ),
                       )

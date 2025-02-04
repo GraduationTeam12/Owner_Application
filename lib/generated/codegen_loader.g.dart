@@ -28,7 +28,13 @@ class CodegenLoader extends AssetLoader{
     "confirmPassword": "تأكيد كلمة المرور",
     "login": "تسجيل الدخول",
     "sendCode": "ارسل الرمز",
-    "confirm": "تأكيد"
+    "confirm": "تأكيد",
+    "firstMemeber": "العضو الأول",
+    "secondMemeber": "العضو الثاني",
+    "fullName": "الاسم الكامل",
+    "add": "اضافة",
+    "skip": "تخطى",
+    "title": "من فضلك، لسلامتك قم بإدخال أسماء وأرقام الأشخاص الأقرب إليك لإبلاغهم في حالة وجود أي خطر عليك."
   },
   "onBoarding": {
     "team": "فريقنا",
@@ -120,7 +126,13 @@ static const Map<String,dynamic> _en = {
     "confirmPassword": "Confirm Password",
     "login": "Login",
     "sendCode": "Send Code",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "firstMemeber": "First Member",
+    "secondMemeber": "Second Member",
+    "fullName": "Full Name",
+    "add": "Add",
+    "skip": "Skip",
+    "title": "Please, for your safety, enter the names and numbers of the people closest to you to notify them in case of any danger to you."
   },
   "onBoarding": {
     "team": "Team",

@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
 import 'package:user_app/constants/pages_name.dart';
+import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/widgets/forgot_password_email_field.dart';
 
 class AddMemberForm extends StatelessWidget {
@@ -28,7 +30,7 @@ class AddMemberForm extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'First Member',
+                LocaleKeys.Authentication_firstMemeber.tr(),
                 style: AppStyle.styleSemiBold22(context)
                     .copyWith(color: Color(0xFF979797)),
               ),
@@ -53,7 +55,7 @@ class AddMemberForm extends StatelessWidget {
                         size: MediaQuery.sizeOf(context).width > 600 ? 40 : 25,
                       ),
                     ),
-                    labelText: "Full Name",
+                    labelText: LocaleKeys.Authentication_fullName.tr(),
                     labelStyle: AppStyle.styleRegular17(context),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
@@ -102,7 +104,7 @@ class AddMemberForm extends StatelessWidget {
                         size: MediaQuery.sizeOf(context).width > 600 ? 40 : 25,
                       ),
                     ),
-                    labelText: "Phone Number",
+                    labelText: LocaleKeys.Authentication_phoneNumber.tr(),
                     labelStyle: AppStyle.styleRegular17(context),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
@@ -134,7 +136,7 @@ class AddMemberForm extends StatelessWidget {
                 height: 50,
               ),
               Text(
-                'Second Member',
+                LocaleKeys.Authentication_secondMemeber.tr(),
                 style: AppStyle.styleSemiBold22(context)
                     .copyWith(color: Color(0xFF979797)),
               ),
@@ -159,7 +161,7 @@ class AddMemberForm extends StatelessWidget {
                         size: MediaQuery.sizeOf(context).width > 600 ? 40 : 25,
                       ),
                     ),
-                    labelText: "Full Name",
+                    labelText: LocaleKeys.Authentication_fullName.tr(),
                     labelStyle: AppStyle.styleRegular17(context),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
@@ -208,7 +210,7 @@ class AddMemberForm extends StatelessWidget {
                         size: MediaQuery.sizeOf(context).width > 600 ? 40 : 25,
                       ),
                     ),
-                    labelText: "Phone Number",
+                    labelText: LocaleKeys.Authentication_phoneNumber.tr(),
                     labelStyle: AppStyle.styleRegular17(context),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
@@ -255,7 +257,7 @@ class AddMemberForm extends StatelessWidget {
                               context, carSplashScreen);
                         },
                         child: Text(
-                          'ADD',
+                          LocaleKeys.Authentication_add.tr(),
                           style: AppStyle.styleBold20(context)
                               .copyWith(color: Colors.white),
                         )),
@@ -278,7 +280,7 @@ class AddMemberForm extends StatelessWidget {
                           Navigator.pushReplacementNamed(context, carSplashScreen);
                         },
                         child: Text(
-                          'Skip',
+                          LocaleKeys.Authentication_skip.tr(),
                           style: AppStyle.styleBold20(context)
                               .copyWith(color: MyColors.premiumColor),
                         )),

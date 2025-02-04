@@ -14,7 +14,13 @@
     "confirmPassword": "Confirm Password",
     "login": "Login",
     "sendCode": "Send Code",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "firstMemeber": "First Member",
+    "secondMemeber": "Second Member",
+    "fullName": "Full Name",
+    "add": "Add",
+    "skip": "Skip",
+    "title": "Please, for your safety, enter the names and numbers of the people closest to you to notify them in case of any danger to you."
   },
 
   "onBoarding": {
