@@ -182,7 +182,7 @@ static const Map<String,dynamic> _en = {
     "problem": "Problem"
   },
   "Drawer": {
-    "profile": "My Account",
+    "profile": "My Profile",
     "car": "My Car",
     "location": "My Location",
     "contact": "Contact Us",

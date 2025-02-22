@@ -161,20 +161,24 @@ class _TempSensorScreenState extends State<TempSensorScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        selectedIndex: _selectedIndex,
-        onItemSelected: (index) {
-          setState(() {
-            _selectedIndex = index;
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => HomeScreen(
-                          index: _selectedIndex,
-                        )),
-                (Route<dynamic> route) => false);
-          });
-        },
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 18),
+        child: CustomBottomNavigationBar(
+          selectedIndex: _selectedIndex,
+          onItemSelected: (index) {
+            setState(() {
+              _selectedIndex = index;
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HomeScreen(
+                            index: _selectedIndex,
+                          )),
+                  (Route<dynamic> route) => false);
+            });
+          },
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20),
@@ -216,12 +220,14 @@ class _TempSensorScreenState extends State<TempSensorScreen> {
                         )
                       ]),
                   child: Center(
-                      child: tempLevel == '' ? CircularProgressIndicator(
-                        color: MyColors.premiumColor,
-                      ) : CircularGauge(
-                    value: tempValue,
-                    status: tempLevel,
-                  )))
+                      child: tempLevel == ''
+                          ? CircularProgressIndicator(
+                              color: MyColors.premiumColor,
+                            )
+                          : CircularGauge(
+                              value: tempValue,
+                              status: tempLevel,
+                            )))
             ],
           ),
         ),

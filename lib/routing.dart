@@ -12,6 +12,8 @@ import 'package:user_app/core/logic/login_cubit/login_cubit.dart';
 import 'package:user_app/presentation/screens/owner_screens/add_members_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/change_password.dart';
 import 'package:user_app/presentation/screens/owner_screens/contact_us_screen.dart';
+import 'package:user_app/presentation/screens/owner_screens/edit_closest_people.dart';
+import 'package:user_app/presentation/screens/owner_screens/edit_profile_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/forgot_password_email_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/forgot_password_phone_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/home_screen.dart';
@@ -23,6 +25,7 @@ import 'package:user_app/presentation/screens/owner_screens/privacy_screen.dart'
 import 'package:user_app/presentation/screens/owner_screens/rate_us_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/reset_password_emal_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/reset_password_phone_screen.dart';
+import 'package:user_app/presentation/screens/owner_screens/select_languages_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/sensors_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/sign_in_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/splash_screen.dart';
@@ -118,6 +121,15 @@ class AppRouter {
                       AuthRepository(apiConsumer: DioConsumer(dio: Dio()))),
                   child: const SensorsScreen(),
                 ));
+
+      case languagesScreen:
+        return MaterialPageRoute(builder: (_) => const SelectLanguagesScreen());
+
+      case editProfileScreen:
+        return MaterialPageRoute(builder: (_) => const EditProfileScreen());
+
+      case editClosestPeopleScreen:
+        return MaterialPageRoute(builder: (_) => const EditClosestPeople());
     }
   }
 }

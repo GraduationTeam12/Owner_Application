@@ -19,52 +19,58 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30)),
+        ),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            color: MyColors.premiumColor,
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.25),
+                spreadRadius: 1,
+                blurRadius: 4,
+                offset: Offset(0, 4),
+              ),
+            ],
+          ),
+        ),
         elevation: 0,
         scrolledUnderElevation: 0,
-        backgroundColor: Colors.white,
-        toolbarHeight: MediaQuery.sizeOf(context).height / 8,
-        title: Text(
-          LocaleKeys.ContactAdmin_appbar.tr(),
-          style: AppStyle.styleBold30(context).copyWith(color: Colors.black),
-        ),
-        centerTitle: true,
+        backgroundColor: MyColors.premiumColor,
+        toolbarHeight: MediaQuery.sizeOf(context).height / 9.8,
         leading: InkWell(
           onTap: () {
             Navigator.pop(context);
           },
           child: Icon(
             Icons.arrow_back,
-            color: Colors.black,
+            color: Colors.white,
             size: MediaQuery.sizeOf(context).width > 600 ? 45 : null,
           ),
         ),
+        title: Text(
+          LocaleKeys.ContactAdmin_appbar.tr(),
+          style: AppStyle.styleBold30(context).copyWith(color: Colors.white),
+        ),
+        centerTitle: true,
       ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              width: double.infinity,
-              height: 2,
-              decoration: BoxDecoration(
-                color: Colors.grey[400],
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
-                    spreadRadius: 1,
-                    blurRadius: 3,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                       LocaleKeys.ContactAdmin_headerText.tr(),
+                  Text(LocaleKeys.ContactAdmin_headerText.tr(),
                       style: AppStyle.styleSemiBold25(context)
                           .copyWith(color: Colors.black)),
                   const SizedBox(
@@ -82,7 +88,9 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          height: MediaQuery.sizeOf(context).width > 600 ? 350 : 200,
+                          height: MediaQuery.sizeOf(context).width > 600
+                              ? 350
+                              : 200,
                           width: double.infinity,
                           decoration: ShapeDecoration(
                               shadows: const [
@@ -93,10 +101,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                               ],
                               color: Colors.white,
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25),
-                                  side: const BorderSide(
-                                      color: Color.fromRGBO(255, 180, 65, 1),
-                                      width: 1))),
+                                borderRadius: BorderRadius.circular(25),
+                              )),
                           child: TextFormField(
                             maxLines: null,
                             style: AppStyle.styleRegular16(context)
@@ -166,7 +172,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                               height: 1),
                         ),
                       ),
-                      Text(LocaleKeys.ContactAdmin_or.tr(), style: AppStyle.styleRegular25(context)),
+                      Text(LocaleKeys.ContactAdmin_or.tr(),
+                          style: AppStyle.styleRegular25(context)),
                       Expanded(
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 10),

@@ -35,7 +35,8 @@ class _LocationScreenState extends State<LocationScreen> {
   }
 
   Future<void> getMyCurrentLocation() async {
-    position = await LocationHelper.getCurrentLocation().whenComplete(() {
+    position =
+        await LocationHelper.getCurrentLocation(context).whenComplete(() {
       if (mounted) {
         setState(() {});
       }
@@ -50,34 +51,31 @@ class _LocationScreenState extends State<LocationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          body: Stack(fit: StackFit.expand, children: [
-        position != null
-            ? GoogleMap(
-                onMapCreated: _onMapCreated,
-                initialCameraPosition: _myCurrentLocationCameraPosition,
-                mapType: MapType.normal,
-                myLocationEnabled: true,
-                zoomControlsEnabled: false,
-                myLocationButtonEnabled: false,
-                markers: {
-                  Marker(
-                      markerId: MarkerId('1'),
-                      position: LatLng(position!.latitude, position!.longitude),
-                      onTap: () {},
-                      // infoWindow: InfoWindow(
-                      //   title: 'My Location'),
-                      icon: BitmapDescriptor.defaultMarkerWithHue(
-                          BitmapDescriptor.hueBlue)),
-                },
-              )
-            : const Center(
-                child: CircularProgressIndicator(
-                  color: MyColors.premiumColor,
-                ),
-              ),
-      ])),
-    );
+    return Stack(fit: StackFit.expand, children: [
+          position != null
+      ? GoogleMap(
+          onMapCreated: _onMapCreated,
+          initialCameraPosition: _myCurrentLocationCameraPosition,
+          mapType: MapType.normal,
+          myLocationEnabled: true,
+          zoomControlsEnabled: false,
+          myLocationButtonEnabled: false,
+          markers: {
+            Marker(
+                markerId: MarkerId('1'),
+                position: LatLng(position!.latitude, position!.longitude),
+                onTap: () {},
+                // infoWindow: InfoWindow(
+                //   title: 'My Location'),
+                icon: BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueBlue)),
+          },
+        )
+      : const Center(
+          child: CircularProgressIndicator(
+            color: MyColors.premiumColor,
+          ),
+        ),
+        ]);
   }
 }
