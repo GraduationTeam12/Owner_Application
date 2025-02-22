@@ -2,10 +2,13 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:user_app/constants/app_images.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
 import 'package:user_app/constants/pages_name.dart';
+import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
 import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/screens/owner_screens/check_car_scrren.dart';
 import 'package:user_app/presentation/screens/owner_screens/location_screen.dart';
@@ -35,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    widget.index = _selectedIndex ;
+    widget.index = _selectedIndex;
     return WillPopScope(
       onWillPop: () async {
         if (widget.index != 0 || _selectedIndex != 0) {
@@ -65,7 +68,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     flexibleSpace: Container(
                       decoration: BoxDecoration(
-                        color: MyColors.premiumColor,
+                        color: BlocProvider.of<ThemeCubit>(context).isDark
+                            ? Color(0xFF263238)
+                            : MyColors.premiumColor,
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(30),
                           bottomRight: Radius.circular(30),
@@ -82,7 +87,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     elevation: 0,
                     scrolledUnderElevation: 0,
-                    backgroundColor: MyColors.premiumColor,
+                    backgroundColor: BlocProvider.of<ThemeCubit>(context).isDark
+                        ? Color(0xFF263238)
+                        : MyColors.premiumColor,
                     toolbarHeight: MediaQuery.sizeOf(context).height / 9.8,
                     leading: InkWell(
                       onTap: () {
@@ -111,7 +118,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 : AppBar(
                     elevation: 0,
                     scrolledUnderElevation: 0,
-                    backgroundColor: Colors.white,
+                    backgroundColor: BlocProvider.of<ThemeCubit>(context).isDark
+                        ? Color(0xFF263238)
+                        : Colors.white,
                     toolbarHeight: MediaQuery.sizeOf(context).height * 0.08,
                     leadingWidth:
                         MediaQuery.sizeOf(context).width > 600 ? 80 : null,
@@ -121,17 +130,27 @@ class _HomeScreenState extends State<HomeScreen> {
                         onTap: () {
                           scaffoldKey.currentState!.openDrawer();
                         },
-                        child: Image.asset(
-                            fit: MediaQuery.sizeOf(context).width > 600
-                                ? BoxFit.contain
-                                : null,
-                            'assets/images/auth_images/drawerpng.png'),
+                        child: BlocProvider.of<ThemeCubit>(context).isDark
+                            ? Image.asset(
+                                fit: MediaQuery.sizeOf(context).width > 600
+                                    ? BoxFit.contain
+                                    : null,
+                                Assets.imagesAuthImagesDrawerDark)
+                            : Image.asset(
+                                fit: MediaQuery.sizeOf(context).width > 600
+                                    ? BoxFit.contain
+                                    : null,
+                                'assets/images/auth_images/drawerpng.png'),
                       ),
                     ),
                     title: _selectedIndex == 0 || widget.index == 0
                         ? Text(
                             LocaleKeys.carPage_appbar.tr(),
-                            style: AppStyle.styleBold30(context),
+                            style: AppStyle.styleBold30(context).copyWith(
+                                color:
+                                    BlocProvider.of<ThemeCubit>(context).isDark
+                                        ? Colors.white
+                                        : null),
                           )
                         : Row(
                             children: [
@@ -161,16 +180,32 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Navigator.pushNamed(
                                       context, notificationScreen);
                                 },
-                                child: SvgPicture.asset(
-                                    width:
-                                        MediaQuery.sizeOf(context).width > 600
-                                            ? 60
-                                            : null,
-                                    height:
-                                        MediaQuery.sizeOf(context).width > 600
-                                            ? 60
-                                            : null,
-                                    'assets/images/auth_images/notification_user.svg'),
+                                child: BlocProvider.of<ThemeCubit>(context)
+                                        .isDark
+                                    ? SvgPicture.asset(
+                                        width:
+                                            MediaQuery.sizeOf(context).width >
+                                                    600
+                                                ? 60
+                                                : null,
+                                        height:
+                                            MediaQuery.sizeOf(context).width >
+                                                    600
+                                                ? 60
+                                                : null,
+                                        Assets.imagesAuthImagesNotificationDark)
+                                    : SvgPicture.asset(
+                                        width:
+                                            MediaQuery.sizeOf(context).width >
+                                                    600
+                                                ? 60
+                                                : null,
+                                        height:
+                                            MediaQuery.sizeOf(context).width >
+                                                    600
+                                                ? 60
+                                                : null,
+                                        'assets/images/auth_images/notification_user.svg'),
                               ),
                             ),
                           ]
@@ -178,6 +213,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     centerTitle:
                         _selectedIndex == 0 || widget.index == 0 ? true : false,
                   ),
+
         body: _screens[widget.index ?? _selectedIndex],
         floatingActionButtonLocation: _selectedIndex == 2 || widget.index == 2
             ? null
@@ -196,7 +232,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
               ),
-        backgroundColor: Colors.white,
+        backgroundColor: BlocProvider.of<ThemeCubit>(context).isDark
+            ? Color(0xFF1E1E1E)
+            : Colors.white,
         // bottomNavigationBar: CustomBottomNavigationBar(
         //   selectedIndex: widget.index ?? _selectedIndex,
         //   onItemSelected: (index) {

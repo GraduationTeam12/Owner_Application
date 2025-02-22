@@ -1,9 +1,11 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_app/constants/app_images.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
+import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
 import 'package:user_app/presentation/screens/owner_screens/home_screen.dart';
 
 class ProfileScreeen extends StatelessWidget {
@@ -30,7 +32,9 @@ class ProfileScreeen extends StatelessWidget {
                                 blurRadius: 4,
                                 offset: Offset(0, 4))
                           ],
-                          gradient: LinearGradient(colors: [
+                          color: Color(0xFF263238),
+                          gradient: BlocProvider.of<ThemeCubit>(context).isDark
+                      ?  null : LinearGradient(colors: [
                             Color(0xFF142132),
                             Color(0xFF294265),
                             Color(0xFF3D6498)
@@ -103,11 +107,13 @@ class ProfileScreeen extends StatelessWidget {
                 TextFormField(
                   initialValue: 'ayman.ahmed@gmail.com',
                   style: AppStyle.styleSemiBold20(context)
-                      .copyWith(color: Color(0xFF5C5858)),
+                      .copyWith(color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.white : Color(0xFF5C5858)),
                   decoration: InputDecoration(
                       prefixIcon: Icon(
                         Icons.person,
-                        color: Color(0xFF5C5858),
+                        color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.white : Color(0xFF5C5858),
                       ),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey),
@@ -146,11 +152,13 @@ class ProfileScreeen extends StatelessWidget {
                 TextFormField(
                   initialValue: '01225050505',
                   style: AppStyle.styleSemiBold20(context)
-                      .copyWith(color: Color(0xFF5C5858)),
+                      .copyWith(color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.white : Color(0xFF5C5858)),
                   decoration: InputDecoration(
                       prefixIcon: Icon(
                         Icons.phone_iphone,
-                        color: Color(0xFF5C5858),
+                        color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.white : Color(0xFF5C5858),
                       ),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey),
@@ -180,11 +188,13 @@ class ProfileScreeen extends StatelessWidget {
                 TextFormField(
                   initialValue: 'ismailia ,salah salem,street ',
                   style: AppStyle.styleSemiBold20(context)
-                      .copyWith(color: Color(0xFF5C5858)),
+                      .copyWith(color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.white : Color(0xFF5C5858)),
                   decoration: InputDecoration(
                       prefixIcon: Icon(
                         Icons.place,
-                        color: Color(0xFF5C5858),
+                        color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.white : Color(0xFF5C5858),
                       ),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey),
@@ -210,14 +220,16 @@ class ProfileScreeen extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
-                          backgroundColor: MyColors.premiumColor,
+                          backgroundColor: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.white : MyColors.premiumColor,
                         ),
                         child: Padding(
                           padding: EdgeInsets.symmetric(vertical: 10),
                           child: Text(
                             "Update",
                             style: AppStyle.styleBold20(context)
-                                .copyWith(color: Colors.white),
+                                .copyWith(color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ?Color(0xFF263238) : Colors.white),
                           ),
                         )))
               ],

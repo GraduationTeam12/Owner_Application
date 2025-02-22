@@ -2,8 +2,10 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
+import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
 import 'package:user_app/generated/locale_keys.g.dart';
 
 class NotificationScreen extends StatefulWidget {
@@ -17,7 +19,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Color(0xFF1E1E1E) : Colors.white,
       appBar: AppBar(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -26,7 +29,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
         ),
         flexibleSpace: Container(
           decoration: BoxDecoration(
-            color: MyColors.premiumColor,
+            color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Color(0xFF263238) : MyColors.premiumColor,
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(30),
               bottomRight: Radius.circular(30),
@@ -43,7 +47,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
         ),
         elevation: 0,
         scrolledUnderElevation: 0,
-        backgroundColor: MyColors.premiumColor,
+        backgroundColor: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Color(0xFF263238) : MyColors.premiumColor,
         toolbarHeight: MediaQuery.sizeOf(context).height / 9.8,
         leading: InkWell(
           onTap: () {
@@ -86,7 +91,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                 offset: const Offset(0, 4),
                               )
                             ],
-                            color: Colors.white,
+                            color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Color(0xFF263238) : Colors.white,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(17))),
                         child: Padding(
@@ -103,7 +109,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                   LocaleKeys.NotificationsPage_title.tr(),
                                   style:
                                       AppStyle.styleRegular20(context).copyWith(
-                                    color: Colors.black,
+                                    color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.white : Colors.black,
                                   ),
                                   maxLines: null,
                                 ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:user_app/constants/app_style.dart';
+import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
 
 class SensorChart extends StatelessWidget {
   const SensorChart({super.key, required this.percent, required this.title});
@@ -46,7 +48,8 @@ class SensorChart extends StatelessWidget {
                     top: MediaQuery.sizeOf(context).width > 600 ? 0 : 38,
                     child: Text(percent,
                         style: AppStyle.styleBold30(context).copyWith(
-                          color: Colors.black,
+                          color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ?  Colors.white:  Colors.black,
                           fontFamily: 'Roboto',
                         )),
                   ),
@@ -54,7 +57,8 @@ class SensorChart extends StatelessWidget {
                     top: MediaQuery.sizeOf(context).width > 600 ? 78 : 150,
                     child: Text(title,
                         style: AppStyle.styleBold40(context).copyWith(
-                          color: Color(0xFF5C5858),
+                          color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ?  Colors.white: Color(0xFF5C5858),
                           fontFamily: 'Roboto',
                         )),
                   ),

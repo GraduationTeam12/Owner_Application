@@ -1,11 +1,11 @@
 // ignore_for_file: deprecated_member_use
 
- 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
- 
+import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
 
 class CircularGauge extends StatelessWidget {
   const CircularGauge({super.key, required this.value, required this.status});
@@ -45,7 +45,11 @@ class CircularGauge extends StatelessWidget {
               lengthUnit: GaugeSizeUnit.logicalPixel),
           axisLineStyle: AxisLineStyle(
             thickness: MediaQuery.sizeOf(context).width > 600 ? 12 : 7,
-            color: status == 'Medium' ? Colors.amber  : status == 'Normal' ? Colors.green : Colors.red,
+            color: status == 'Medium'
+                ? Colors.amber
+                : status == 'Normal'
+                    ? Colors.green
+                    : Colors.red,
             thicknessUnit: GaugeSizeUnit.logicalPixel,
           ),
           pointers: <GaugePointer>[
@@ -95,14 +99,19 @@ class CircularGauge extends StatelessWidget {
                   children: [
                     Text('$value°',
                         style: AppStyle.styleBold30(context).copyWith(
-                            color: Colors.black, fontFamily: 'Roboto')),
+                            color: BlocProvider.of<ThemeCubit>(context).isDark
+                                ? Colors.white
+                                : Colors.black,
+                            fontFamily: 'Roboto')),
                     SizedBox(
                       height: 15,
                     ),
                     FittedBox(
                       child: Text(status,
                           style: AppStyle.styleBold40(context).copyWith(
-                            color: status == 'Medium' ? Colors.amber : Color(0xFF5C5858),
+                            color: status == 'Medium'
+                                ? Colors.amber
+                                : Color(0xFF5C5858),
                             fontFamily: 'Roboto',
                           )),
                     ),

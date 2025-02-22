@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:user_app/constants/app_style.dart';
+import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
 
 class PartDiagramSensorChart extends StatelessWidget {
   const PartDiagramSensorChart(
@@ -28,13 +30,15 @@ class PartDiagramSensorChart extends StatelessWidget {
             children: [
               Text(
                 "${(animatedPercent * 100).toInt()}%",
-                style: AppStyle.styleSemiBold22(context).copyWith(color: Colors.black),
+                style: AppStyle.styleSemiBold22(context).copyWith(color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.white : Colors.black),
               ),
 
               SizedBox(height: 15,),
               Text(
                 title,
-                style: AppStyle.styleSemiBold22(context).copyWith(color: Colors.black),
+                style: AppStyle.styleSemiBold22(context).copyWith(color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.white : Colors.black),
               )
             ],
           ),

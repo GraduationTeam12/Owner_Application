@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
+import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
 import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/widgets/change_password_fields.dart';
 
@@ -28,7 +30,8 @@ class _EditClosestPeopleState extends State<EditClosestPeople> {
           ),
           flexibleSpace: Container(
             decoration: BoxDecoration(
-              color: MyColors.premiumColor,
+              color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Color(0xFF263238) : MyColors.premiumColor,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(30),
                 bottomRight: Radius.circular(30),
@@ -46,7 +49,8 @@ class _EditClosestPeopleState extends State<EditClosestPeople> {
           ),
           elevation: 0,
           scrolledUnderElevation: 0,
-          backgroundColor: MyColors.premiumColor,
+          backgroundColor: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Color(0xFF263238) : MyColors.premiumColor,
           toolbarHeight: MediaQuery.sizeOf(context).height / 9.8,
           leading: InkWell(
             onTap: () {
@@ -64,6 +68,8 @@ class _EditClosestPeopleState extends State<EditClosestPeople> {
           ),
           centerTitle: true,
         ),
+        backgroundColor: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Color(0xFF1E1E1E) : Colors.white,
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -90,7 +96,8 @@ class _EditClosestPeopleState extends State<EditClosestPeople> {
                 ),
                 TextFormField(
                   style: AppStyle.styleRegular17(context)
-                      .copyWith(color: Colors.black),
+                      .copyWith(color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.white : Colors.black),
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
@@ -102,12 +109,16 @@ class _EditClosestPeopleState extends State<EditClosestPeople> {
                             : const EdgeInsets.all(0),
                         child: Icon(
                           Icons.person,
-                          color: Colors.black,
+                          color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.white : Colors.black,
                           size: MediaQuery.sizeOf(context).width > 600 ? 40 : 25,
                         ),
                       ),
                       labelText: LocaleKeys.Authentication_fullName.tr(),
-                      labelStyle: AppStyle.styleRegular17(context),
+                      labelStyle: AppStyle.styleRegular17(context).copyWith(
+                        color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.white : Color(0xFF5C5858),
+                      ),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
                           borderSide: const BorderSide(width: 0.5)),
@@ -151,12 +162,16 @@ class _EditClosestPeopleState extends State<EditClosestPeople> {
                             : const EdgeInsets.all(0),
                         child: Icon(
                           Icons.phone_iphone,
-                          color: Colors.black,
+                          color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.white : Colors.black,
                           size: MediaQuery.sizeOf(context).width > 600 ? 40 : 25,
                         ),
                       ),
                       labelText: LocaleKeys.Authentication_phoneNumber.tr(),
-                      labelStyle: AppStyle.styleRegular17(context),
+                      labelStyle: AppStyle.styleRegular17(context).copyWith(
+                        color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.white : Color(0xFF5C5858),
+                      ),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
                           borderSide: const BorderSide(width: 0.5)),
@@ -208,12 +223,16 @@ class _EditClosestPeopleState extends State<EditClosestPeople> {
                             : const EdgeInsets.all(0),
                         child: Icon(
                           Icons.person,
-                          color: Colors.black,
+                          color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.white : Colors.black,
                           size: MediaQuery.sizeOf(context).width > 600 ? 40 : 25,
                         ),
                       ),
                       labelText: LocaleKeys.Authentication_fullName.tr(),
-                      labelStyle: AppStyle.styleRegular17(context),
+                      labelStyle: AppStyle.styleRegular17(context).copyWith(
+                        color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.white : Color(0xFF5C5858),
+                      ),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
                           borderSide: const BorderSide(width: 0.5)),
@@ -257,12 +276,16 @@ class _EditClosestPeopleState extends State<EditClosestPeople> {
                             : const EdgeInsets.all(0),
                         child: Icon(
                           Icons.phone_iphone,
-                          color: Colors.black,
+                          color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.white : Colors.black,
                           size: MediaQuery.sizeOf(context).width > 600 ? 40 : 25,
                         ),
                       ),
                       labelText: LocaleKeys.Authentication_phoneNumber.tr(),
-                      labelStyle: AppStyle.styleRegular17(context),
+                      labelStyle: AppStyle.styleRegular17(context).copyWith(
+                        color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.white : Color(0xFF5C5858),
+                      ),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
                           borderSide: const BorderSide(width: 0.5)),
@@ -297,7 +320,8 @@ class _EditClosestPeopleState extends State<EditClosestPeople> {
                   height: MediaQuery.sizeOf(context).width > 600 ? 80 : 50,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: MyColors.premiumColor,
+                          backgroundColor: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.white : MyColors.premiumColor,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10))),
                       onPressed: () {
@@ -306,7 +330,8 @@ class _EditClosestPeopleState extends State<EditClosestPeople> {
                       child: Text(
                         "Save",
                         style: AppStyle.styleBold20(context)
-                            .copyWith(color: Colors.white),
+                            .copyWith(color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Color(0xFF263238) : Colors.white),
                       )),
                 ),
               ],
