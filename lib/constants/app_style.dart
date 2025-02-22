@@ -55,6 +55,15 @@ abstract class AppStyle {
     );
   }
 
+  static TextStyle styleBold22(BuildContext context) {
+    return  TextStyle(
+      color: const Color(0xFF5C5858),
+      fontSize: getResponsiveFontSize(context , fontSize: 22),
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w700,
+    );
+  }
+
   static TextStyle styleRegular16(BuildContext context) {
     return TextStyle(
       color: const Color(0xFF5C5858),
@@ -158,6 +167,15 @@ abstract class AppStyle {
     return TextStyle(
       color: const Color(0xFF5C5858),
       fontSize: getResponsiveFontSize(context , fontSize: 20),
+      fontFamily: 'Inter',
+      fontWeight: FontWeight.w400,
+    );
+  }
+
+  static TextStyle styleRegular22(BuildContext context) {
+    return TextStyle(
+      color: const Color(0xFF5C5858),
+      fontSize: getResponsiveFontSize(context , fontSize: 22),
       fontFamily: 'Inter',
       fontWeight: FontWeight.w400,
     );

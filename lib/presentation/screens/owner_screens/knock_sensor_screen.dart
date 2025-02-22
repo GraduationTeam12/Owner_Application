@@ -4,7 +4,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:user_app/constants/app_style.dart';
-import 'package:user_app/constants/colors.dart';
 import 'package:user_app/constants/pages_name.dart';
 import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/screens/owner_screens/check_car_scrren.dart';
@@ -67,21 +66,40 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        selectedIndex: _selectedIndex,
-        onItemSelected: (index) {
-          setState(() {
-            _selectedIndex = index;
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => HomeScreen(
-                          index: _selectedIndex,
-                        )),
-                (Route<dynamic> route) => false);
-          });
-        },
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 18),
+        child: CustomBottomNavigationBar(
+          selectedIndex: _selectedIndex,
+          onItemSelected: (index) {
+            setState(() {
+              _selectedIndex = index;
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HomeScreen(
+                            index: _selectedIndex,
+                          )),
+                  (Route<dynamic> route) => false);
+            });
+          },
+        ),
       ),
+      // bottomNavigationBar: CustomBottomNavigationBar(
+      //   selectedIndex: _selectedIndex,
+      //   onItemSelected: (index) {
+      //     setState(() {
+      //       _selectedIndex = index;
+      //       Navigator.pushAndRemoveUntil(
+      //           context,
+      //           MaterialPageRoute(
+      //               builder: (context) => HomeScreen(
+      //                     index: _selectedIndex,
+      //                   )),
+      //           (Route<dynamic> route) => false);
+      //     });
+      //   },
+      // ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(
@@ -123,7 +141,7 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
                             blurRadius: 4,
                             color: Colors.grey),
                       ],
-                      color: MyColors.premiumColor.withOpacity(0.7),
+                      color: Color(0xFFE0E0E0),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20))),
                   child: PartDiagramSensorChart(
@@ -179,15 +197,15 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
                                             blurRadius: 4,
                                             color: Colors.grey),
                                       ],
-                                      color: MyColors.premiumColor
-                                          .withOpacity(0.7),
+                                      color: Color(0xFFE0E0E0),
+                                         
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(20))),
                                   child: PartDiagramSensorChart(
                                       title: LocaleKeys.SensorsState_good.tr(),
                                       percent: 1,
-                                      myColor: Colors.greenAccent),
+                                      myColor:  Color(0xFF7793B7)),
                                 ),
                               ),
                             ],
@@ -227,15 +245,14 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
                                             blurRadius: 4,
                                             color: Colors.grey),
                                       ],
-                                      color: MyColors.premiumColor
-                                          .withOpacity(0.7),
+                                      color: Color(0xFFE0E0E0),
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(20))),
                                   child: PartDiagramSensorChart(
                                       title: LocaleKeys.SensorsState_good.tr(),
                                       percent: 1,
-                                      myColor: Colors.greenAccent),
+                                      myColor:  Color(0xFF7793B7)),
                                 ),
                               ),
                             ],
@@ -293,8 +310,7 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
                                             blurRadius: 4,
                                             color: Colors.grey),
                                       ],
-                                      color: MyColors.premiumColor
-                                          .withOpacity(0.7),
+                                      color: Color(0xFFE0E0E0),
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(20))),
@@ -342,8 +358,7 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
                                             blurRadius: 4,
                                             color: Colors.grey),
                                       ],
-                                      color: MyColors.premiumColor
-                                          .withOpacity(0.7),
+                                      color: Color(0xFFE0E0E0),
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(20))),

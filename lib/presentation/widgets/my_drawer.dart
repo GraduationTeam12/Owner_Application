@@ -1,13 +1,14 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:user_app/constants/app_images.dart';
 import 'package:user_app/constants/app_style.dart';
-import 'package:user_app/constants/colors.dart';
 import 'package:user_app/constants/pages_name.dart';
 import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/models/drawer_model.dart';
 import 'package:user_app/presentation/screens/owner_screens/home_screen.dart';
-import 'package:user_app/presentation/widgets/dialog_logout.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});
@@ -32,11 +33,11 @@ class _MyDrawerState extends State<MyDrawer> {
     final List<DrawerModel> items = [
       DrawerModel(
           title: LocaleKeys.Drawer_profile.tr(),
-          img: 'assets/images/auth_images/myprofile.svg',
+          img:  Assets.imagesAuthImagesPersonDrawerBlack,
           onTap: () {}),
       DrawerModel(
           title: LocaleKeys.Drawer_car.tr(),
-          img: 'assets/images/auth_images/mycar.svg',
+          img:  Assets.imagesAuthImagesCarDrawerBlack,
           onTap: () {
             Navigator.push(
                 context,
@@ -47,7 +48,7 @@ class _MyDrawerState extends State<MyDrawer> {
           }),
       DrawerModel(
           title: LocaleKeys.Drawer_location.tr(),
-          img: 'assets/images/auth_images/location.svg',
+          img:  Assets.imagesAuthImagesLocationDrawerBlack,
           onTap: () {
             Navigator.push(
                 context,
@@ -58,41 +59,41 @@ class _MyDrawerState extends State<MyDrawer> {
           }),
       DrawerModel(
           title: LocaleKeys.Drawer_contact.tr(),
-          img: 'assets/images/auth_images/contact.svg',
+          img:  Assets.imagesAuthImagesContactDrawerBlack,
           onTap: () {
             Navigator.pushNamed(context, contactScreen);
           }),
       DrawerModel(
         title: LocaleKeys.Drawer_privacyPolicy.tr(),
-        img: 'assets/images/auth_images/privacy.svg',
+        img:  Assets.imagesAuthImagesPrivacyDrawerBlack,
         onTap: () {
           Navigator.pushNamed(context, privacyScreen);
         },
       ),
       DrawerModel(
           title: LocaleKeys.Drawer_shareApp.tr(),
-          img: 'assets/images/auth_images/shareapp.svg',
+          img:  Assets.imagesAuthImagesShareDrawerBlack,
           onTap: () {}),
       DrawerModel(
           title: LocaleKeys.Drawer_rate.tr(),
-          img: 'assets/images/auth_images/star.svg',
+          img:  Assets.imagesAuthImagesRateDrawerBlack,
           onTap: () {
             Navigator.pushNamed(context, rateScreen);
           }),
       DrawerModel(
           title: LocaleKeys.Drawer_settings.tr(),
-          img: 'assets/images/auth_images/settings.svg',
+          img:  Assets.imagesAuthImagesSettingsDrawerBlack,
           onTap: () {}),
     ];
 
     return Container(
         height: MediaQuery.sizeOf(context).height,
         width: MediaQuery.sizeOf(context).width > 600
-            ? MediaQuery.of(context).size.width * .55
-            : MediaQuery.of(context).size.width * .7,
+            ? MediaQuery.of(context).size.width * .6
+            : MediaQuery.of(context).size.width * .8,
         // color: MyColors.premiumColor,
         decoration: ShapeDecoration(
-            color: MyColors.premiumColor,
+            color: Colors.white,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
               topRight: Radius.circular(10),
@@ -102,145 +103,131 @@ class _MyDrawerState extends State<MyDrawer> {
             ))),
         child: SafeArea(
             child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              ClipOval(
-                child: Image.asset('assets/images/auth_images/drawerphoto.jpg'),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                'Ayman Ahmed',
-                style: AppStyle.styleRegular20(context)
-                    .copyWith(color: Colors.white),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Text(
-                'Ayman.Ahmed@gmail.com',
-                style: AppStyle.styleRegular20(context)
-                    .copyWith(color: Colors.white),
-              ),
-              SizedBox(
-                height: MediaQuery.sizeOf(context).width > 600 ? 60 : 30,
-              ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: items.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: InkWell(
-                      onTap: items[index].onTap,
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: SvgPicture.asset(
-                                  items[index].img,
-                                  width: MediaQuery.sizeOf(context).width > 600
-                                      ? 40
-                                      : 24,
-                                  height: MediaQuery.sizeOf(context).width > 600
-                                      ? 40
-                                      : 24,
-                                ),
-                              ),
-                              const SizedBox(width: 12),
-                              Expanded(
-                                child: Text(
-                                  items[index].title,
-                                  style: AppStyle.styleRegular20(context)
-                                      .copyWith(color: Colors.white),
-                                ),
-                              ),
-                              Transform.rotate(
-                                angle: -1.5708 * 2,
-                                child: Icon(
-                                  Icons.arrow_back_ios_new_outlined,
-                                  color: Colors.white,
-                                  size: MediaQuery.sizeOf(context).width > 600
-                                      ? 40
-                                      : 20,
-                                ),
-                              ),
-                              SizedBox(
-                                width: MediaQuery.sizeOf(context).width > 600
-                                    ? 20
-                                    : 10,
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: MediaQuery.sizeOf(context).width > 600
-                                ? MediaQuery.sizeOf(context).height * 0.02
-                                : 11,
-                          ),
-                          buildDrawerListItemsDivider(),
-                          const SizedBox(height: 10)
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              SizedBox(
-                height: MediaQuery.sizeOf(context).width > 600 ? 70 : null,
-                width: context.locale.languageCode == 'ar' &&
-                        MediaQuery.sizeOf(context).width > 600
-                    ? 350
-                    : context.locale.languageCode == 'ar' &&
-                            MediaQuery.sizeOf(context).width < 600
-                        ? 200
-                        : MediaQuery.sizeOf(context).width > 600
-                            ? 250
-                            : 150,
-                child: ElevatedButton(
-                  onPressed: () {
-                    showLogOutDialog(context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  ClipOval(
+                    child: Image.asset(
+                        width: MediaQuery.sizeOf(context).width > 600 ? 75 : 60,
+                        height:
+                            MediaQuery.sizeOf(context).width > 600 ? 75 : 60,
+                        'assets/images/auth_images/drawerphoto.jpg'),
                   ),
-                  child: Row(
-                    mainAxisAlignment:  MainAxisAlignment.start,
-                    children: [
-                      Icon(
-                        Icons.logout,
-                        color: const Color(0xFFA8A1A1),
-                        size: MediaQuery.sizeOf(context).width > 600 ? 40 : 24,
-                      ),
-                      const SizedBox(width: 10),
-                      FittedBox(
-                        child: Text(
-                          LocaleKeys.Drawer_logout.tr(),
-                          style: AppStyle.styleBold20(context).copyWith(
-                            color: const Color(0xFFA8A1A1),
-                          ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Ayman Ahmed',
+                          style: AppStyle.styleRegular20(context).copyWith(
+                              color: Colors.black, fontWeight: FontWeight.w700),
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      )
-                    ],
-                  ),
-                ),
+                        Text(
+                          'ayman.ahmed@gmail.com',
+                          style: AppStyle.styleRegular20(context)
+                              .copyWith(color: Colors.black.withOpacity(0.5)),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: null,
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
+            ),
+            SizedBox(
+              height: MediaQuery.sizeOf(context).width > 600 ? 60 : 30,
+            ),
+            Row(
+              children: [
+                Expanded(
+                    child: Divider(
+                  color: Colors.black,
+                  thickness: 0.8,
+                )),
+              ],
+            ),
 
-              SizedBox(height: 10,)
-            ]),
-          ),
+            SizedBox(
+              height: MediaQuery.sizeOf(context).width > 600 ? 60 : 30,
+            ),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: items.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: InkWell(
+                    onTap: items[index].onTap,
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: SvgPicture.asset(
+                                items[index].img,
+                                width: MediaQuery.sizeOf(context).width > 600
+                                    ? 40
+                                    : 24,
+                                height: MediaQuery.sizeOf(context).width > 600
+                                    ? 40
+                                    : 24,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Text(
+                                items[index].title,
+                                style: AppStyle.styleRegular22(context)
+                                    .copyWith(color: Colors.black , fontFamily: 'Roboto' ),
+                              ),
+                            ),
+                            // Transform.rotate(
+                            //   angle: -1.5708 * 2,
+                            //   child: Icon(
+                            //     Icons.arrow_back_ios_new_outlined,
+                            //     color: Colors.white,
+                            //     size: MediaQuery.sizeOf(context).width > 600
+                            //         ? 40
+                            //         : 20,
+                            //   ),
+                            // ),
+                            SizedBox(
+                              width: MediaQuery.sizeOf(context).width > 600
+                                  ? 20
+                                  : 10,
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: MediaQuery.sizeOf(context).width > 600
+                              ? MediaQuery.sizeOf(context).height * 0.02
+                              : 11,
+                        ),
+                        // buildDrawerListItemsDivider(),
+                        const SizedBox(height: 10)
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+            // SizedBox(
+            //   height: 30,
+            // ),
+            
+          ]),
         )));
   }
 }

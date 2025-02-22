@@ -28,13 +28,13 @@ class PartDiagramSensorChart extends StatelessWidget {
             children: [
               Text(
                 "${(animatedPercent * 100).toInt()}%",
-                style: AppStyle.styleSemiBold22(context),
+                style: AppStyle.styleSemiBold22(context).copyWith(color: Colors.black),
               ),
 
               SizedBox(height: 15,),
               Text(
                 title,
-                style: AppStyle.styleSemiBold22(context),
+                style: AppStyle.styleSemiBold22(context).copyWith(color: Colors.black),
               )
             ],
           ),

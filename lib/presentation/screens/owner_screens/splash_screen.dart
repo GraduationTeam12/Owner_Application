@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: SizedBox(
         height: MediaQuery.sizeOf(context).height,
         width: MediaQuery.sizeOf(context).width,
-        child: Lottie.asset('assets/images/auth_images/Flow 6 (3).json',
+        child: Lottie.asset('assets/images/auth_images/Flow_6_3.json',
             fit: BoxFit.contain, repeat: false),
       ),
     );

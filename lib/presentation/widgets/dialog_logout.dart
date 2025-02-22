@@ -95,8 +95,8 @@ void showLogOutDialog(BuildContext context) {
                                   ),
                                   side: const WidgetStatePropertyAll(
                                     BorderSide(
-                                        color: Color.fromRGBO(255, 180, 65, 1),
-                                        width: 2),
+                                        // color: Color.fromRGBO(255, 180, 65, 1),
+                                        width: 1),
                                   ),
                                   padding: const WidgetStatePropertyAll(
                                       EdgeInsets.only(

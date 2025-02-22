@@ -17,3 +17,6 @@ const rateScreen= '/rate-screen';
 const privacyScreen= '/privacy-screen';
 const notificationScreen= '/notification-screen';
 const sensorsScreen= '/sensors-page';
+const languagesScreen= '/languages-screen';
+const editProfileScreen= '/edit-profile-screen';
+const editClosestPeopleScreen= '/edit-closest-people-screen';

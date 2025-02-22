@@ -67,20 +67,24 @@ class _WaterSensorScreenState extends State<WaterSensorScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        selectedIndex: _selectedIndex,
-        onItemSelected: (index) {
-          setState(() {
-            _selectedIndex = index;
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => HomeScreen(
-                          index: _selectedIndex,
-                        )),
-                (Route<dynamic> route) => false);
-          });
-        },
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 18),
+        child: CustomBottomNavigationBar(
+          selectedIndex: _selectedIndex,
+          onItemSelected: (index) {
+            setState(() {
+              _selectedIndex = index;
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HomeScreen(
+                            index: _selectedIndex,
+                          )),
+                  (Route<dynamic> route) => false);
+            });
+          },
+        ),
       ),
 
       body: Padding(padding: EdgeInsets.symmetric(horizontal: 20),
