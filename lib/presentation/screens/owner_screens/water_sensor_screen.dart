@@ -2,9 +2,12 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:user_app/constants/app_images.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/pages_name.dart';
+import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
 import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/screens/owner_screens/check_car_scrren.dart';
 import 'package:user_app/presentation/screens/owner_screens/home_screen.dart';
@@ -34,11 +37,13 @@ class _WaterSensorScreenState extends State<WaterSensorScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Color(0xFF1E1E1E) : Colors.white,
       appBar: AppBar(
         elevation: 0,
         scrolledUnderElevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Color(0xFF263238) : Colors.white,
         toolbarHeight: MediaQuery.sizeOf(context).height * 0.08,
         leading: InkWell(
           onTap: () {
@@ -46,7 +51,8 @@ class _WaterSensorScreenState extends State<WaterSensorScreen> {
           },
           child: Icon(
             Icons.arrow_back,
-            color: Colors.black,
+            color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.white : Colors.black,
             size: MediaQuery.sizeOf(context).width > 600 ? 45 : null,
           ),
         ),
@@ -62,7 +68,8 @@ class _WaterSensorScreenState extends State<WaterSensorScreen> {
               child: SvgPicture.asset(
                   width: MediaQuery.sizeOf(context).width > 600 ? 60 : null,
                   height: MediaQuery.sizeOf(context).width > 600 ? 60 : null,
-                  'assets/images/auth_images/notification_user.svg'),
+                   BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Assets.imagesAuthImagesNotificationDark : 'assets/images/auth_images/notification_user.svg'),
             ),
           ),
         ],
@@ -96,13 +103,15 @@ class _WaterSensorScreenState extends State<WaterSensorScreen> {
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Text(
                   LocaleKeys.WaterSensorPage_title.tr(),
-                  style: AppStyle.styleBold25(context),
+                  style: AppStyle.styleBold25(context).copyWith(color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.white : null),
                 ),
               ),
               Text(
                 LocaleKeys.WaterSensorPage_subtitle.tr(),
                 style: AppStyle.styleRegular17(context)
-                    .copyWith(color: Color(0xFF9B9090)),
+                    .copyWith(color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.white : Color(0xFF9B9090)),
               ),
               SizedBox(
                 height: MediaQuery.sizeOf(context).width > 600 ? 200 : 30,
@@ -113,7 +122,8 @@ class _WaterSensorScreenState extends State<WaterSensorScreen> {
                 decoration: ShapeDecoration(shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15)
                 ),
-                color: Colors.white,
+                color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Color(0xFF263238) : Colors.white,
                 shadows: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.2),

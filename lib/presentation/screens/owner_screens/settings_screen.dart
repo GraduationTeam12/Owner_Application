@@ -3,11 +3,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:user_app/constants/app_images.dart';
 import 'package:user_app/constants/app_style.dart';
-import 'package:user_app/constants/colors.dart';
 import 'package:user_app/constants/pages_name.dart';
+import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
 import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/widgets/dialog_logout.dart';
 
@@ -19,8 +20,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  bool _value = false;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -33,7 +32,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               padding: EdgeInsets.symmetric(vertical: 10),
               width: MediaQuery.sizeOf(context).width,
               decoration: ShapeDecoration(
-                  color: Colors.white,
+                  color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Color(0xFF263238)
+                      : Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
@@ -53,15 +54,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       children: [
                         Icon(
                           Icons.person,
-                          color: Colors.black,
                         ),
                         SizedBox(
                           width: 5,
                         ),
                         Text(
                           'Account',
-                          style: AppStyle.styleBold22(context)
-                              .copyWith(color: Colors.black),
+                          style: AppStyle.styleBold22(context).copyWith(
+                              color: BlocProvider.of<ThemeCubit>(context).isDark
+                                  ? Colors.white
+                                  : Colors.black),
                         ),
                       ],
                     ),
@@ -93,8 +95,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ),
                           Text(
                             'Edit Profile',
-                            style: AppStyle.styleRegular22(context)
-                                .copyWith(color: Colors.black),
+                            style: AppStyle.styleRegular22(context).copyWith(
+                                color:
+                                    BlocProvider.of<ThemeCubit>(context).isDark
+                                        ? Colors.white
+                                        : Colors.black),
                           ),
                           Spacer(),
                           Icon(Icons.arrow_forward_ios)
@@ -117,8 +122,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ),
                           Text(
                             'Change Password',
-                            style: AppStyle.styleRegular22(context)
-                                .copyWith(color: Colors.black),
+                            style: AppStyle.styleRegular22(context).copyWith(
+                                color:
+                                    BlocProvider.of<ThemeCubit>(context).isDark
+                                        ? Colors.white
+                                        : Colors.black),
                           ),
                           Spacer(),
                           Icon(Icons.arrow_forward_ios)
@@ -143,8 +151,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ),
                           Text(
                             'Edit Closest people',
-                            style: AppStyle.styleRegular22(context)
-                                .copyWith(color: Colors.black),
+                            style: AppStyle.styleRegular22(context).copyWith(
+                                color:
+                                    BlocProvider.of<ThemeCubit>(context).isDark
+                                        ? Colors.white
+                                        : Colors.black),
                           ),
                           Spacer(),
                           Icon(Icons.arrow_forward_ios)
@@ -163,8 +174,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             Text(
               'Other Settings',
-              style:
-                  AppStyle.styleBold22(context).copyWith(color: Colors.black),
+              style: AppStyle.styleBold22(context).copyWith(
+                  color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.white
+                      : Colors.black),
             ),
             SizedBox(
               height: 8,
@@ -172,7 +185,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Container(
               width: MediaQuery.sizeOf(context).width,
               decoration: ShapeDecoration(
-                  color: Colors.white,
+                  color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Color(0xFF263238)
+                      : Colors.white,
                   shadows: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.25),
@@ -190,23 +205,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.dark_mode),
+                        BlocProvider.of<ThemeCubit>(context).isDark
+                            ? Icon(Icons.dark_mode)
+                            : Icon(Icons.light_mode),
                         SizedBox(
                           width: 5,
                         ),
                         Text(
                           'Dark Mode',
-                          style: AppStyle.styleRegular22(context)
-                              .copyWith(color: Colors.black),
+                          style: AppStyle.styleRegular22(context).copyWith(
+                              color: BlocProvider.of<ThemeCubit>(context).isDark
+                                  ? Colors.white
+                                  : Colors.black),
                         ),
                         Spacer(),
                         Switch(
-                            activeColor: MyColors.premiumColor,
+                            activeColor: Colors.white,
                             inactiveTrackColor: Colors.white,
-                            value: _value,
+                            value: BlocProvider.of<ThemeCubit>(context).isDark,
                             onChanged: (bool value) {
                               setState(() {
-                                _value = value;
+                                BlocProvider.of<ThemeCubit>(context)
+                                    .changeTheme();
                               });
                             })
                       ],
@@ -220,15 +240,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         },
                         child: Row(
                           children: [
-                            SvgPicture.asset(
-                                Assets.imagesAuthImagesEditLanguages),
+                            BlocProvider.of<ThemeCubit>(context).isDark
+                                ? SvgPicture.asset(
+                                    Assets.imagesAuthImagesLanguageDarkMode)
+                                : SvgPicture.asset(
+                                    Assets.imagesAuthImagesEditLanguages),
                             SizedBox(
                               width: 5,
                             ),
                             Text(
                               'Languages',
-                              style: AppStyle.styleRegular22(context)
-                                  .copyWith(color: Colors.black),
+                              style: AppStyle.styleRegular22(context).copyWith(
+                                  color: BlocProvider.of<ThemeCubit>(context)
+                                          .isDark
+                                      ? Colors.white
+                                      : Colors.black),
                             ),
                             Spacer(),
                             Text(
@@ -236,8 +262,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   ? '(English)'
                                   : '(العربية)',
                               style: AppStyle.styleRegular20(context).copyWith(
-                                fontFamily: 'Roboto',
-                              ),
+                                  fontFamily: 'Roboto',
+                                  color: BlocProvider.of<ThemeCubit>(context)
+                                          .isDark
+                                      ? Colors.white
+                                      : null),
                             ),
                           ],
                         )),

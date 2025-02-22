@@ -2,9 +2,12 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:user_app/constants/app_images.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
+import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
 import 'package:user_app/generated/locale_keys.g.dart';
 
 class ContactUsScreen extends StatefulWidget {
@@ -26,7 +29,9 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         ),
         flexibleSpace: Container(
           decoration: BoxDecoration(
-            color: MyColors.premiumColor,
+            color: BlocProvider.of<ThemeCubit>(context).isDark
+                ? Color(0xFF263238)
+                : MyColors.premiumColor,
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(30),
               bottomRight: Radius.circular(30),
@@ -43,7 +48,9 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         ),
         elevation: 0,
         scrolledUnderElevation: 0,
-        backgroundColor: MyColors.premiumColor,
+        backgroundColor: BlocProvider.of<ThemeCubit>(context).isDark
+            ? Color(0xFF263238)
+            : MyColors.premiumColor,
         toolbarHeight: MediaQuery.sizeOf(context).height / 9.8,
         leading: InkWell(
           onTap: () {
@@ -61,7 +68,9 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         ),
         centerTitle: true,
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: BlocProvider.of<ThemeCubit>(context).isDark
+          ? Color(0xFF1E1E1E)
+          : Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -71,14 +80,18 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(LocaleKeys.ContactAdmin_headerText.tr(),
-                      style: AppStyle.styleSemiBold25(context)
-                          .copyWith(color: Colors.black)),
+                      style: AppStyle.styleSemiBold25(context).copyWith(
+                          color: BlocProvider.of<ThemeCubit>(context).isDark
+                              ? Colors.white
+                              : Colors.black)),
                   const SizedBox(
                     height: 50,
                   ),
                   Text(LocaleKeys.ContactAdmin_contactAdmin.tr(),
-                      style: AppStyle.styleSemiBold20(context)
-                          .copyWith(color: Color(0xFF5C5858))),
+                      style: AppStyle.styleSemiBold20(context).copyWith(
+                          color: BlocProvider.of<ThemeCubit>(context).isDark
+                              ? Colors.white
+                              : Color(0xFF5C5858))),
                   const SizedBox(
                     height: 20,
                   ),
@@ -99,14 +112,19 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                     offset: Offset(0, 4),
                                     color: Color.fromRGBO(0, 0, 0, 0.2))
                               ],
-                              color: Colors.white,
+                              color: BlocProvider.of<ThemeCubit>(context).isDark
+                                  ? Color(0xFF263238)
+                                  : Colors.white,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(25),
                               )),
                           child: TextFormField(
                             maxLines: null,
-                            style: AppStyle.styleRegular16(context)
-                                .copyWith(color: Colors.black),
+                            style: AppStyle.styleRegular16(context).copyWith(
+                                color:
+                                    BlocProvider.of<ThemeCubit>(context).isDark
+                                        ? Colors.white
+                                        : Colors.black),
                             keyboardType: TextInputType.text,
                             textInputAction: TextInputAction.done,
                             decoration: InputDecoration(
@@ -117,7 +135,13 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                   minHeight: 0,
                                 ),
                                 hintText: LocaleKeys.ContactAdmin_message.tr(),
-                                hintStyle: AppStyle.styleRegular17(context),
+                                hintStyle: AppStyle.styleRegular17(context)
+                                    .copyWith(
+                                        color:
+                                            BlocProvider.of<ThemeCubit>(context)
+                                                    .isDark
+                                                ? Colors.white
+                                                : null),
                                 border: const OutlineInputBorder(
                                     borderSide: BorderSide.none),
                                 enabledBorder: const OutlineInputBorder(
@@ -141,7 +165,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       child: ElevatedButton(
                         onPressed: () async {},
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: MyColors.premiumColor,
+                          backgroundColor: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.white : MyColors.premiumColor,
                           elevation: 6,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
@@ -150,7 +175,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                         child: Text(
                           LocaleKeys.ContactAdmin_button.tr(),
                           style: AppStyle.styleRegular25(context).copyWith(
-                              fontFamily: 'Inter', color: Colors.white),
+                              fontFamily: 'Inter', color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Color(0xFF263238) : Colors.white),
                         ),
                       ),
                     ),
@@ -165,7 +191,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 10),
                           child: Divider(
-                              color: Colors.black,
+                              color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.grey : Colors.black,
                               thickness: MediaQuery.sizeOf(context).width > 600
                                   ? 2
                                   : 1,
@@ -173,12 +200,14 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                         ),
                       ),
                       Text(LocaleKeys.ContactAdmin_or.tr(),
-                          style: AppStyle.styleRegular25(context)),
+                          style: AppStyle.styleRegular25(context).copyWith(color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.white : null)),
                       Expanded(
                         child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 10),
                           child: Divider(
-                              color: Colors.black,
+                              color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.grey : Colors.black,
                               thickness: MediaQuery.sizeOf(context).width > 600
                                   ? 2
                                   : 1,
@@ -198,7 +227,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                             // openUrl('https://www.twitter.com/');
                           },
                           child: SvgPicture.asset(
-                              'assets/images/auth_images/mage_x.svg')),
+                              BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Assets.imagesAuthImagesTwitterDark : 'assets/images/auth_images/mage_x.svg')),
                       const SizedBox(
                         width: 20,
                       ),
@@ -207,7 +237,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                             // openUrl('https://www.tiktok.com/');
                           },
                           child: SvgPicture.asset(
-                              'assets/images/auth_images/hugeicons_tiktok.svg')),
+                              BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Assets.imagesAuthImagesTiktokDark : 'assets/images/auth_images/hugeicons_tiktok.svg')),
                       const SizedBox(
                         width: 20,
                       ),

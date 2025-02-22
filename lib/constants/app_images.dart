@@ -10,6 +10,10 @@ class Assets {
   /// assets/images/auth_images/caaaaar.png
   static const String imagesAuthImagesCaaaaar = "assets/images/auth_images/caaaaar.png";
 
+  /// Assets for imagesAuthImagesCarDark
+  /// assets/images/auth_images/car_dark.png
+  static const String imagesAuthImagesCarDark = "assets/images/auth_images/car_dark.png";
+
   /// Assets for imagesAuthImagesCarDrawerBlack
   /// assets/images/auth_images/car_drawer_black.svg
   static const String imagesAuthImagesCarDrawerBlack = "assets/images/auth_images/car_drawer_black.svg";
@@ -26,6 +30,10 @@ class Assets {
   /// assets/images/auth_images/contact.svg
   static const String imagesAuthImagesContact = "assets/images/auth_images/contact.svg";
 
+  /// Assets for imagesAuthImagesContactDark
+  /// assets/images/auth_images/contact_dark.svg
+  static const String imagesAuthImagesContactDark = "assets/images/auth_images/contact_dark.svg";
+
   /// Assets for imagesAuthImagesContactDrawerBlack
   /// assets/images/auth_images/contact_drawer_black.svg
   static const String imagesAuthImagesContactDrawerBlack = "assets/images/auth_images/contact_drawer_black.svg";
@@ -37,6 +45,10 @@ class Assets {
   /// Assets for imagesAuthImagesDrawer
   /// assets/images/auth_images/drawer.svg
   static const String imagesAuthImagesDrawer = "assets/images/auth_images/drawer.svg";
+
+  /// Assets for imagesAuthImagesDrawerDark
+  /// assets/images/auth_images/drawer_dark.png
+  static const String imagesAuthImagesDrawerDark = "assets/images/auth_images/drawer_dark.png";
 
   /// Assets for imagesAuthImagesDrawerphoto
   /// assets/images/auth_images/drawerphoto.jpg
@@ -146,6 +158,14 @@ class Assets {
   /// assets/images/auth_images/forgot_password.svg
   static const String imagesAuthImagesForgotPassword = "assets/images/auth_images/forgot_password.svg";
 
+  /// Assets for imagesAuthImagesGroup441
+  /// assets/images/auth_images/group441.svg
+  static const String imagesAuthImagesGroup441 = "assets/images/auth_images/group441.svg";
+
+  /// Assets for imagesAuthImagesGroup451
+  /// assets/images/auth_images/group451.png
+  static const String imagesAuthImagesGroup451 = "assets/images/auth_images/group451.png";
+
   /// Assets for imagesAuthImagesHugeiconsTiktok
   /// assets/images/auth_images/hugeicons_tiktok.svg
   static const String imagesAuthImagesHugeiconsTiktok = "assets/images/auth_images/hugeicons_tiktok.svg";
@@ -154,9 +174,17 @@ class Assets {
   /// assets/images/auth_images/knocksensor.svg
   static const String imagesAuthImagesKnocksensor = "assets/images/auth_images/knocksensor.svg";
 
+  /// Assets for imagesAuthImagesLanguageDarkMode
+  /// assets/images/auth_images/language_dark_mode.svg
+  static const String imagesAuthImagesLanguageDarkMode = "assets/images/auth_images/language_dark_mode.svg";
+
   /// Assets for imagesAuthImagesLocation
   /// assets/images/auth_images/location.svg
   static const String imagesAuthImagesLocation = "assets/images/auth_images/location.svg";
+
+  /// Assets for imagesAuthImagesLocationDark
+  /// assets/images/auth_images/location_dark.svg
+  static const String imagesAuthImagesLocationDark = "assets/images/auth_images/location_dark.svg";
 
   /// Assets for imagesAuthImagesLocationDrawerBlack
   /// assets/images/auth_images/location_drawer_black.svg
@@ -193,6 +221,10 @@ class Assets {
   /// Assets for imagesAuthImagesNnnnnsplash
   /// assets/images/auth_images/nnnnnsplash.png
   static const String imagesAuthImagesNnnnnsplash = "assets/images/auth_images/nnnnnsplash.png";
+
+  /// Assets for imagesAuthImagesNotificationDark
+  /// assets/images/auth_images/notification_dark.svg
+  static const String imagesAuthImagesNotificationDark = "assets/images/auth_images/notification_dark.svg";
 
   /// Assets for imagesAuthImagesNotificationUser
   /// assets/images/auth_images/notification_user.svg
@@ -242,9 +274,17 @@ class Assets {
   /// assets/images/auth_images/privacy.svg
   static const String imagesAuthImagesPrivacy = "assets/images/auth_images/privacy.svg";
 
+  /// Assets for imagesAuthImagesPrivacyDark
+  /// assets/images/auth_images/privacy_dark.svg
+  static const String imagesAuthImagesPrivacyDark = "assets/images/auth_images/privacy_dark.svg";
+
   /// Assets for imagesAuthImagesPrivacyDrawerBlack
   /// assets/images/auth_images/privacy_drawer_black.svg
   static const String imagesAuthImagesPrivacyDrawerBlack = "assets/images/auth_images/privacy_drawer_black.svg";
+
+  /// Assets for imagesAuthImagesProfileDark
+  /// assets/images/auth_images/profile_dark.svg
+  static const String imagesAuthImagesProfileDark = "assets/images/auth_images/profile_dark.svg";
 
   /// Assets for imagesAuthImagesRainsensor
   /// assets/images/auth_images/rainsensor.png
@@ -258,6 +298,10 @@ class Assets {
   /// assets/images/auth_images/rate_us.png
   static const String imagesAuthImagesRateUs = "assets/images/auth_images/rate_us.png";
 
+  /// Assets for imagesAuthImagesSettingDark
+  /// assets/images/auth_images/setting_dark.svg
+  static const String imagesAuthImagesSettingDark = "assets/images/auth_images/setting_dark.svg";
+
   /// Assets for imagesAuthImagesSettings
   /// assets/images/auth_images/settings.svg
   static const String imagesAuthImagesSettings = "assets/images/auth_images/settings.svg";
@@ -269,6 +313,10 @@ class Assets {
   /// Assets for imagesAuthImagesSettingsDrawerBlack
   /// assets/images/auth_images/settings_drawer_black.svg
   static const String imagesAuthImagesSettingsDrawerBlack = "assets/images/auth_images/settings_drawer_black.svg";
+
+  /// Assets for imagesAuthImagesShareDark
+  /// assets/images/auth_images/share_dark.svg
+  static const String imagesAuthImagesShareDark = "assets/images/auth_images/share_dark.svg";
 
   /// Assets for imagesAuthImagesShareDrawerBlack
   /// assets/images/auth_images/share_drawer_black.svg
@@ -282,6 +330,10 @@ class Assets {
   /// assets/images/auth_images/star.svg
   static const String imagesAuthImagesStar = "assets/images/auth_images/star.svg";
 
+  /// Assets for imagesAuthImagesStarDark
+  /// assets/images/auth_images/star_dark.svg
+  static const String imagesAuthImagesStarDark = "assets/images/auth_images/star_dark.svg";
+
   /// Assets for imagesAuthImagesTemp
   /// assets/images/auth_images/temp.png
   static const String imagesAuthImagesTemp = "assets/images/auth_images/temp.png";
@@ -289,6 +341,14 @@ class Assets {
   /// Assets for imagesAuthImagesTempsensor
   /// assets/images/auth_images/tempsensor.svg
   static const String imagesAuthImagesTempsensor = "assets/images/auth_images/tempsensor.svg";
+
+  /// Assets for imagesAuthImagesTiktokDark
+  /// assets/images/auth_images/tiktok_dark.svg
+  static const String imagesAuthImagesTiktokDark = "assets/images/auth_images/tiktok_dark.svg";
+
+  /// Assets for imagesAuthImagesTwitterDark
+  /// assets/images/auth_images/twitter_dark.svg
+  static const String imagesAuthImagesTwitterDark = "assets/images/auth_images/twitter_dark.svg";
 
   /// Assets for imagesAuthImagesUnsplash
   /// assets/images/auth_images/unsplash.jpg

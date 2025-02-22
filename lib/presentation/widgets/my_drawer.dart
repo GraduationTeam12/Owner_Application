@@ -2,10 +2,12 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:user_app/constants/app_images.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/pages_name.dart';
+import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
 import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/models/drawer_model.dart';
 import 'package:user_app/presentation/screens/owner_screens/home_screen.dart';
@@ -33,11 +35,15 @@ class _MyDrawerState extends State<MyDrawer> {
     final List<DrawerModel> items = [
       DrawerModel(
           title: LocaleKeys.Drawer_profile.tr(),
-          img:  Assets.imagesAuthImagesPersonDrawerBlack,
-          onTap: () {}),
+          img: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Assets.imagesAuthImagesProfileDark : Assets.imagesAuthImagesPersonDrawerBlack,
+          onTap: () {
+            Navigator.pushNamed(context, editProfileScreen);
+          }),
       DrawerModel(
           title: LocaleKeys.Drawer_car.tr(),
-          img:  Assets.imagesAuthImagesCarDrawerBlack,
+          img: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Assets.imagesAuthImagesGroup441 : Assets.imagesAuthImagesCarDrawerBlack,
           onTap: () {
             Navigator.push(
                 context,
@@ -48,7 +54,8 @@ class _MyDrawerState extends State<MyDrawer> {
           }),
       DrawerModel(
           title: LocaleKeys.Drawer_location.tr(),
-          img:  Assets.imagesAuthImagesLocationDrawerBlack,
+          img: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Assets.imagesAuthImagesLocationDark : Assets.imagesAuthImagesLocationDrawerBlack,
           onTap: () {
             Navigator.push(
                 context,
@@ -59,30 +66,35 @@ class _MyDrawerState extends State<MyDrawer> {
           }),
       DrawerModel(
           title: LocaleKeys.Drawer_contact.tr(),
-          img:  Assets.imagesAuthImagesContactDrawerBlack,
+          img: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Assets.imagesAuthImagesContactDark : Assets.imagesAuthImagesContactDrawerBlack,
           onTap: () {
             Navigator.pushNamed(context, contactScreen);
           }),
       DrawerModel(
         title: LocaleKeys.Drawer_privacyPolicy.tr(),
-        img:  Assets.imagesAuthImagesPrivacyDrawerBlack,
+        img: BlocProvider.of<ThemeCubit>(context).isDark
+                      ?  Assets.imagesAuthImagesPrivacyDark : Assets.imagesAuthImagesPrivacyDrawerBlack,
         onTap: () {
           Navigator.pushNamed(context, privacyScreen);
         },
       ),
       DrawerModel(
           title: LocaleKeys.Drawer_shareApp.tr(),
-          img:  Assets.imagesAuthImagesShareDrawerBlack,
+          img: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Assets.imagesAuthImagesShareDark : Assets.imagesAuthImagesShareDrawerBlack,
           onTap: () {}),
       DrawerModel(
           title: LocaleKeys.Drawer_rate.tr(),
-          img:  Assets.imagesAuthImagesRateDrawerBlack,
+          img: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Assets.imagesAuthImagesStarDark : Assets.imagesAuthImagesRateDrawerBlack,
           onTap: () {
             Navigator.pushNamed(context, rateScreen);
           }),
       DrawerModel(
           title: LocaleKeys.Drawer_settings.tr(),
-          img:  Assets.imagesAuthImagesSettingsDrawerBlack,
+          img: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Assets.imagesAuthImagesSettingDark : Assets.imagesAuthImagesSettingsDrawerBlack,
           onTap: () {}),
     ];
 
@@ -93,7 +105,9 @@ class _MyDrawerState extends State<MyDrawer> {
             : MediaQuery.of(context).size.width * .8,
         // color: MyColors.premiumColor,
         decoration: ShapeDecoration(
-            color: Colors.white,
+            color: BlocProvider.of<ThemeCubit>(context).isDark
+                ? Color(0xFF263238)
+                : Colors.white,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
               topRight: Radius.circular(10),
@@ -127,13 +141,18 @@ class _MyDrawerState extends State<MyDrawer> {
                         Text(
                           'Ayman Ahmed',
                           style: AppStyle.styleRegular20(context).copyWith(
-                              color: Colors.black, fontWeight: FontWeight.w700),
+                              color: BlocProvider.of<ThemeCubit>(context).isDark
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontWeight: FontWeight.w700),
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
                           'ayman.ahmed@gmail.com',
-                          style: AppStyle.styleRegular20(context)
-                              .copyWith(color: Colors.black.withOpacity(0.5)),
+                          style: AppStyle.styleRegular20(context).copyWith(
+                              color: BlocProvider.of<ThemeCubit>(context).isDark
+                                  ? Colors.white54
+                                  : Colors.black.withOpacity(0.5)),
                           overflow: TextOverflow.ellipsis,
                           maxLines: null,
                         ),
@@ -150,7 +169,9 @@ class _MyDrawerState extends State<MyDrawer> {
               children: [
                 Expanded(
                     child: Divider(
-                  color: Colors.black,
+                  color: BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Colors.grey
+                      : Colors.black,
                   thickness: 0.8,
                 )),
               ],
@@ -190,7 +211,13 @@ class _MyDrawerState extends State<MyDrawer> {
                               child: Text(
                                 items[index].title,
                                 style: AppStyle.styleRegular22(context)
-                                    .copyWith(color: Colors.black , fontFamily: 'Roboto' ),
+                                    .copyWith(
+                                        color:
+                                            BlocProvider.of<ThemeCubit>(context)
+                                                    .isDark
+                                                ? Colors.white
+                                                : Colors.black,
+                                        fontFamily: 'Roboto'),
                               ),
                             ),
                             // Transform.rotate(
@@ -226,7 +253,6 @@ class _MyDrawerState extends State<MyDrawer> {
             // SizedBox(
             //   height: 30,
             // ),
-            
           ]),
         )));
   }
