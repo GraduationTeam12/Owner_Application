@@ -1,6 +1,7 @@
 class EndPoint {
   static const String baseUrl = 'https://satars.onrender.com/';
-  static const String logIn = 'users/login';
+  static const String logIn = 'api/v1/users/login';
+  static const String boardData = 'api/v1/users/board-data';
   static const String forgotPassword = 'users/forgotPass';
   static const String sendCode = 'users/verifyOtp';
   static const String changeForgottenPassword =

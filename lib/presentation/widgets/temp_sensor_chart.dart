@@ -1,15 +1,17 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:easy_localization/easy_localization.dart';
+ 
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
-import 'package:user_app/generated/locale_keys.g.dart';
+ 
 
 class CircularGauge extends StatelessWidget {
-  const CircularGauge({super.key});
+  const CircularGauge({super.key, required this.value, required this.status});
 
+  final dynamic value;
+  final String status;
   @override
   Widget build(BuildContext context) {
     return SfRadialGauge(
@@ -42,8 +44,8 @@ class CircularGauge extends StatelessWidget {
               color: Colors.black26,
               lengthUnit: GaugeSizeUnit.logicalPixel),
           axisLineStyle: AxisLineStyle(
-            thickness: MediaQuery.sizeOf(context).width > 600 ? 12 : 5,
-            color: Colors.red,
+            thickness: MediaQuery.sizeOf(context).width > 600 ? 12 : 7,
+            color: status == 'Medium' ? Colors.amber  : status == 'Normal' ? Colors.green : Colors.red,
             thicknessUnit: GaugeSizeUnit.logicalPixel,
           ),
           pointers: <GaugePointer>[
@@ -59,7 +61,7 @@ class CircularGauge extends StatelessWidget {
               animationDuration: 2500,
             ),
             MarkerPointer(
-              value: 300,
+              value: double.parse(value.toString()),
               markerHeight: MediaQuery.sizeOf(context).width > 600 ? 30 : 15,
               markerWidth: MediaQuery.sizeOf(context).width > 600 ? 30 : 15,
               markerType: MarkerType.circle,
@@ -91,16 +93,16 @@ class CircularGauge extends StatelessWidget {
                   // mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('100.11°',
+                    Text('$value°',
                         style: AppStyle.styleBold30(context).copyWith(
                             color: Colors.black, fontFamily: 'Roboto')),
                     SizedBox(
                       height: 15,
                     ),
                     FittedBox(
-                      child: Text(LocaleKeys.SensorsState_problem.tr(),
+                      child: Text(status,
                           style: AppStyle.styleBold40(context).copyWith(
-                            color: Color(0xFF5C5858),
+                            color: status == 'Medium' ? Colors.amber : Color(0xFF5C5858),
                             fontFamily: 'Roboto',
                           )),
                     ),

@@ -7,7 +7,6 @@ import 'package:user_app/core/error/exceptions.dart';
 class AuthRepository {
   final ApiConsumer apiConsumer;
 
-
   AuthRepository({required this.apiConsumer});
 
   Future<Either<String, LoginModel>> login({
@@ -18,7 +17,11 @@ class AuthRepository {
     try {
       final response = await apiConsumer.post(
         EndPoint.logIn,
-        data: {ApiKeys.email: email, ApiKeys.password: password , 'fcmToken' : fcmToken},
+        data: {
+          ApiKeys.email: email,
+          ApiKeys.password: password,
+          'fcmToken': fcmToken
+        },
       );
       return Right(LoginModel.fromJson(response));
     } on ServerException catch (error) {
@@ -63,6 +66,27 @@ class AuthRepository {
         ApiKeys.confirmPassword: confirmPassword,
       });
       return Right(response[ApiKeys.message]);
+    } on ServerException catch (error) {
+      return Left(error.errorModel.errorMessage);
+    } catch (e) {
+      return Left(e.toString());
+    }
+  }
+
+  Future<Either<String, dynamic>> getBoardData() async {
+    final String token =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3OWJhNWRhNDY3NTM2MDdlMDQ4MTIwMyIsImlhdCI6MTczODc2NDQ2NywiZXhwIjoxODMzNDM3MjY3fQ.3D4Zxmo6xm_G830ldm42rmn-TGKrCfmvyxcq_Usyb9o';
+    try {
+      final response = await apiConsumer.get(
+        EndPoint.boardData,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      // BoardModel boardModel = BoardModel.fromJson(response);
+
+      return Right(response);
     } on ServerException catch (error) {
       return Left(error.errorModel.errorMessage);
     } catch (e) {

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_app/constants/pages_name.dart';
 import 'package:user_app/core/api/dio_consumer.dart';
 import 'package:user_app/core/data/repo/auth_repo.dart';
+import 'package:user_app/core/logic/board_cubit/board_cubit.dart';
 import 'package:user_app/core/logic/forgot_password_cubit/cubit/forgot_password_cubit.dart';
 import 'package:user_app/core/logic/login_cubit/login_cubit.dart';
 import 'package:user_app/presentation/screens/owner_screens/add_members_screen.dart';
@@ -22,6 +23,7 @@ import 'package:user_app/presentation/screens/owner_screens/privacy_screen.dart'
 import 'package:user_app/presentation/screens/owner_screens/rate_us_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/reset_password_emal_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/reset_password_phone_screen.dart';
+import 'package:user_app/presentation/screens/owner_screens/sensors_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/sign_in_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/splash_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/temp_sensor_screen.dart';
@@ -86,8 +88,7 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const OwnerCarSplashScreen());
 
       case homePageScreen:
-        return MaterialPageRoute(
-            builder: (_) => HomeScreen());
+        return MaterialPageRoute(builder: (_) => HomeScreen());
 
       case knockSensorScreen:
         return MaterialPageRoute(builder: (_) => const KnockSensorScreen());
@@ -109,6 +110,14 @@ class AppRouter {
 
       case notificationScreen:
         return MaterialPageRoute(builder: (_) => const NotificationScreen());
+
+      case sensorsScreen:
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+                  create: (context) => BoardCubit(
+                      AuthRepository(apiConsumer: DioConsumer(dio: Dio()))),
+                  child: const SensorsScreen(),
+                ));
     }
   }
 }

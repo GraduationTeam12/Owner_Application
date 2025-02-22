@@ -16,3 +16,4 @@ const contactScreen = '/contact-screen';
 const rateScreen= '/rate-screen';
 const privacyScreen= '/privacy-screen';
 const notificationScreen= '/notification-screen';
+const sensorsScreen= '/sensors-page';

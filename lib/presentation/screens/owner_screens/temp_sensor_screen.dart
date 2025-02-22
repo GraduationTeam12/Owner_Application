@@ -1,10 +1,13 @@
-// ignore_for_file: unused_field, deprecated_member_use
+// ignore_for_file: unused_field, deprecated_member_use, library_prefixes, avoid_print
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:user_app/constants/app_style.dart';
+import 'package:user_app/constants/colors.dart';
 import 'package:user_app/constants/pages_name.dart';
+import 'package:user_app/core/api/end_points.dart';
+import 'package:user_app/core/cache/cache_helper.dart';
 import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/screens/owner_screens/check_car_scrren.dart';
 import 'package:user_app/presentation/screens/owner_screens/home_screen.dart';
@@ -13,6 +16,7 @@ import 'package:user_app/presentation/screens/owner_screens/profile_screeen.dart
 import 'package:user_app/presentation/screens/owner_screens/settings_screen.dart';
 import 'package:user_app/presentation/widgets/bottom_navigation_bar.dart';
 import 'package:user_app/presentation/widgets/temp_sensor_chart.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class TempSensorScreen extends StatefulWidget {
   const TempSensorScreen({super.key});
@@ -22,6 +26,97 @@ class TempSensorScreen extends StatefulWidget {
 }
 
 class _TempSensorScreenState extends State<TempSensorScreen> {
+  late IO.Socket socket;
+  Map<String, dynamic> sensorData = {};
+  Map<String, dynamic> locationData = {};
+  String status = '';
+  String token = CacheHelper().getData(key: ApiKeys.token);
+  dynamic tempValue = 0;
+  String tempLevel = '';
+
+  // CacheHelper().getData(key: ApiKeys.token);
+  final String notificationsKey = 'cached_notifications';
+
+  @override
+  void initState() {
+    super.initState();
+
+    // _loadCachedNotifications();
+    _connectToSocket();
+  }
+
+  // Future<void> _loadCachedNotifications() async {
+  //   var cachedData = CacheHelper().getData(key: notificationsKey);
+  //   if (cachedData != null) {
+  //     setState(() {
+  //       notifications = jsonDecode(cachedData);
+  //     });
+  //   }
+  // }
+
+  // Future<void> _saveNotificationsToCache(List<dynamic> data) async {
+  //   await CacheHelper().saveData(
+  //     key: notificationsKey,
+  //     value: jsonEncode(data),
+  //   );
+  // }
+
+  void _connectToSocket() {
+    socket = IO.io(
+      'https://satars.onrender.com/user-sensors',
+      IO.OptionBuilder()
+          .setTransports(['websocket'])
+          .setExtraHeaders({'Authorization': 'Bearer $token'})
+          .disableAutoConnect()
+          .build(),
+    );
+
+    socket.onConnect((_) {
+      print('Connected to server');
+      print(token);
+    });
+
+    socket.on('board-data-updated', (data) async {
+      print('Data received: $data');
+
+      setState(() {
+        locationData = data['Location'];
+        sensorData = data['sensors'];
+        tempValue = sensorData['fire']['temperature value'];
+        tempLevel = sensorData['fire']['classification level'];
+        status = data['status'];
+      });
+      // if (!_areNotificationsEqual(notifications, boardData)) {
+      //   setState(() {
+      //     notifications = boardData;
+      //   });
+
+      //   // await _saveNotificationsToCache(notifications);
+      // }
+    });
+
+    socket.onDisconnect((_) {
+      print('Disconnected from server');
+    });
+
+    socket.connect();
+  }
+
+  // bool _areNotificationsEqual(
+  //     List<dynamic> old, List<dynamic> newNotifications) {
+  //   if (old.length != newNotifications.length) return false;
+  //   for (int i = 0; i < old.length; i++) {
+  //     if (old[i]['id'] != newNotifications[i]['id']) return false;
+  //   }
+  //   return true;
+  // }
+
+  @override
+  void dispose() {
+    socket.disconnect();
+    super.dispose();
+  }
+
   int _selectedIndex = 0;
 
   final List<Widget> _screens = [
@@ -53,7 +148,7 @@ class _TempSensorScreenState extends State<TempSensorScreen> {
           Padding(
             padding: context.locale.languageCode == 'ar'
                 ? const EdgeInsets.symmetric(horizontal: 20)
-                :const EdgeInsets.only(right: 20),
+                : const EdgeInsets.only(right: 20),
             child: InkWell(
               onTap: () {
                 Navigator.pushNamed(context, notificationScreen);
@@ -120,7 +215,13 @@ class _TempSensorScreenState extends State<TempSensorScreen> {
                           offset: Offset(0, 4),
                         )
                       ]),
-                  child: Center(child: CircularGauge()))
+                  child: Center(
+                      child: tempLevel == '' ? CircularProgressIndicator(
+                        color: MyColors.premiumColor,
+                      ) : CircularGauge(
+                    value: tempValue,
+                    status: tempLevel,
+                  )))
             ],
           ),
         ),

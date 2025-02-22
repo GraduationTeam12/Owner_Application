@@ -54,7 +54,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 scrolledUnderElevation: 0,
                 backgroundColor: Colors.white,
                 toolbarHeight: MediaQuery.sizeOf(context).height * 0.08,
-                leadingWidth: MediaQuery.sizeOf(context).width > 600 ? 80 : null,
+                leadingWidth:
+                    MediaQuery.sizeOf(context).width > 600 ? 80 : null,
                 leading: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: InkWell(
