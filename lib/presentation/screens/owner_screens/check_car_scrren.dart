@@ -13,7 +13,7 @@ class CheckCarScrren extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 0),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,22 +33,26 @@ class CheckCarScrren extends StatelessWidget {
                       ? MediaQuery.sizeOf(context).width * 0.15
                       : 70,
             ),
-            Center(
-                child: Image.asset(
-                    fit: BoxFit.fill,
-                    width: MediaQuery.sizeOf(context).width > 600
-                        ? MediaQuery.sizeOf(context).width * 0.8
-                        : null,
-                    height: MediaQuery.sizeOf(context).width > 600
-                        ? MediaQuery.sizeOf(context).height * 0.5
-                        : null,
-                    'assets/images/auth_images/caaaaar.png')),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Center(
+                  child: Image.asset(
+                      fit: BoxFit.fill,
+                      width: MediaQuery.sizeOf(context).width > 600
+                          ? MediaQuery.sizeOf(context).width * 0.8
+                          : null,
+                      height: MediaQuery.sizeOf(context).width > 600
+                          ? MediaQuery.sizeOf(context).height * 0.5
+                          : null,
+                      'assets/images/auth_images/caaaaar.png')),
+            ),
             SizedBox(
               height: MediaQuery.sizeOf(context).width > 600 ? 10 : 60,
             ),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: SizedBox(
+              child: Container(
+                margin: EdgeInsets.only(bottom: 8),
                 height: MediaQuery.sizeOf(context).width > 600
                     ? 250
                     : MediaQuery.sizeOf(context).width > 500 &&
@@ -57,6 +61,7 @@ class CheckCarScrren extends StatelessWidget {
                         : 150,
                 child: Row(
                   children: [
+                    SizedBox(width: MediaQuery.sizeOf(context).width > 600 ? 30 : 20,),
                     Wrap(
                       spacing: MediaQuery.sizeOf(context).width > 600 ? 30 : 20,
                       children: [
@@ -224,10 +229,12 @@ class CheckCarScrren extends StatelessWidget {
                         )
                       ],
                     ),
+                    SizedBox(width: MediaQuery.sizeOf(context).width > 600 ? 30 : 20,),
                   ],
                 ),
               ),
             ),
+              SizedBox(height: MediaQuery.sizeOf(context).width > 600 ? 125 : 65),
           ],
         ),
       ),

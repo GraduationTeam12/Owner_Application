@@ -29,6 +29,13 @@ class _MyDrawerState extends State<MyDrawer> {
       endIndent: 10,
     );
   }
+  late List<bool> isHoveredList; 
+
+  @override
+  void initState() {
+    super.initState();
+    isHoveredList = List.generate(8, (_) => false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,16 +126,20 @@ class _MyDrawerState extends State<MyDrawer> {
             child: SingleChildScrollView(
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              SizedBox(
+              height: MediaQuery.sizeOf(context).width > 600 ? 60 : 30,
+            ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  SizedBox(width: MediaQuery.sizeOf(context).width > 600 ?33: 20 ,),
                   ClipOval(
                     child: Image.asset(
-                        width: MediaQuery.sizeOf(context).width > 600 ? 75 : 60,
+                        width: MediaQuery.sizeOf(context).width > 600 ? 120 : 60,
                         height:
-                            MediaQuery.sizeOf(context).width > 600 ? 75 : 60,
+                            MediaQuery.sizeOf(context).width > 600 ? 120 : 60,
                         'assets/images/auth_images/drawerphoto.jpg'),
                   ),
                   SizedBox(
@@ -158,7 +169,8 @@ class _MyDrawerState extends State<MyDrawer> {
                         ),
                       ],
                     ),
-                  )
+                  ),
+                  SizedBox(width: MediaQuery.sizeOf(context).width > 600 ?12: 25 ,),
                 ],
               ),
             ),
@@ -173,12 +185,14 @@ class _MyDrawerState extends State<MyDrawer> {
                       ? Colors.grey
                       : Colors.black,
                   thickness: 0.8,
+                  endIndent: MediaQuery.sizeOf(context).width > 600 ?25: 12,
+                  indent: MediaQuery.sizeOf(context).width > 600 ?25: 12,
                 )),
               ],
             ),
 
             SizedBox(
-              height: MediaQuery.sizeOf(context).width > 600 ? 60 : 30,
+              height: MediaQuery.sizeOf(context).width > 600 ? 8 : 8,
             ),
             ListView.builder(
               shrinkWrap: true,
@@ -186,66 +200,93 @@ class _MyDrawerState extends State<MyDrawer> {
               itemCount: items.length,
               itemBuilder: (context, index) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: InkWell(
-                    onTap: items[index].onTap,
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: SvgPicture.asset(
-                                items[index].img,
-                                width: MediaQuery.sizeOf(context).width > 600
-                                    ? 40
-                                    : 24,
-                                height: MediaQuery.sizeOf(context).width > 600
-                                    ? 40
-                                    : 24,
+                  padding: const EdgeInsets.symmetric(vertical: 0),
+                  child: StatefulBuilder(
+                    
+                    builder: (context, setState){
+                      return GestureDetector(
+                        onTapDown: (_) => setState(() => isHoveredList[index] = true),
+                        onTapUp: (_) => setState(() => isHoveredList[index] = false),
+                        onTapCancel: () => setState(() => isHoveredList[index] = false),
+                        child: InkWell(
+                          onTap: items[index].onTap,
+                          child:AnimatedContainer(
+                              duration: const Duration(milliseconds: 200),
+                              decoration: BoxDecoration(
+                                color: isHoveredList[index] 
+                                      ? Colors.grey.withOpacity(0.2) 
+                                      : Colors.transparent, ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10,),
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: MediaQuery.sizeOf(context).width > 600
+                                        ? MediaQuery.sizeOf(context).height * 0.02
+                                        : 5.5,
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      SizedBox(width: MediaQuery.sizeOf(context).width > 600 ?  30.0: 12.0),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.symmetric(horizontal: 10),
+                                        child: SvgPicture.asset(
+                                          items[index].img,
+                                          width: MediaQuery.sizeOf(context).width > 600
+                                              ? 40
+                                              : 24,
+                                          height: MediaQuery.sizeOf(context).width > 600
+                                              ? 40
+                                              : 24,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Expanded(
+                                        child: Text(
+                                          items[index].title,
+                                          style: AppStyle.styleRegular22(context)
+                                              .copyWith(
+                                                  color:
+                                                      BlocProvider.of<ThemeCubit>(context)
+                                                              .isDark
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                  fontFamily: 'Roboto'),
+                                        ),
+                                      ),
+                                      // Transform.rotate(
+                                      //   angle: -1.5708 * 2,
+                                      //   child: Icon(
+                                      //     Icons.arrow_back_ios_new_outlined,
+                                      //     color: Colors.white,
+                                      //     size: MediaQuery.sizeOf(context).width > 600
+                                      //         ? 40
+                                      //         : 20,
+                                      //   ),
+                                      // ),
+                                      SizedBox(
+                                        width: MediaQuery.sizeOf(context).width > 600
+                                            ? 20
+                                            : 10,
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: MediaQuery.sizeOf(context).width > 600
+                                        ? MediaQuery.sizeOf(context).height * 0.02
+                                        : 5.5,
+                                  ),
+                                  // buildDrawerListItemsDivider(),
+                                  // const SizedBox(height: 10)
+                                ],
                               ),
                             ),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: Text(
-                                items[index].title,
-                                style: AppStyle.styleRegular22(context)
-                                    .copyWith(
-                                        color:
-                                            BlocProvider.of<ThemeCubit>(context)
-                                                    .isDark
-                                                ? Colors.white
-                                                : Colors.black,
-                                        fontFamily: 'Roboto'),
-                              ),
-                            ),
-                            // Transform.rotate(
-                            //   angle: -1.5708 * 2,
-                            //   child: Icon(
-                            //     Icons.arrow_back_ios_new_outlined,
-                            //     color: Colors.white,
-                            //     size: MediaQuery.sizeOf(context).width > 600
-                            //         ? 40
-                            //         : 20,
-                            //   ),
-                            // ),
-                            SizedBox(
-                              width: MediaQuery.sizeOf(context).width > 600
-                                  ? 20
-                                  : 10,
-                            )
-                          ],
+                          ),
                         ),
-                        SizedBox(
-                          height: MediaQuery.sizeOf(context).width > 600
-                              ? MediaQuery.sizeOf(context).height * 0.02
-                              : 11,
-                        ),
-                        // buildDrawerListItemsDivider(),
-                        const SizedBox(height: 10)
-                      ],
-                    ),
+                      );
+                    }
                   ),
                 );
               },
