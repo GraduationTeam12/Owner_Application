@@ -10,6 +10,7 @@ import 'package:user_app/constants/pages_name.dart';
 import 'package:user_app/core/api/end_points.dart';
 import 'package:user_app/core/cache/cache_helper.dart';
 import 'package:user_app/core/logic/logout_cubit/logout_cubit.dart';
+import 'package:user_app/core/logic/notification_cubit/notification_cubit.dart';
 import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
 import 'package:user_app/firebase_options.dart';
 import 'package:user_app/generated/codegen_loader.g.dart';
@@ -43,6 +44,7 @@ Future<void> main() async {
         BlocProvider(
           create: (context) => ThemeCubit()..getTheme(),
         ),
+         BlocProvider(create: (_) => NotificationCubit()..loadNotifications()), 
       ],
       child: EasyLocalization(
         supportedLocales: [Locale('ar'), Locale('en')],
