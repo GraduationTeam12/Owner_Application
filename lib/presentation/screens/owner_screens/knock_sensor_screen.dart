@@ -112,13 +112,13 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
       //   },
       // ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 8.0),
+                padding: const EdgeInsets.only(top: 8.0,left: 20,right: 20),
                 child: Text(
                   LocaleKeys.knockSensorPage_title.tr(),
                   style: AppStyle.styleBold25(context).copyWith(
@@ -127,29 +127,36 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
                           : null),
                 ),
               ),
-              Text(
-                LocaleKeys.knockSensorPage_subtitle.tr(),
-                style: AppStyle.styleRegular17(context).copyWith(
-                    color: BlocProvider.of<ThemeCubit>(context).isDark
-                        ? Colors.white
-                        : Color(0xFF9B9090)),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  LocaleKeys.knockSensorPage_subtitle.tr(),
+                  style: AppStyle.styleRegular17(context).copyWith(
+                      color: BlocProvider.of<ThemeCubit>(context).isDark
+                          ? Colors.white
+                          : Color(0xFF9B9090)),
+                ),
               ),
               SizedBox(
                 height: 30,
               ),
-              Text(
-                LocaleKeys.knockSensorPage_center.tr(),
-                style: AppStyle.styleRegular20(context).copyWith(
-                    fontFamily: 'Roboto',
-                    color: BlocProvider.of<ThemeCubit>(context).isDark
-                        ? Colors.white
-                        : Colors.black),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  LocaleKeys.knockSensorPage_center.tr(),
+                  style: AppStyle.styleRegular20(context).copyWith(
+                      fontFamily: 'Roboto',
+                      color: BlocProvider.of<ThemeCubit>(context).isDark
+                          ? Colors.white
+                          : Colors.black),
+                ),
               ),
               SizedBox(
                 height: 20,
               ),
               Center(
                 child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20),
                   height: MediaQuery.sizeOf(context).width > 600 ? 500 : 300,
                   width: double.infinity,
                   decoration: ShapeDecoration(
@@ -183,6 +190,7 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
                       Wrap(
                         spacing: 20,
                         children: [
+                          Padding(padding: EdgeInsets.only(left: 0)),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -293,6 +301,7 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
                               ),
                             ],
                           ),
+                        Padding(padding: EdgeInsets.only(left: 0)),
                         ],
                       ),
                     ],
@@ -311,6 +320,7 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
                       Wrap(
                         spacing: 20,
                         children: [
+                          Padding(padding: EdgeInsets.only(left: 0)),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -423,12 +433,14 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
                               ),
                             ],
                           ),
+                        Padding(padding: EdgeInsets.only(left: 0)),
                         ],
                       ),
                     ],
                   ),
                 ),
               ),
+              SizedBox(height: MediaQuery.sizeOf(context).width > 600 ? 135 : 75),
             ],
           ),
         ),

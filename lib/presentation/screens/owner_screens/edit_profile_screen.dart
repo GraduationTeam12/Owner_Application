@@ -66,6 +66,17 @@ class EditProfileScreen extends StatelessWidget {
                             color: Colors.white,
                           ),
                         )),
+                          Positioned(
+                        top: MediaQuery.sizeOf(context).height * 0.25 - 60-4,
+                        left: 40-4,
+                        child:Container(
+                            width: 128,
+                          height: 128,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(150)
+                          ),
+                        )),
                     Positioned(
                         top: MediaQuery.sizeOf(context).height * 0.25 - 60,
                         left: 40,
@@ -78,12 +89,19 @@ class EditProfileScreen extends StatelessWidget {
                     Positioned(
                         left: 135,
                         top: MediaQuery.sizeOf(context).height * 0.25 - 60,
-                        child: InkWell(
-                            onTap: () {},
-                            child: Icon(
-                              Icons.add_a_photo,
-                              color: Colors.white,
-                            ))),
+                        child: Container(
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(224, 224, 224, 1),
+                            borderRadius: BorderRadius.circular(30)
+                          ),
+                          child: InkWell(
+                              onTap: () {},
+                              child: Icon(
+                                Icons.add_a_photo,
+                                color: Colors.white,
+                              )),
+                        )),
                     Positioned(
                         left: 175,
                         top: MediaQuery.sizeOf(context).width > 600
