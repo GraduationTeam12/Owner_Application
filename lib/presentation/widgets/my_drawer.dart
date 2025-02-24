@@ -11,6 +11,7 @@ import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
 import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/models/drawer_model.dart';
 import 'package:user_app/presentation/screens/owner_screens/home_screen.dart';
+import 'package:user_app/presentation/widgets/dialog_logout.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});
@@ -294,6 +295,58 @@ class _MyDrawerState extends State<MyDrawer> {
             // SizedBox(
             //   height: 30,
             // ),
+              SizedBox(
+              height:  12,
+            ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal:  MediaQuery.sizeOf(context).width > 600 ?  38.0: 20.0),
+                      height:
+                          MediaQuery.sizeOf(context).width > 600 ? 70 : null,
+                      width: context.locale.languageCode == 'ar' &&
+                              MediaQuery.sizeOf(context).width > 600
+                          ? 350
+                          : context.locale.languageCode == 'ar' &&
+                                  MediaQuery.sizeOf(context).width < 600
+                              ? 200
+                              : MediaQuery.sizeOf(context).width > 600
+                                  ? 250
+                                  : 150,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          showLogOutDialog(context);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromRGBO(255, 189, 0, 1),
+                          shape: RoundedRectangleBorder(
+                            //side: const BorderSide(color: Color(0xFFA8A1A1)),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.logout,
+                              color: Colors.white,
+                              size: MediaQuery.sizeOf(context).width > 600
+                                  ? 40
+                                  : 24,
+                            ),
+                            const SizedBox(width: 10),
+                            FittedBox(
+                              child: Text(
+                                LocaleKeys.Drawer_logout.tr(),
+                                style: AppStyle.styleRegular20(context)
+                                    .copyWith(color: Colors.white),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                SizedBox(
+              height: MediaQuery.sizeOf(context).width > 600 ? 30 : 20,
+            ),      
           ]),
         )));
   }
