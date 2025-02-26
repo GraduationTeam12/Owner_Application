@@ -7,7 +7,7 @@ import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
 class SensorChart extends StatelessWidget {
   const SensorChart({super.key, required this.percent, required this.title});
 
-  final String percent;
+  final int percent;
   final String title;
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class SensorChart extends StatelessWidget {
           ),
           pointers: <GaugePointer>[
             RangePointer(
-              value: 15.66,
+              value: percent.toDouble(),
               width: 0.15,
               sizeUnit: GaugeSizeUnit.factor,
               color: Colors.red,
@@ -46,7 +46,7 @@ class SensorChart extends StatelessWidget {
                 children: [
                   Positioned(
                     top: MediaQuery.sizeOf(context).width > 600 ? 0 : 38,
-                    child: Text(percent,
+                    child: Text("$percent %",
                         style: AppStyle.styleBold30(context).copyWith(
                           color: BlocProvider.of<ThemeCubit>(context).isDark
                       ?  Colors.white:  Colors.black,

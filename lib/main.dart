@@ -1,4 +1,5 @@
 import 'package:device_preview/device_preview.dart';
+import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_app/constants/app_constants.dart';
 import 'package:user_app/constants/app_theme_data.dart';
 import 'package:user_app/constants/pages_name.dart';
+import 'package:user_app/core/api/dio_consumer.dart';
 import 'package:user_app/core/api/end_points.dart';
 import 'package:user_app/core/cache/cache_helper.dart';
+import 'package:user_app/core/data/repo/auth_repo.dart';
+import 'package:user_app/core/logic/board_cubit/board_cubit.dart';
 import 'package:user_app/core/logic/logout_cubit/logout_cubit.dart';
 import 'package:user_app/core/logic/notification_cubit/notification_cubit.dart';
 import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
@@ -45,6 +49,7 @@ Future<void> main() async {
           create: (context) => ThemeCubit()..getTheme(),
         ),
          BlocProvider(create: (_) => NotificationCubit()..loadNotifications()), 
+         BlocProvider(create: (_) =>  BoardCubit(AuthRepository(apiConsumer: DioConsumer(dio: Dio())))..connectToSocket()), 
       ],
       child: EasyLocalization(
         supportedLocales: [Locale('ar'), Locale('en')],
