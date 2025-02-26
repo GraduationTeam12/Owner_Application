@@ -10,6 +10,7 @@ import 'package:user_app/constants/colors.dart';
 import 'package:user_app/constants/pages_name.dart';
 import 'package:user_app/core/api/end_points.dart';
 import 'package:user_app/core/cache/cache_helper.dart';
+import 'package:user_app/core/logic/board_cubit/board_cubit.dart';
 import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
 import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/screens/owner_screens/check_car_scrren.dart';
@@ -29,94 +30,21 @@ class TempSensorScreen extends StatefulWidget {
 }
 
 class _TempSensorScreenState extends State<TempSensorScreen> {
-  late IO.Socket socket;
-  Map<String, dynamic> sensorData = {};
-  Map<String, dynamic> locationData = {};
-  String status = '';
-  String token = CacheHelper().getData(key: ApiKeys.token);
-  dynamic tempValue = 0;
-  String tempLevel = '';
-
-  // CacheHelper().getData(key: ApiKeys.token);
+  
   final String notificationsKey = 'cached_notifications';
+
 
   @override
   void initState() {
     super.initState();
-
-    // _loadCachedNotifications();
-    _connectToSocket();
+    final boardCubit = BlocProvider.of<BoardCubit>(context);
+    boardCubit.getBoardData();
+    boardCubit.connectToSocket();
   }
-
-  // Future<void> _loadCachedNotifications() async {
-  //   var cachedData = CacheHelper().getData(key: notificationsKey);
-  //   if (cachedData != null) {
-  //     setState(() {
-  //       notifications = jsonDecode(cachedData);
-  //     });
-  //   }
-  // }
-
-  // Future<void> _saveNotificationsToCache(List<dynamic> data) async {
-  //   await CacheHelper().saveData(
-  //     key: notificationsKey,
-  //     value: jsonEncode(data),
-  //   );
-  // }
-
-  void _connectToSocket() {
-    socket = IO.io(
-      'https://satars.onrender.com/user-sensors',
-      IO.OptionBuilder()
-          .setTransports(['websocket'])
-          .setExtraHeaders({'Authorization': 'Bearer $token'})
-          .disableAutoConnect()
-          .build(),
-    );
-
-    socket.onConnect((_) {
-      print('Connected to server');
-      print(token);
-    });
-
-    socket.on('board-data-updated', (data) async {
-      print('Data received: $data');
-
-      setState(() {
-        locationData = data['Location'];
-        sensorData = data['sensors'];
-        tempValue = sensorData['fire']['temperature value'];
-        tempLevel = sensorData['fire']['classification level'];
-        status = data['status'];
-      });
-      // if (!_areNotificationsEqual(notifications, boardData)) {
-      //   setState(() {
-      //     notifications = boardData;
-      //   });
-
-      //   // await _saveNotificationsToCache(notifications);
-      // }
-    });
-
-    socket.onDisconnect((_) {
-      print('Disconnected from server');
-    });
-
-    socket.connect();
-  }
-
-  // bool _areNotificationsEqual(
-  //     List<dynamic> old, List<dynamic> newNotifications) {
-  //   if (old.length != newNotifications.length) return false;
-  //   for (int i = 0; i < old.length; i++) {
-  //     if (old[i]['id'] != newNotifications[i]['id']) return false;
-  //   }
-  //   return true;
-  // }
 
   @override
   void dispose() {
-    socket.disconnect();
+    // BlocProvider.of<BoardCubit>(context).close(); 
     super.dispose();
   }
 
@@ -202,16 +130,17 @@ class _TempSensorScreenState extends State<TempSensorScreen> {
                 child: Text(
                   LocaleKeys.TempSensorPage_title.tr(),
                   style: AppStyle.styleBold25(context).copyWith(
-                    color: BlocProvider.of<ThemeCubit>(context).isDark
-                      ? Colors.white : null
-                  ),
+                      color: BlocProvider.of<ThemeCubit>(context).isDark
+                          ? Colors.white
+                          : null),
                 ),
               ),
               Text(
                 LocaleKeys.TempSensorPage_subtitle.tr(),
-                style: AppStyle.styleRegular17(context)
-                    .copyWith(color: BlocProvider.of<ThemeCubit>(context).isDark
-                      ? Colors.white : Color(0xFF9B9090)),
+                style: AppStyle.styleRegular17(context).copyWith(
+                    color: BlocProvider.of<ThemeCubit>(context).isDark
+                        ? Colors.white
+                        : Color(0xFF9B9090)),
               ),
               SizedBox(
                 height: MediaQuery.sizeOf(context).width > 600 ? 200 : 30,
@@ -227,7 +156,8 @@ class _TempSensorScreenState extends State<TempSensorScreen> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)),
                       color: BlocProvider.of<ThemeCubit>(context).isDark
-                      ? Color(0xFF263238) : Colors.white,
+                          ? Color(0xFF263238)
+                          : Colors.white,
                       shadows: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.2),
@@ -236,15 +166,30 @@ class _TempSensorScreenState extends State<TempSensorScreen> {
                         )
                       ]),
                   child: Center(
-                      child: tempLevel == ''
-                          ? CircularProgressIndicator(
-                              color: BlocProvider.of<ThemeCubit>(context).isDark
-                      ? Colors.white : MyColors.premiumColor,
-                            )
-                          : CircularGauge(
-                              value: tempValue,
-                              status: tempLevel,
-                            )))
+                    child: BlocBuilder<BoardCubit, BoardState>(
+                      builder: (context, state) {
+                        if (state is BoardLoading) {
+                          return CircularProgressIndicator(
+                            color: BlocProvider.of<ThemeCubit>(context).isDark
+                                ? Colors.white
+                                : MyColors.premiumColor,
+                          );
+                        } else if (state is BoardSuccess) {
+                          final boardData = state.res;
+                          return CircularGauge(
+                            value: boardData['sensors']['fire']
+                                ['temperature Value'],
+                            status: boardData['sensors']['fire']
+                                    ['classification level'] ??
+                                "N/A",
+                          );
+                        } else if (state is BoardError) {
+                          return Text("❌ error : ${state.message}");
+                        }
+                        return SizedBox();
+                      },
+                    ),
+                  ))
             ],
           ),
         ),

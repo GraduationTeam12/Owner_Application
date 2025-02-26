@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:user_app/core/api/api_consumer.dart';
 import 'package:user_app/core/api/end_points.dart';
+import 'package:user_app/core/cache/cache_helper.dart';
 import 'package:user_app/core/data/model/model.dart';
 import 'package:user_app/core/error/exceptions.dart';
 
@@ -74,8 +75,14 @@ class AuthRepository {
   }
 
   Future<Either<String, dynamic>> getBoardData() async {
-    final String token =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3OWJhNWRhNDY3NTM2MDdlMDQ4MTIwMyIsImlhdCI6MTczODc2NDQ2NywiZXhwIjoxODMzNDM3MjY3fQ.3D4Zxmo6xm_G830ldm42rmn-TGKrCfmvyxcq_Usyb9o';
+
+    final String? token = await CacheHelper().getData(key: "token");
+
+    if (token == null) {
+        return Left("❌ Token is missing!");
+    }
+    // final String token =
+    //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3OWJhNWRhNDY3NTM2MDdlMDQ4MTIwMyIsImlhdCI6MTczODc2NDQ2NywiZXhwIjoxODMzNDM3MjY3fQ.3D4Zxmo6xm_G830ldm42rmn-TGKrCfmvyxcq_Usyb9o';
     try {
       final response = await apiConsumer.get(
         EndPoint.boardData,

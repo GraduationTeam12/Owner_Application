@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:user_app/constants/app_images.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/pages_name.dart';
+import 'package:user_app/core/logic/board_cubit/board_cubit.dart';
 import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
 import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/screens/owner_screens/check_car_scrren.dart';
@@ -25,7 +26,6 @@ class WaterSensorScreen extends StatefulWidget {
 }
 
 class _WaterSensorScreenState extends State<WaterSensorScreen> {
-
   int _selectedIndex = 0;
 
   final List<Widget> _screens = [
@@ -35,15 +35,28 @@ class _WaterSensorScreenState extends State<WaterSensorScreen> {
     const SettingsScreen(),
   ];
   @override
+  void initState() {
+    super.initState();
+    final boardCubit = BlocProvider.of<BoardCubit>(context);
+    boardCubit.getBoardData(); 
+    boardCubit.connectToSocket(); 
+  }
+    void dispose() {
+    // BlocProvider.of<BoardCubit>(context).close(); 
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: BlocProvider.of<ThemeCubit>(context).isDark
-                      ? Color(0xFF1E1E1E) : Colors.white,
+      backgroundColor: BlocProvider.of<ThemeCubit>(context).isDark
+          ? Color(0xFF1E1E1E)
+          : Colors.white,
       appBar: AppBar(
         elevation: 0,
         scrolledUnderElevation: 0,
         backgroundColor: BlocProvider.of<ThemeCubit>(context).isDark
-                      ? Color(0xFF263238) : Colors.white,
+            ? Color(0xFF263238)
+            : Colors.white,
         toolbarHeight: MediaQuery.sizeOf(context).height * 0.08,
         leading: InkWell(
           onTap: () {
@@ -52,7 +65,8 @@ class _WaterSensorScreenState extends State<WaterSensorScreen> {
           child: Icon(
             Icons.arrow_back,
             color: BlocProvider.of<ThemeCubit>(context).isDark
-                      ? Colors.white : Colors.black,
+                ? Colors.white
+                : Colors.black,
             size: MediaQuery.sizeOf(context).width > 600 ? 45 : null,
           ),
         ),
@@ -68,8 +82,9 @@ class _WaterSensorScreenState extends State<WaterSensorScreen> {
               child: SvgPicture.asset(
                   width: MediaQuery.sizeOf(context).width > 600 ? 60 : null,
                   height: MediaQuery.sizeOf(context).width > 600 ? 60 : null,
-                   BlocProvider.of<ThemeCubit>(context).isDark
-                      ? Assets.imagesAuthImagesNotificationDark : 'assets/images/auth_images/notification_user.svg'),
+                  BlocProvider.of<ThemeCubit>(context).isDark
+                      ? Assets.imagesAuthImagesNotificationDark
+                      : 'assets/images/auth_images/notification_user.svg'),
             ),
           ),
         ],
@@ -93,49 +108,68 @@ class _WaterSensorScreenState extends State<WaterSensorScreen> {
           },
         ),
       ),
-
-      body: Padding(padding: EdgeInsets.symmetric(horizontal: 20),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Text(
                   LocaleKeys.WaterSensorPage_title.tr(),
-                  style: AppStyle.styleBold25(context).copyWith(color: BlocProvider.of<ThemeCubit>(context).isDark
-                      ? Colors.white : null),
+                  style: AppStyle.styleBold25(context).copyWith(
+                      color: BlocProvider.of<ThemeCubit>(context).isDark
+                          ? Colors.white
+                          : null),
                 ),
               ),
               Text(
                 LocaleKeys.WaterSensorPage_subtitle.tr(),
-                style: AppStyle.styleRegular17(context)
-                    .copyWith(color: BlocProvider.of<ThemeCubit>(context).isDark
-                      ? Colors.white : Color(0xFF9B9090)),
+                style: AppStyle.styleRegular17(context).copyWith(
+                    color: BlocProvider.of<ThemeCubit>(context).isDark
+                        ? Colors.white
+                        : Color(0xFF9B9090)),
               ),
               SizedBox(
                 height: MediaQuery.sizeOf(context).width > 600 ? 200 : 30,
               ),
-
               Container(
                 height: MediaQuery.sizeOf(context).width > 1000 ? 500 : 400,
-                decoration: ShapeDecoration(shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)
+                decoration: ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    color: BlocProvider.of<ThemeCubit>(context).isDark
+                        ? Color(0xFF263238)
+                        : Colors.white,
+                    shadows: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        blurRadius: 5,
+                        offset: Offset(0, 4),
+                      )
+                    ]),
+                child: BlocBuilder<BoardCubit, BoardState>(
+                  builder: (context, state) {
+                
+                    if (state is BoardLoading) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (state is BoardSuccess) {
+                      final boardData = state.res;
+                      return SensorChart(
+                        percent: boardData['sensors']['Drowning']['level'],
+                        title: LocaleKeys.SensorsState_problem.tr(),
+                      );
+                    } else if (state is BoardError) {
+                      return Text("❌ error : ${state.message}");
+                    }
+                    return SizedBox();
+                  },
                 ),
-                color: BlocProvider.of<ThemeCubit>(context).isDark
-                      ? Color(0xFF263238) : Colors.white,
-                shadows: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    blurRadius: 5,
-                    offset: Offset(0, 4),
-                  )
-                ]
-                ),
-                child: SensorChart(percent: '15.66%', title: LocaleKeys.SensorsState_problem.tr(),))
-          ],
+              )
+            ],
+          ),
         ),
-      ),
       ),
     );
   }
