@@ -10,7 +10,6 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
   final AuthRepository authRepository;
   GlobalKey<FormState> sendCodeKey = GlobalKey();
   TextEditingController emailController = TextEditingController();
-  
 
   void sendCode() async {
     emit(SendCodeLoading());
@@ -19,14 +18,13 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
     res.fold((l) => emit(SendCodeError(l)), (r) => emit(SendCodeSucess(r)));
   }
 
-
   TextEditingController codeController = TextEditingController();
   GlobalKey<FormState> verifyCodeKey = GlobalKey();
 
-  void verifyCode() async {
+  void verifyCode(String email) async {
     emit(VerifyCodeLoading());
 
-    final res = await authRepository.verifyCode(codeController.text);
+    final res = await authRepository.verifyCode(codeController.text, email);
     res.fold(
         (l) => emit(VerifyCodeError(l)), (r) => emit(VerifyCodeSuccess(r)));
   }
@@ -35,13 +33,17 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
   TextEditingController confirmPasswordController = TextEditingController();
   GlobalKey<FormState> resetPasswordKey = GlobalKey();
 
-  void resetPassword() async {
+  void resetPassword(String email) async {
     emit(ResetPasswordLoading());
 
+    if (passwordController.text != confirmPasswordController.text) {
+      emit(ResetPasswordError("Passwords do not match"));
+      return;
+    }
+    print("object ${passwordController.text} $email");
     final res = await authRepository.resetPassword(
-      email: ForgotPasswordEmailFieldState.email,
+      email: email,
       password: passwordController.text,
-      confirmPassword: confirmPasswordController.text,
     );
     res.fold((l) => emit(ResetPasswordError(l)),
         (r) => emit(ResetPasswordSuccess(r)));
