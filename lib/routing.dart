@@ -76,13 +76,13 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (_) => const ResetPasswordPhoneScreen());
 
-      case changePasswordScreen:
-        return MaterialPageRoute(
-            builder: (_) => BlocProvider(
-                  create: (BuildContext context) => ForgotPasswordCubit(
-                      AuthRepository(apiConsumer: DioConsumer(dio: Dio()))),
-                  child: const ChangePassword(),
-                ));
+      // case changePasswordScreen:
+      //   return MaterialPageRoute(
+      //       builder: (_) => BlocProvider(
+      //             create: (BuildContext context) => ForgotPasswordCubit(
+      //                 AuthRepository(apiConsumer: DioConsumer(dio: Dio()))),
+      //             child: const ChangePassword(),
+      //           ));
 
       case addMembersScreen:
         return MaterialPageRoute(builder: (_) => const AddMembersScreen());

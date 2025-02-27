@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_app/constants/app_style.dart';
@@ -9,7 +8,8 @@ import 'package:user_app/core/logic/forgot_password_cubit/cubit/forgot_password_
 import 'package:user_app/presentation/widgets/custom_elevated_button.dart';
 
 class ChangePasswordFields extends StatefulWidget {
-  const ChangePasswordFields({super.key});
+  const ChangePasswordFields({super.key, required this.email});
+  final String email;
 
   @override
   State<ChangePasswordFields> createState() => _ChangePasswordFieldsState();
@@ -42,9 +42,10 @@ class _ChangePasswordFieldsState extends State<ChangePasswordFields> {
         if (state is ResetPasswordError) {
           String message = state.errMessage;
 
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(message) , duration: const Duration(days: 1),));
-           
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(message),
+            duration: const Duration(days: 1),
+          ));
         }
       },
       builder: (context, state) {
@@ -53,14 +54,16 @@ class _ChangePasswordFieldsState extends State<ChangePasswordFields> {
           child: Column(
             children: [
               TextFormField(
-                style: AppStyle.styleRegular16(context).copyWith(color: Colors.black),
+                style: AppStyle.styleRegular16(context)
+                    .copyWith(color: Colors.black),
                 keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.done,
                 obscureText: isVisible1 ? true : false,
                 controller: BlocProvider.of<ForgotPasswordCubit>(context)
                     .passwordController,
                 decoration: InputDecoration(
-                    errorStyle: AppStyle.styleRegular16(context).copyWith(color: Colors.red),
+                    errorStyle: AppStyle.styleRegular16(context)
+                        .copyWith(color: Colors.red),
                     prefixIcon: Padding(
                       padding: MediaQuery.sizeOf(context).width > 600
                           ? const EdgeInsets.symmetric(horizontal: 20)
@@ -71,15 +74,25 @@ class _ChangePasswordFieldsState extends State<ChangePasswordFields> {
                         size: MediaQuery.sizeOf(context).width > 600 ? 40 : 25,
                       ),
                     ),
-                      suffixIcon: IconButton(
+                    suffixIcon: IconButton(
                         onPressed: () {
                           setState(() {
                             isVisible1 = !isVisible1;
                           });
                         },
                         icon: isVisible1
-                            ?  Icon(Icons.visibility , size: MediaQuery.sizeOf(context).width > 600 ? 45 : 25, )
-                            :  Icon(Icons.visibility_off , size: MediaQuery.sizeOf(context).width > 600 ? 45 : 25,)),
+                            ? Icon(
+                                Icons.visibility,
+                                size: MediaQuery.sizeOf(context).width > 600
+                                    ? 45
+                                    : 25,
+                              )
+                            : Icon(
+                                Icons.visibility_off,
+                                size: MediaQuery.sizeOf(context).width > 600
+                                    ? 45
+                                    : 25,
+                              )),
                     labelText: "New Password",
                     labelStyle: AppStyle.styleRegular16(context),
                     focusedErrorBorder: OutlineInputBorder(
@@ -109,14 +122,16 @@ class _ChangePasswordFieldsState extends State<ChangePasswordFields> {
                 height: 30,
               ),
               TextFormField(
-                style: AppStyle.styleRegular16(context).copyWith(color: Colors.black),
+                style: AppStyle.styleRegular16(context)
+                    .copyWith(color: Colors.black),
                 keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.done,
                 obscureText: isVisible2 ? true : false,
                 controller: BlocProvider.of<ForgotPasswordCubit>(context)
                     .confirmPasswordController,
                 decoration: InputDecoration(
-                  errorStyle: AppStyle.styleRegular16(context).copyWith(color: Colors.red),
+                    errorStyle: AppStyle.styleRegular16(context)
+                        .copyWith(color: Colors.red),
                     prefixIcon: Padding(
                       padding: MediaQuery.sizeOf(context).width > 600
                           ? const EdgeInsets.symmetric(horizontal: 20)
@@ -127,15 +142,25 @@ class _ChangePasswordFieldsState extends State<ChangePasswordFields> {
                         size: MediaQuery.sizeOf(context).width > 600 ? 40 : 25,
                       ),
                     ),
-                      suffixIcon: IconButton(
+                    suffixIcon: IconButton(
                         onPressed: () {
                           setState(() {
                             isVisible2 = !isVisible2;
                           });
                         },
                         icon: isVisible2
-                            ?  Icon(Icons.visibility , size: MediaQuery.sizeOf(context).width > 600 ? 45 : 25, )
-                            :  Icon(Icons.visibility_off , size: MediaQuery.sizeOf(context).width > 600 ? 45 : 25,)),
+                            ? Icon(
+                                Icons.visibility,
+                                size: MediaQuery.sizeOf(context).width > 600
+                                    ? 45
+                                    : 25,
+                              )
+                            : Icon(
+                                Icons.visibility_off,
+                                size: MediaQuery.sizeOf(context).width > 600
+                                    ? 45
+                                    : 25,
+                              )),
                     labelText: "Confirm Password",
                     labelStyle: AppStyle.styleRegular16(context),
                     focusedErrorBorder: OutlineInputBorder(
@@ -181,7 +206,7 @@ class _ChangePasswordFieldsState extends State<ChangePasswordFields> {
                       return;
                     } else {
                       BlocProvider.of<ForgotPasswordCubit>(context)
-                          .resetPassword();
+                          .resetPassword(widget.email);
                     }
                   })
             ],

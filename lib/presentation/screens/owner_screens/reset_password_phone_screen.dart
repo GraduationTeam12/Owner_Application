@@ -57,7 +57,7 @@ class ResetPasswordPhoneScreen extends StatelessWidget {
                       const SizedBox(
                         height: 40,
                       ),
-                      const PinCode(),
+                      const PinCode(email: "",),
                       CustomElevatedButton(
                           title: 'Verify Code', onPressed: () {}),
                       const SizedBox(

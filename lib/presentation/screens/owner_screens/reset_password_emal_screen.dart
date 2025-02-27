@@ -80,7 +80,7 @@ class ResetPasswordEmailScreen extends StatelessWidget {
                       const SizedBox(
                         height: 40,
                       ),
-                      const PinCode(),
+                       PinCode(email: email,),
                       const SizedBox(
                         height: 30,
                       ),

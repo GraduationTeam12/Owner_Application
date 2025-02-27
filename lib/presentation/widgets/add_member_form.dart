@@ -1,15 +1,42 @@
+import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
 import 'package:user_app/constants/pages_name.dart';
+import 'package:user_app/core/api/api_consumer.dart';
+import 'package:user_app/core/api/dio_consumer.dart';
+import 'package:user_app/core/data/repo/auth_repo.dart';
 import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/widgets/forgot_password_email_field.dart';
 
-class AddMemberForm extends StatelessWidget {
+class AddMemberForm extends StatefulWidget {
   const AddMemberForm({
     super.key,
   });
+
+  @override
+  State<AddMemberForm> createState() => _AddMemberFormState();
+}
+
+class _AddMemberFormState extends State<AddMemberForm> {
+  final TextEditingController firstMemberNameController =
+      TextEditingController();
+  final TextEditingController firstMemberPhoneController =
+      TextEditingController();
+  final TextEditingController secondMemberNameController =
+      TextEditingController();
+  final TextEditingController secondMemberPhoneController =
+      TextEditingController();
+
+  @override
+  void dispose() {
+    firstMemberNameController.dispose();
+    firstMemberPhoneController.dispose();
+    secondMemberNameController.dispose();
+    secondMemberPhoneController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +65,7 @@ class AddMemberForm extends StatelessWidget {
                 height: 20,
               ),
               TextFormField(
+                controller: firstMemberNameController,
                 style: AppStyle.styleRegular17(context)
                     .copyWith(color: Colors.black),
                 keyboardType: TextInputType.text,
@@ -87,6 +115,7 @@ class AddMemberForm extends StatelessWidget {
                 height: 20,
               ),
               TextFormField(
+                controller: firstMemberPhoneController,
                 style: AppStyle.styleRegular17(context)
                     .copyWith(color: Colors.black),
                 keyboardType: TextInputType.number,
@@ -144,6 +173,7 @@ class AddMemberForm extends StatelessWidget {
                 height: 20,
               ),
               TextFormField(
+                controller: secondMemberNameController,
                 style: AppStyle.styleRegular17(context)
                     .copyWith(color: Colors.black),
                 keyboardType: TextInputType.text,
@@ -193,6 +223,7 @@ class AddMemberForm extends StatelessWidget {
                 height: 20,
               ),
               TextFormField(
+                controller: secondMemberPhoneController,
                 style: AppStyle.styleRegular17(context)
                     .copyWith(color: Colors.black),
                 keyboardType: TextInputType.number,
@@ -252,9 +283,69 @@ class AddMemberForm extends StatelessWidget {
                             backgroundColor: MyColors.premiumColor,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10))),
-                        onPressed: () {
-                          Navigator.pushReplacementNamed(
-                              context, carSplashScreen);
+                        onPressed: () async {
+                          // عرض مؤشر التحميل
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (context) => const Center(
+                                child: CircularProgressIndicator()),
+                          );
+
+                          try {
+                            bool success = await AuthRepository(
+                                    apiConsumer: DioConsumer(dio: Dio()))
+                                .addEmergencyContacts([
+                              {
+                                "name": firstMemberNameController.text,
+                                "phone": firstMemberPhoneController.text,
+                                "address": "XXXXXXX",
+                                "priority": 1
+                              },
+                              {
+                                "name": secondMemberNameController.text,
+                                "phone": secondMemberPhoneController.text,
+                                "address": "XXXXXXX",
+                                "priority": 2
+                              }
+                            ]);
+
+                            Navigator.pop(context);
+
+                            if (success) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Emergency contacts added successfully"),
+                                  backgroundColor: Colors.green,
+                                   duration: Duration(seconds: 1)
+                                ),
+                              );
+
+                              Future.delayed(const Duration(seconds: 1), () {
+                                Navigator.pushReplacementNamed(
+                                    context, carSplashScreen);
+                              });
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content:
+                                      Text("An error occurred while adding emergency contacts"),
+                                  backgroundColor: Colors.red,
+                                   duration: Duration(seconds: 1)
+                                ),
+                              );
+                            }
+                          } catch (e) {
+                            Navigator.pop(context);
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                    "Server connection error: ${e.toString()}"),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          }
                         },
                         child: Text(
                           LocaleKeys.Authentication_add.tr(),
@@ -277,7 +368,8 @@ class AddMemberForm extends StatelessWidget {
                                     width: 0.5, color: MyColors.premiumColor),
                                 borderRadius: BorderRadius.circular(10))),
                         onPressed: () {
-                          Navigator.pushReplacementNamed(context, carSplashScreen);
+                          Navigator.pushReplacementNamed(
+                              context, carSplashScreen);
                         },
                         child: Text(
                           LocaleKeys.Authentication_skip.tr(),

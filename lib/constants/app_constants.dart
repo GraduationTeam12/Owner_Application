@@ -1,3 +1,3 @@
 class AppConstants {
-  static String lang = "ar";
+  static String lang = "en";
 }
