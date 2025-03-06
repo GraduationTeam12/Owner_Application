@@ -41,10 +41,10 @@ class _WaterSensorScreenState extends State<WaterSensorScreen> {
     boardCubit.getBoardData(); 
     boardCubit.connectToSocket(); 
   }
-    void dispose() {
-    // BlocProvider.of<BoardCubit>(context).close(); 
-    super.dispose();
-  }
+  //   void dispose() {
+  //   // BlocProvider.of<BoardCubit>(context).close(); 
+  //   super.dispose();
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

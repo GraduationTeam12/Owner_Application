@@ -1,5 +1,3 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +9,6 @@ import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
 import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/models/drawer_model.dart';
 import 'package:user_app/presentation/screens/owner_screens/home_screen.dart';
-import 'package:user_app/presentation/widgets/dialog_logout.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});
@@ -29,13 +26,6 @@ class _MyDrawerState extends State<MyDrawer> {
       indent: 10,
       endIndent: 10,
     );
-  }
-  late List<bool> isHoveredList; 
-
-  @override
-  void initState() {
-    super.initState();
-    isHoveredList = List.generate(8, (_) => false);
   }
 
   @override
@@ -127,20 +117,16 @@ class _MyDrawerState extends State<MyDrawer> {
             child: SingleChildScrollView(
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              SizedBox(
-              height: MediaQuery.sizeOf(context).width > 600 ? 60 : 30,
-            ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(width: MediaQuery.sizeOf(context).width > 600 ?33: 20 ,),
                   ClipOval(
                     child: Image.asset(
-                        width: MediaQuery.sizeOf(context).width > 600 ? 120 : 60,
+                        width: MediaQuery.sizeOf(context).width > 600 ? 75 : 60,
                         height:
-                            MediaQuery.sizeOf(context).width > 600 ? 120 : 60,
+                            MediaQuery.sizeOf(context).width > 600 ? 75 : 60,
                         'assets/images/auth_images/drawerphoto.jpg'),
                   ),
                   SizedBox(
@@ -170,8 +156,7 @@ class _MyDrawerState extends State<MyDrawer> {
                         ),
                       ],
                     ),
-                  ),
-                  SizedBox(width: MediaQuery.sizeOf(context).width > 600 ?12: 25 ,),
+                  )
                 ],
               ),
             ),
@@ -186,14 +171,12 @@ class _MyDrawerState extends State<MyDrawer> {
                       ? Colors.grey
                       : Colors.black,
                   thickness: 0.8,
-                  endIndent: MediaQuery.sizeOf(context).width > 600 ?25: 12,
-                  indent: MediaQuery.sizeOf(context).width > 600 ?25: 12,
                 )),
               ],
             ),
 
             SizedBox(
-              height: MediaQuery.sizeOf(context).width > 600 ? 8 : 8,
+              height: MediaQuery.sizeOf(context).width > 600 ? 60 : 30,
             ),
             ListView.builder(
               shrinkWrap: true,
@@ -201,93 +184,66 @@ class _MyDrawerState extends State<MyDrawer> {
               itemCount: items.length,
               itemBuilder: (context, index) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 0),
-                  child: StatefulBuilder(
-                    
-                    builder: (context, setState){
-                      return GestureDetector(
-                        onTapDown: (_) => setState(() => isHoveredList[index] = true),
-                        onTapUp: (_) => setState(() => isHoveredList[index] = false),
-                        onTapCancel: () => setState(() => isHoveredList[index] = false),
-                        child: InkWell(
-                          onTap: items[index].onTap,
-                          child:AnimatedContainer(
-                              duration: const Duration(milliseconds: 200),
-                              decoration: BoxDecoration(
-                                color: isHoveredList[index] 
-                                      ? Colors.grey.withOpacity(0.2) 
-                                      : Colors.transparent, ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 10,),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: MediaQuery.sizeOf(context).width > 600
-                                        ? MediaQuery.sizeOf(context).height * 0.02
-                                        : 5.5,
-                                  ),
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      SizedBox(width: MediaQuery.sizeOf(context).width > 600 ?  30.0: 12.0),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.symmetric(horizontal: 10),
-                                        child: SvgPicture.asset(
-                                          items[index].img,
-                                          width: MediaQuery.sizeOf(context).width > 600
-                                              ? 40
-                                              : 24,
-                                          height: MediaQuery.sizeOf(context).width > 600
-                                              ? 40
-                                              : 24,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 10),
-                                      Expanded(
-                                        child: Text(
-                                          items[index].title,
-                                          style: AppStyle.styleRegular22(context)
-                                              .copyWith(
-                                                  color:
-                                                      BlocProvider.of<ThemeCubit>(context)
-                                                              .isDark
-                                                          ? Colors.white
-                                                          : Colors.black,
-                                                  fontFamily: 'Roboto'),
-                                        ),
-                                      ),
-                                      // Transform.rotate(
-                                      //   angle: -1.5708 * 2,
-                                      //   child: Icon(
-                                      //     Icons.arrow_back_ios_new_outlined,
-                                      //     color: Colors.white,
-                                      //     size: MediaQuery.sizeOf(context).width > 600
-                                      //         ? 40
-                                      //         : 20,
-                                      //   ),
-                                      // ),
-                                      SizedBox(
-                                        width: MediaQuery.sizeOf(context).width > 600
-                                            ? 20
-                                            : 10,
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: MediaQuery.sizeOf(context).width > 600
-                                        ? MediaQuery.sizeOf(context).height * 0.02
-                                        : 5.5,
-                                  ),
-                                  // buildDrawerListItemsDivider(),
-                                  // const SizedBox(height: 10)
-                                ],
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: InkWell(
+                    onTap: items[index].onTap,
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: SvgPicture.asset(
+                                items[index].img,
+                                width: MediaQuery.sizeOf(context).width > 600
+                                    ? 40
+                                    : 24,
+                                height: MediaQuery.sizeOf(context).width > 600
+                                    ? 40
+                                    : 24,
                               ),
                             ),
-                          ),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Text(
+                                items[index].title,
+                                style: AppStyle.styleRegular22(context)
+                                    .copyWith(
+                                        color:
+                                            BlocProvider.of<ThemeCubit>(context)
+                                                    .isDark
+                                                ? Colors.white
+                                                : Colors.black,
+                                        fontFamily: 'Roboto'),
+                              ),
+                            ),
+                            // Transform.rotate(
+                            //   angle: -1.5708 * 2,
+                            //   child: Icon(
+                            //     Icons.arrow_back_ios_new_outlined,
+                            //     color: Colors.white,
+                            //     size: MediaQuery.sizeOf(context).width > 600
+                            //         ? 40
+                            //         : 20,
+                            //   ),
+                            // ),
+                            SizedBox(
+                              width: MediaQuery.sizeOf(context).width > 600
+                                  ? 20
+                                  : 10,
+                            )
+                          ],
                         ),
-                      );
-                    }
+                        SizedBox(
+                          height: MediaQuery.sizeOf(context).width > 600
+                              ? MediaQuery.sizeOf(context).height * 0.02
+                              : 11,
+                        ),
+                        // buildDrawerListItemsDivider(),
+                        const SizedBox(height: 10)
+                      ],
+                    ),
                   ),
                 );
               },
@@ -295,58 +251,6 @@ class _MyDrawerState extends State<MyDrawer> {
             // SizedBox(
             //   height: 30,
             // ),
-              SizedBox(
-              height:  12,
-            ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal:  MediaQuery.sizeOf(context).width > 600 ?  38.0: 20.0),
-                      height:
-                          MediaQuery.sizeOf(context).width > 600 ? 70 : null,
-                      width: context.locale.languageCode == 'ar' &&
-                              MediaQuery.sizeOf(context).width > 600
-                          ? 350
-                          : context.locale.languageCode == 'ar' &&
-                                  MediaQuery.sizeOf(context).width < 600
-                              ? 200
-                              : MediaQuery.sizeOf(context).width > 600
-                                  ? 250
-                                  : 150,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          showLogOutDialog(context);
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromRGBO(255, 189, 0, 1),
-                          shape: RoundedRectangleBorder(
-                            //side: const BorderSide(color: Color(0xFFA8A1A1)),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(
-                              Icons.logout,
-                              color: Colors.white,
-                              size: MediaQuery.sizeOf(context).width > 600
-                                  ? 40
-                                  : 24,
-                            ),
-                            const SizedBox(width: 10),
-                            FittedBox(
-                              child: Text(
-                                LocaleKeys.Drawer_logout.tr(),
-                                style: AppStyle.styleRegular20(context)
-                                    .copyWith(color: Colors.white),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                SizedBox(
-              height: MediaQuery.sizeOf(context).width > 600 ? 30 : 20,
-            ),      
           ]),
         )));
   }

@@ -290,9 +290,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           showLogOutDialog(context);
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromRGBO(255, 189, 0, 1),
+                          backgroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
-                            //side: const BorderSide(color: Color(0xFFA8A1A1)),
+                            side: const BorderSide(color: Color(0xFFA8A1A1)),
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
@@ -301,7 +301,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           children: [
                             Icon(
                               Icons.logout,
-                              color: Colors.white,
+                              color: Colors.black,
                               size: MediaQuery.sizeOf(context).width > 600
                                   ? 40
                                   : 24,
@@ -311,7 +311,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               child: Text(
                                 LocaleKeys.Drawer_logout.tr(),
                                 style: AppStyle.styleRegular20(context)
-                                    .copyWith(color: Colors.white),
+                                    .copyWith(color: Colors.black),
                               ),
                             )
                           ],

@@ -5,7 +5,6 @@ import 'package:user_app/core/cache/cache_helper.dart';
 import 'package:user_app/core/data/repo/auth_repo.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
-
 part 'board_state.dart';
 
 class BoardCubit extends Cubit<BoardState> {
@@ -20,41 +19,41 @@ class BoardCubit extends Cubit<BoardState> {
 
     final res = await authRepository.getBoardData();
 
-    res.fold((l) => emit(BoardError(message: l)),
-        (r) => emit(BoardSuccess(  res: r)));
+    res.fold(
+        (l) => emit(BoardError(message: l)), (r) => emit(BoardSuccess(res: r)));
   }
 
-   void connectToSocket() {
-  try {
-    final token = CacheHelper().getData(key: ApiKeys.token); 
-    
-    socket = IO.io('https://satars.onrender.com/user-sensors', 
-      IO.OptionBuilder()
-        .setTransports(['websocket'])
-        .setExtraHeaders({'Authorization': 'Bearer $token'}) 
-        .disableAutoConnect() 
-        .build(),
-    );
+  void connectToSocket() {
+    try {
+      final token = CacheHelper().getData(key: ApiKeys.token);
 
-    socket!.connect(); 
+      socket = IO.io(
+        'https://satars.onrender.com/user-sensors',
+        IO.OptionBuilder()
+            .setTransports(['websocket'])
+            .setExtraHeaders({'Authorization': 'Bearer $token'})
+            .disableAutoConnect()
+            .build(),
+      );
 
-    socket!.onConnect((_) {
-      print('🔗 Connected to WebSocket Server');
-    });
+      socket!.connect();
 
-    socket!.on('board-data-updated', (data) {
-      print("📩 Received updated data: $data");
-      emit(BoardSuccess(res: data));
-    });
+      socket!.onConnect((_) {
+        print('🔗 Connected to WebSocket Server');
+      });
 
-    socket!.onDisconnect((_) {
-      print('❌ Disconnected from WebSocket Server');
-    });
+      socket!.on('board-data-updated', (data) {
+        print("📩 Received updated data: $data");
+        emit(BoardSuccess(res: data));
+      });
 
-  } catch (e) {
-    print('❌ Error in WebSocket: $e');
+      socket!.onDisconnect((_) {
+        print('❌ Disconnected from WebSocket Server');
+      });
+    } catch (e) {
+      print('❌ Error in WebSocket: $e');
+    }
   }
-}
 
   @override
   Future<void> close() {
@@ -62,5 +61,4 @@ class BoardCubit extends Cubit<BoardState> {
     socket?.dispose();
     return super.close();
   }
-
 }
