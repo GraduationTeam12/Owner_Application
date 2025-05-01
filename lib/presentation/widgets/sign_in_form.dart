@@ -33,12 +33,14 @@ class _SignInFormState extends State<SignInForm> {
           // ScaffoldMessenger.of(context)
           //     .showSnackBar(SnackBar(content: Text(message)));
 
+          Navigator.pop(context);
           final visitedPage = CacheHelper().getData(key: 'AddMemberScreen');
           visitedPage == null
               ? Navigator.pushReplacementNamed(context, addMembersScreen)
               : Navigator.pushReplacementNamed(context, homePageScreen);
         }
         if (state is LoginErrorState) {
+          Navigator.pop(context);
           String message = state.errMsg;
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(message)));

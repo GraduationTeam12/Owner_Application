@@ -8,8 +8,6 @@ import 'package:user_app/constants/app_images.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
 import 'package:user_app/constants/pages_name.dart';
-import 'package:user_app/core/api/end_points.dart';
-import 'package:user_app/core/cache/cache_helper.dart';
 import 'package:user_app/core/logic/board_cubit/board_cubit.dart';
 import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
 import 'package:user_app/generated/locale_keys.g.dart';
@@ -20,7 +18,6 @@ import 'package:user_app/presentation/screens/owner_screens/profile_screeen.dart
 import 'package:user_app/presentation/screens/owner_screens/settings_screen.dart';
 import 'package:user_app/presentation/widgets/bottom_navigation_bar.dart';
 import 'package:user_app/presentation/widgets/temp_sensor_chart.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class TempSensorScreen extends StatefulWidget {
   const TempSensorScreen({super.key});
