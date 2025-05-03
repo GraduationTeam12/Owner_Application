@@ -42,7 +42,7 @@ class _AddMemberFormState extends State<AddMemberForm> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: ShapeDecoration(
+      decoration: const ShapeDecoration(
           color: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
@@ -59,9 +59,9 @@ class _AddMemberFormState extends State<AddMemberForm> {
               Text(
                 LocaleKeys.Authentication_firstMemeber.tr(),
                 style: AppStyle.styleSemiBold22(context)
-                    .copyWith(color: Color(0xFF979797)),
+                    .copyWith(color: const Color(0xFF979797)),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               TextFormField(
@@ -111,7 +111,7 @@ class _AddMemberFormState extends State<AddMemberForm> {
                 //   return null;
                 // },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               TextFormField(
@@ -161,15 +161,15 @@ class _AddMemberFormState extends State<AddMemberForm> {
                 //   return null;
                 // },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               Text(
                 LocaleKeys.Authentication_secondMemeber.tr(),
                 style: AppStyle.styleSemiBold22(context)
-                    .copyWith(color: Color(0xFF979797)),
+                    .copyWith(color: const Color(0xFF979797)),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               TextFormField(
@@ -219,7 +219,7 @@ class _AddMemberFormState extends State<AddMemberForm> {
                 //   return null;
                 // },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               TextFormField(
@@ -269,7 +269,7 @@ class _AddMemberFormState extends State<AddMemberForm> {
                 //   return null;
                 // },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 60,
               ),
               Row(
@@ -359,12 +359,12 @@ class _AddMemberFormState extends State<AddMemberForm> {
                   Container(
                     width: MediaQuery.sizeOf(context).width > 600 ? 230 : 150,
                     height: MediaQuery.sizeOf(context).width > 600 ? 80 : 50,
-                    decoration: BoxDecoration(),
+                    decoration: const BoxDecoration(),
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
-                                side: BorderSide(
+                                side: const BorderSide(
                                     width: 0.5, color: MyColors.premiumColor),
                                 borderRadius: BorderRadius.circular(10))),
                         onPressed: () {
@@ -379,7 +379,7 @@ class _AddMemberFormState extends State<AddMemberForm> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 100,
               )
             ],

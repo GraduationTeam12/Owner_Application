@@ -35,15 +35,15 @@ class _TempSensorScreenState extends State<TempSensorScreen> {
   void initState() {
     super.initState();
     final boardCubit = BlocProvider.of<BoardCubit>(context);
-    boardCubit.getBoardData();
+    // boardCubit.getBoardData();
     boardCubit.connectToSocket();
   }
 
-  @override
-  void dispose() {
-    // BlocProvider.of<BoardCubit>(context).close(); 
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   BlocProvider.of<BoardCubit>(context).close(); 
+  //   super.dispose();
+  // }
 
   int _selectedIndex = 0;
 
@@ -175,9 +175,9 @@ class _TempSensorScreenState extends State<TempSensorScreen> {
                           final boardData = state.res;
                           return CircularGauge(
                             value: boardData['sensors']['fire']
-                                ['temperature Value'],
+                                ['temperature value'],
                             status: boardData['sensors']['fire']
-                                    ['classification level'] ??
+                                    ['statusNow'] ??
                                 "N/A",
                           );
                         } else if (state is BoardError) {
