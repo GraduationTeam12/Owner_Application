@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_app/constants/app_style.dart';
@@ -5,6 +6,7 @@ import 'package:user_app/constants/colors.dart';
 import 'package:user_app/constants/pages_name.dart';
 import 'package:user_app/core/logic/forgot_password_cubit/cubit/forgot_password_cubit.dart';
 import 'package:user_app/core/logic/forgot_password_cubit/cubit/forgot_password_state.dart';
+import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
 import 'package:user_app/presentation/widgets/custom_elevated_button.dart';
 
 class ChangePasswordFields extends StatefulWidget {
@@ -17,10 +19,10 @@ class ChangePasswordFields extends StatefulWidget {
 
 class _ChangePasswordFieldsState extends State<ChangePasswordFields> {
   bool isVisible1 = true;
-  bool isVisible2 = true;
+  // bool isVisible2 = true;
   // final TextEditingController passwordController = TextEditingController();
-  // final TextEditingController newPasswordController = TextEditingController();
-
+  final TextEditingController newPasswordController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
@@ -44,13 +46,12 @@ class _ChangePasswordFieldsState extends State<ChangePasswordFields> {
 
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(message),
-            duration: const Duration(days: 1),
           ));
         }
       },
       builder: (context, state) {
         return Form(
-          key: BlocProvider.of<ForgotPasswordCubit>(context).resetPasswordKey,
+          key: _formKey,
           child: Column(
             children: [
               TextFormField(
@@ -59,8 +60,7 @@ class _ChangePasswordFieldsState extends State<ChangePasswordFields> {
                 keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.done,
                 obscureText: isVisible1 ? true : false,
-                controller: BlocProvider.of<ForgotPasswordCubit>(context)
-                    .passwordController,
+                controller: newPasswordController,
                 decoration: InputDecoration(
                     errorStyle: AppStyle.styleRegular16(context)
                         .copyWith(color: Colors.red),
@@ -110,10 +110,12 @@ class _ChangePasswordFieldsState extends State<ChangePasswordFields> {
                         borderRadius: BorderRadius.circular(15),
                         borderSide: const BorderSide(
                             width: 2, color: MyColors.premiumColor)),
-                    border: buildBorder()),
+                    border: buildBorder(context)),
                 validator: (password) {
                   if (password!.isEmpty) {
-                    return "Please enter your new password";
+                    return context.locale.languageCode == "en"
+                        ? "Please enter your new password"
+                        : " الرجاء إدخال كلمة المرور الجديدة";
                   }
                   return null;
                 },
@@ -121,92 +123,90 @@ class _ChangePasswordFieldsState extends State<ChangePasswordFields> {
               const SizedBox(
                 height: 30,
               ),
-              TextFormField(
-                style: AppStyle.styleRegular16(context)
-                    .copyWith(color: Colors.black),
-                keyboardType: TextInputType.text,
-                textInputAction: TextInputAction.done,
-                obscureText: isVisible2 ? true : false,
-                controller: BlocProvider.of<ForgotPasswordCubit>(context)
-                    .confirmPasswordController,
-                decoration: InputDecoration(
-                    errorStyle: AppStyle.styleRegular16(context)
-                        .copyWith(color: Colors.red),
-                    prefixIcon: Padding(
-                      padding: MediaQuery.sizeOf(context).width > 600
-                          ? const EdgeInsets.symmetric(horizontal: 20)
-                          : const EdgeInsets.all(0),
-                      child: Icon(
-                        Icons.lock_outlined,
-                        color: Colors.black,
-                        size: MediaQuery.sizeOf(context).width > 600 ? 40 : 25,
-                      ),
-                    ),
-                    suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            isVisible2 = !isVisible2;
-                          });
-                        },
-                        icon: isVisible2
-                            ? Icon(
-                                Icons.visibility,
-                                size: MediaQuery.sizeOf(context).width > 600
-                                    ? 45
-                                    : 25,
-                              )
-                            : Icon(
-                                Icons.visibility_off,
-                                size: MediaQuery.sizeOf(context).width > 600
-                                    ? 45
-                                    : 25,
-                              )),
-                    labelText: "Confirm Password",
-                    labelStyle: AppStyle.styleRegular16(context),
-                    focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: const BorderSide(
-                            width: 2, color: MyColors.premiumColor)),
-                    floatingLabelStyle: AppStyle.styleRegular16(context)
-                        .copyWith(
-                            color: MyColors.premiumColor,
-                            fontWeight: FontWeight.w600),
-                    contentPadding: MediaQuery.sizeOf(context).width > 600
-                        ? const EdgeInsets.all(30)
-                        : const EdgeInsets.all(8),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: const BorderSide(
-                            width: 2, color: MyColors.premiumColor)),
-                    border: buildBorder()),
-                validator: (password) {
-                  if (password!.isEmpty) {
-                    return "Please enter your password to confirm it";
-                  }
+              // TextFormField(
+              //   style: AppStyle.styleRegular16(context)
+              //       .copyWith(color: Colors.black),
+              //   keyboardType: TextInputType.text,
+              //   textInputAction: TextInputAction.done,
+              //   obscureText: isVisible2 ? true : false,
+              //   controller: BlocProvider.of<ForgotPasswordCubit>(context)
+              //       .confirmPasswordController,
+              //   decoration: InputDecoration(
+              //       errorStyle: AppStyle.styleRegular16(context)
+              //           .copyWith(color: Colors.red),
+              //       prefixIcon: Padding(
+              //         padding: MediaQuery.sizeOf(context).width > 600
+              //             ? const EdgeInsets.symmetric(horizontal: 20)
+              //             : const EdgeInsets.all(0),
+              //         child: Icon(
+              //           Icons.lock_outlined,
+              //           color: Colors.black,
+              //           size: MediaQuery.sizeOf(context).width > 600 ? 40 : 25,
+              //         ),
+              //       ),
+              //       suffixIcon: IconButton(
+              //           onPressed: () {
+              //             setState(() {
+              //               isVisible2 = !isVisible2;
+              //             });
+              //           },
+              //           icon: isVisible2
+              //               ? Icon(
+              //                   Icons.visibility,
+              //                   size: MediaQuery.sizeOf(context).width > 600
+              //                       ? 45
+              //                       : 25,
+              //                 )
+              //               : Icon(
+              //                   Icons.visibility_off,
+              //                   size: MediaQuery.sizeOf(context).width > 600
+              //                       ? 45
+              //                       : 25,
+              //                 )),
+              //       labelText: "Confirm Password",
+              //       labelStyle: AppStyle.styleRegular16(context),
+              //       focusedErrorBorder: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(15),
+              //           borderSide: const BorderSide(
+              //               width: 2, color: MyColors.premiumColor)),
+              //       floatingLabelStyle: AppStyle.styleRegular16(context)
+              //           .copyWith(
+              //               color: MyColors.premiumColor,
+              //               fontWeight: FontWeight.w600),
+              //       contentPadding: MediaQuery.sizeOf(context).width > 600
+              //           ? const EdgeInsets.all(30)
+              //           : const EdgeInsets.all(8),
+              //       focusedBorder: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(15),
+              //           borderSide: const BorderSide(
+              //               width: 2, color: MyColors.premiumColor)),
+              //       border: buildBorder(context)),
+              //   validator: (password) {
+              //     if (password!.isEmpty) {
+              //       return "Please enter your password to confirm it";
+              //     }
 
-                  if (password !=
-                      BlocProvider.of<ForgotPasswordCubit>(context)
-                          .passwordController
-                          .text) {
-                    return 'New and confirm password must be equal';
-                  }
-                  return null;
-                },
-              ),
+              //     if (password !=
+              //         BlocProvider.of<ForgotPasswordCubit>(context)
+              //             .passwordController
+              //             .text) {
+              //       return 'New and confirm password must be equal';
+              //     }
+              //     return null;
+              //   },
+              // ),
               const SizedBox(
                 height: 30,
               ),
               CustomElevatedButton(
-                  title: 'Confirm',
+                  title: context.locale == Locale('en') ? 'Confirm' : 'تأكيد',
                   onPressed: () {
-                    if (!BlocProvider.of<ForgotPasswordCubit>(context)
-                        .resetPasswordKey
-                        .currentState!
-                        .validate()) {
+                    if (!_formKey.currentState!.validate()) {
                       return;
                     } else {
                       BlocProvider.of<ForgotPasswordCubit>(context)
-                          .resetPassword(widget.email);
+                          .resetPassword(
+                              widget.email, newPasswordController.text);
                     }
                   })
             ],
@@ -217,8 +217,12 @@ class _ChangePasswordFieldsState extends State<ChangePasswordFields> {
   }
 }
 
-OutlineInputBorder buildBorder() {
+OutlineInputBorder buildBorder(BuildContext context) {
   return OutlineInputBorder(
       borderRadius: BorderRadius.circular(15),
-      borderSide: const BorderSide(width: 1));
+      borderSide: BorderSide(
+          width: 1,
+          color: BlocProvider.of<ThemeCubit>(context).isDark
+              ? Colors.white
+              : Colors.black));
 }

@@ -59,7 +59,7 @@ class _SelectLanguagesScreenState extends State<SelectLanguagesScreen> {
           ),
         ),
         title: Text(
-          'Select Language',
+          context.locale.languageCode == 'en' ? 'Select Language' : ' اختر اللغة',
           style: AppStyle.styleBold30(context).copyWith(
             color: Colors.white,
             fontFamily: 'Roboto',

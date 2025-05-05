@@ -15,6 +15,19 @@ void showLogOutDialog(BuildContext context) {
           value: BlocProvider.of<LogoutCubit>(context),
           child: BlocConsumer<LogoutCubit, LogoutState>(
             listener: (context, state) {
+              if (state is LogoutError) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(state.errorMessage),
+                  backgroundColor: Colors.red,
+                ));
+              } else if (state is LogoutLoading) {
+                showDialog(
+                  context: context,
+                  builder: (context) => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              } else
               if (state is LogoutSuccessState) {
                 Navigator.pushNamedAndRemoveUntil(
                   context,

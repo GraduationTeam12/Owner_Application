@@ -7,6 +7,7 @@ class ThemeCubit extends Cubit<ThemeState> {
 
   bool isDark = false;
 
+
   void changeTheme() async {
     isDark = !isDark;
     await CacheHelper().saveData(key: 'isDark', value: isDark);

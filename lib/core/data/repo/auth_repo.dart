@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
 import 'package:user_app/core/api/api_consumer.dart';
 import 'package:user_app/core/api/end_points.dart';
 import 'package:user_app/core/cache/cache_helper.dart';
 import 'package:user_app/core/data/model/closest_people_model.dart';
 import 'package:user_app/core/data/model/model.dart';
 import 'package:user_app/core/error/exceptions.dart';
+import 'package:user_app/presentation/widgets/device_id_and_device_info.dart';
 
 class AuthRepository {
   final ApiConsumer apiConsumer;
@@ -20,12 +20,18 @@ class AuthRepository {
     required String? fcmToken,
   }) async {
     try {
+      final deviceDetails = await getDeviceDetails();
       final response = await apiConsumer.post(
         EndPoint.logIn,
         data: {
           ApiKeys.email: email,
           ApiKeys.password: password,
-          'fcmToken': fcmToken
+          "fcmToken": {
+            "token": fcmToken,
+            "deviceId": deviceDetails['deviceId'],
+            "deviceInfo":
+                "${deviceDetails['manufacturer']} ${deviceDetails['model']}"
+          }
         },
       );
       return Right(LoginModel.fromJson(response));
@@ -63,7 +69,7 @@ class AuthRepository {
     required String password,
   }) async {
     try {
-      final response = await apiConsumer.patch(
+      final response = await apiConsumer.post(
         EndPoint.changeForgottenPassword,
         data: jsonEncode({
           "email": email,
@@ -108,65 +114,91 @@ class AuthRepository {
     }
   }
 
-  Future<bool> addEmergencyContacts(List<Map<String, dynamic>> contacts) async {
-    const String url = "https://satars.onrender.com/api/v1/users/contacts";
-    String token = await CacheHelper().getData(key: "token");
+  Future<Either<String, String>> addEmergencyContacts(
+      String name1, String phone1, String name2, String phone2) async {
+    final String? token = await CacheHelper().getData(key: "token");
 
     try {
-      Response response = await Dio().post(
-        url,
-        options: Options(headers: {
-          "Authorization": "Bearer $token",
-          "Content-Type": "application/json",
-        }),
+      final response = await apiConsumer.post(
+        EndPoint.addEmergencyContacts,
         data: {
-          "emergencyContacts": contacts,
+          "emergencyContacts": [
+            {"name": name1, "phone": phone1},
+            {"name": name2, "phone": phone2}
+          ]
+        },
+        headers: {
+          'Authorization': 'Bearer $token',
         },
       );
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        print("تمت إضافة جهات الاتصال بنجاح");
-        return true;
-      } else {
-        print("فشل الإضافة: ${response.statusMessage}");
-        return false;
-      }
+      return right(response[ApiKeys.message]);
+    } on ServerException catch (error) {
+      return left(error.errorModel.errorMessage);
     } catch (e) {
-      print("خطأ أثناء الإرسال: $e");
-      return false;
+      return left(e.toString());
     }
   }
 
-  Future<Either<String, List<ClosestPersonModel>>> getClosestPeople() async {
+  Future<Either<String, List<ClosestPersonModel>>>
+      getEmergencyContacts() async {
     final String? token = await CacheHelper().getData(key: "token");
-
-    if (token == null) {
-      return Left("❌ Token is missing!");
-    }
 
     try {
       final response = await apiConsumer.get(
-        "https://satars.onrender.com/api/v1/users/contacts",
+        EndPoint.addEmergencyContacts,
         headers: {
           'Authorization': 'Bearer $token',
-          'Accept': 'application/json',
         },
       );
-
-      // التحقق من أن `contacts` موجودة في الـ response
-      if (response.containsKey("contacts") && response["contacts"] is List) {
-        List<ClosestPersonModel> people = (response["contacts"] as List)
-            .map((json) => ClosestPersonModel.fromJson(json))
-            .toList();
-
-        return Right(people);
-      } else {
-        return Left("❌ Unexpected response format");
-      }
+      return right((response["contacts"] as List<dynamic>)
+          .map((contact) => ClosestPersonModel.fromJson(contact)).toList());
     } on ServerException catch (error) {
-      return Left(error.errorModel.errorMessage);
+      return left(error.errorModel.errorMessage);
     } catch (e) {
-      return Left(e.toString());
+      return left(e.toString());
+    }
+  }
+
+  Future<Either<String, String>> updateUserInfo(
+    String username,
+    String address,
+  ) async {
+    final String? token = await CacheHelper().getData(key: "token");
+
+    try {
+      final response = await apiConsumer.put(
+        EndPoint.updateUserInfo,
+        data: {"username": username, "address": address},
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      );
+      return right(response[ApiKeys.message]);
+    } on ServerException catch (error) {
+      return left(error.errorModel.errorMessage);
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+
+  Future<Either<String, String>> logout() async {
+    final String? token = await CacheHelper().getData(key: "token");
+    final deviceDetails = await getDeviceDetails();
+    try {
+      final response = await apiConsumer.post(
+        EndPoint.logOut,
+        data: {
+          "deviceId": deviceDetails['deviceId'],
+        },
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      );
+      return right(response[ApiKeys.message]);
+    } on ServerException catch (error) {
+      return left(error.errorModel.errorMessage);
+    } catch (e) {
+      return left(e.toString());
     }
   }
 }

@@ -7,10 +7,11 @@ import 'package:user_app/constants/pages_name.dart';
 import 'package:user_app/core/api/dio_consumer.dart';
 import 'package:user_app/core/data/repo/auth_repo.dart';
 import 'package:user_app/core/logic/board_cubit/board_cubit.dart';
+import 'package:user_app/core/logic/closeset_member/closest_members_cubit.dart';
 import 'package:user_app/core/logic/forgot_password_cubit/cubit/forgot_password_cubit.dart';
 import 'package:user_app/core/logic/login_cubit/login_cubit.dart';
+import 'package:user_app/core/logic/update_info_cubit/update_info_cubit.dart';
 import 'package:user_app/presentation/screens/owner_screens/add_members_screen.dart';
-import 'package:user_app/presentation/screens/owner_screens/change_password.dart';
 import 'package:user_app/presentation/screens/owner_screens/contact_us_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/edit_closest_people.dart';
 import 'package:user_app/presentation/screens/owner_screens/edit_profile_screen.dart';
@@ -126,10 +127,21 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const SelectLanguagesScreen());
 
       case editProfileScreen:
-        return MaterialPageRoute(builder: (_) => const EditProfileScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => UpdateInfoCubit(
+                AuthRepository(apiConsumer: DioConsumer(dio: Dio()))),
+          
+          child: const EditProfileScreen(),
+        ));
 
       case editClosestPeopleScreen:
-        return MaterialPageRoute(builder: (_) => const EditClosestPeople());
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+                  create: (context) => ClosestMembersCubit(
+                      AuthRepository(apiConsumer: DioConsumer(dio: Dio()))),
+                  child: const EditClosestPeople(),
+                ));
     }
   }
 }

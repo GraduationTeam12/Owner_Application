@@ -1,11 +1,9 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
-import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
 
 class CircularGauge extends StatelessWidget {
   const CircularGauge({super.key, required this.value, required this.status});
@@ -99,9 +97,7 @@ class CircularGauge extends StatelessWidget {
                   children: [
                     Text('$value°',
                         style: AppStyle.styleBold30(context).copyWith(
-                            color: BlocProvider.of<ThemeCubit>(context).isDark
-                                ? Colors.white
-                                : Colors.black,
+                            color:  Colors.black,
                             fontFamily: 'Roboto')),
                     SizedBox(
                       height: 15,

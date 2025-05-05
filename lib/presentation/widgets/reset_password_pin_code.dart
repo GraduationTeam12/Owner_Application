@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
-import 'package:user_app/constants/pages_name.dart';
 import 'package:user_app/core/api/dio_consumer.dart';
 import 'package:user_app/core/data/repo/auth_repo.dart';
 import 'package:user_app/core/logic/forgot_password_cubit/cubit/forgot_password_cubit.dart';
@@ -33,7 +32,7 @@ class PinCode extends StatelessWidget {
                       AuthRepository(apiConsumer: DioConsumer(dio: Dio()))),
                   child:  ChangePassword(email: email,),
                 )));
-          Navigator.pushReplacementNamed(context, changePasswordScreen);
+          // Navigator.pushReplacementNamed(context, changePasswordScreen);
         }
 
         if (state is VerifyCodeError) {

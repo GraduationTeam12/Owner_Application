@@ -1,9 +1,9 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, avoid_print
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_app/core/api/end_points.dart';
 import 'package:user_app/core/cache/cache_helper.dart';
 import 'package:user_app/core/data/repo/auth_repo.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:socket_io_client/socket_io_client.dart' as io;
 
 part 'board_state.dart';
 
@@ -12,24 +12,25 @@ class BoardCubit extends Cubit<BoardState> {
     this.authRepository,
   ) : super(BoardInitial());
   final AuthRepository authRepository;
-  IO.Socket? socket;
+  io.Socket? socket;
 
-  void getBoardData() async {
-    emit(BoardLoading());
+  // void getBoardData() async {
+  //   emit(BoardLoading());
 
-    final res = await authRepository.getBoardData();
+  //   final res = await authRepository.getBoardData();
 
-    res.fold(
-        (l) => emit(BoardError(message: l)), (r) => emit(BoardSuccess(res: r)));
-  }
+  //   res.fold(
+  //       (l) => emit(BoardError(message: l)), (r) => emit(BoardSuccess(res: r)));
+  // }
 
   void connectToSocket() {
+    emit(BoardLoading());
     try {
       final token = CacheHelper().getData(key: ApiKeys.token);
 
-      socket = IO.io(
+      socket = io.io(
         'https://satars.onrender.com/user-sensors',
-        IO.OptionBuilder()
+        io.OptionBuilder()
             .setTransports(['websocket'])
             .setExtraHeaders({'Authorization': 'Bearer $token'})
             .disableAutoConnect()
