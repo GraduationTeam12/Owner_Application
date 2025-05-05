@@ -36,8 +36,10 @@ class _SignInFormState extends State<SignInForm> {
           Navigator.pop(context);
           final visitedPage = CacheHelper().getData(key: 'AddMemberScreen');
           visitedPage == null
-              ? Navigator.pushReplacementNamed(context, addMembersScreen)
-              : Navigator.pushReplacementNamed(context, homePageScreen);
+              ? Navigator.pushNamedAndRemoveUntil(
+                  context, addMembersScreen, (route) => false)
+              : Navigator.pushNamedAndRemoveUntil(
+                  context, homePageScreen, (route) => false);
         }
         if (state is LoginErrorState) {
           Navigator.pop(context);
@@ -90,7 +92,9 @@ class _SignInFormState extends State<SignInForm> {
                     border: buildBorder()),
                 validator: (email) {
                   if (email!.isEmpty) {
-                    return context.locale.languageCode == 'ar' ? 'من فضلك ادخل بريدك الالكتروني'  :"Please enter your email";
+                    return context.locale.languageCode == 'ar'
+                        ? 'من فضلك ادخل بريدك الالكتروني'
+                        : "Please enter your email";
                   }
                   return null;
                 },
@@ -157,7 +161,9 @@ class _SignInFormState extends State<SignInForm> {
                     border: buildBorder()),
                 validator: (password) {
                   if (password!.isEmpty) {
-                    return context.locale.languageCode == 'ar' ? 'من فضلك ادخل كلمة المرور'  : "Please enter your password";
+                    return context.locale.languageCode == 'ar'
+                        ? 'من فضلك ادخل كلمة المرور'
+                        : "Please enter your password";
                   }
                   return null;
                 },

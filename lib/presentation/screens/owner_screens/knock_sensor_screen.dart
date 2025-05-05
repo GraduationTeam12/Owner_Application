@@ -1,22 +1,19 @@
 // ignore_for_file: unused_field, deprecated_member_use
 
-import 'package:easy_localization/easy_localization.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:user_app/constants/app_images.dart';
-import 'package:user_app/constants/app_style.dart';
-import 'package:user_app/constants/pages_name.dart';
+import 'package:user_app/constants/colors.dart';
+import 'package:user_app/core/cache/cache_helper.dart';
 import 'package:user_app/core/logic/board_cubit/board_cubit.dart';
 import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
-import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/screens/owner_screens/check_car_scrren.dart';
 import 'package:user_app/presentation/screens/owner_screens/home_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/location_screen.dart';
 import 'package:user_app/presentation/screens/owner_screens/profile_screeen.dart';
 import 'package:user_app/presentation/screens/owner_screens/settings_screen.dart';
 import 'package:user_app/presentation/widgets/bottom_navigation_bar.dart';
-import 'package:user_app/presentation/widgets/diagram_charts.dart';
+import 'package:user_app/presentation/widgets/knock_sensor_data.dart';
 
 class KnockSensorScreen extends StatefulWidget {
   const KnockSensorScreen({super.key});
@@ -31,16 +28,26 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
   final List<Widget> _screens = [
     const CheckCarScrren(),
     const LocationScreen(),
-    const ProfileScreeen(),
+    ProfileScreeen(),
     const SettingsScreen(),
   ];
-    @override
+
+  Map<String, dynamic>? cachedData;
+  @override
   void initState() {
     super.initState();
     final boardCubit = BlocProvider.of<BoardCubit>(context);
-    boardCubit.getBoardData(); 
-    boardCubit.connectToSocket(); 
+    // boardCubit.getBoardData();
+
+    final cachedJson = CacheHelper().getData(key: 'boardData');
+    if (cachedJson != null) {
+      setState(() {
+        cachedData = jsonDecode(cachedJson);
+      });
+    }
+    boardCubit.connectToSocket();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,24 +73,24 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
             size: MediaQuery.sizeOf(context).width > 600 ? 45 : null,
           ),
         ),
-        actions: [
-          Padding(
-            padding: context.locale.languageCode == 'ar'
-                ? const EdgeInsets.symmetric(horizontal: 20)
-                : const EdgeInsets.only(right: 20),
-            child: InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, notificationScreen);
-              },
-              child: SvgPicture.asset(
-                  width: MediaQuery.sizeOf(context).width > 600 ? 60 : null,
-                  height: MediaQuery.sizeOf(context).width > 600 ? 60 : null,
-                  BlocProvider.of<ThemeCubit>(context).isDark
-                      ? Assets.imagesAuthImagesNotificationDark
-                      : 'assets/images/auth_images/notification_user.svg'),
-            ),
-          ),
-        ],
+        // actions: [
+        //   Padding(
+        //     padding: context.locale.languageCode == 'ar'
+        //         ? const EdgeInsets.symmetric(horizontal: 20)
+        //         : const EdgeInsets.only(right: 20),
+        //     child: InkWell(
+        //       onTap: () {
+        //         Navigator.pushNamed(context, notificationScreen);
+        //       },
+        //       child: SvgPicture.asset(
+        //           width: MediaQuery.sizeOf(context).width > 600 ? 60 : null,
+        //           height: MediaQuery.sizeOf(context).width > 600 ? 60 : null,
+        //           BlocProvider.of<ThemeCubit>(context).isDark
+        //               ? Assets.imagesAuthImagesNotificationDark
+        //               : 'assets/images/auth_images/notification_user.svg'),
+        //     ),
+        //   ),
+        // ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Padding(
@@ -121,382 +128,25 @@ class _KnockSensorScreenState extends State<KnockSensorScreen> {
       // ),
       body: BlocBuilder<BoardCubit, BoardState>(
         builder: (context, state) {
-          if (state is BoardLoading) {
-            return Center(child: CircularProgressIndicator());
+          if (state is BoardLoading && cachedData == null) {
+            return Center(
+                child: CircularProgressIndicator(
+              color: MyColors.premiumColor,
+            ));
+          } else if (state is BoardLoading && cachedData != null) {
+            final boardData = cachedData!;
+            return KnockSensorData(boardData: boardData);
           } else if (state is BoardSuccess) {
             final boardData = state.res;
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(top: 8.0, left: 20, right: 20),
-                      child: Text(
-                        LocaleKeys.knockSensorPage_title.tr(),
-                        style: AppStyle.styleBold25(context).copyWith(
-                            color: BlocProvider.of<ThemeCubit>(context).isDark
-                                ? Colors.white
-                                : null),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(
-                        LocaleKeys.knockSensorPage_subtitle.tr(),
-                        style: AppStyle.styleRegular17(context).copyWith(
-                            color: BlocProvider.of<ThemeCubit>(context).isDark
-                                ? Colors.white
-                                : Color(0xFF9B9090)),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(
-                        LocaleKeys.knockSensorPage_center.tr(),
-                        style: AppStyle.styleRegular20(context).copyWith(
-                            fontFamily: 'Roboto',
-                            color: BlocProvider.of<ThemeCubit>(context).isDark
-                                ? Colors.white
-                                : Colors.black),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Center(
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 20),
-                        height:
-                            MediaQuery.sizeOf(context).width > 600 ? 500 : 300,
-                        width: double.infinity,
-                        decoration: ShapeDecoration(
-                            shadows: [
-                              BoxShadow(
-                                  offset: Offset(0, 4),
-                                  spreadRadius: 0,
-                                  blurRadius: 4,
-                                  color: Colors.grey),
-                            ],
-                            color: BlocProvider.of<ThemeCubit>(context).isDark
-                                ? Color(0xFF1E1E1E)
-                                : Color(0xFFE0E0E0),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20))),
-                        child: PartDiagramSensorChart(
-                            title: LocaleKeys.SensorsState_problem.tr(),
-                            percent: 0.20,
-                            myColor: Colors.red),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: SizedBox(
-                        height:
-                            MediaQuery.sizeOf(context).width > 600 ? 600 : 400,
-                        child: Row(
-                          children: [
-                            Wrap(
-                              spacing: 20,
-                              children: [
-                                Padding(padding: EdgeInsets.only(left: 0)),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      LocaleKeys.knockSensorPage_topRight.tr(),
-                                      style: AppStyle.styleRegular20(context)
-                                          .copyWith(
-                                              fontFamily: 'Roboto',
-                                              color:
-                                                  BlocProvider.of<ThemeCubit>(
-                                                              context)
-                                                          .isDark
-                                                      ? Colors.white
-                                                      : Colors.black),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Center(
-                                      child: Container(
-                                        height:
-                                            MediaQuery.sizeOf(context).width >
-                                                    600
-                                                ? 500
-                                                : 300,
-                                        width: MediaQuery.sizeOf(context)
-                                                        .width >
-                                                    600 &&
-                                                MediaQuery.sizeOf(context)
-                                                        .width <
-                                                    1000
-                                            ? 500
-                                            : MediaQuery.sizeOf(context).width >
-                                                    1000
-                                                ? MediaQuery.sizeOf(context)
-                                                        .width *
-                                                    0.5
-                                                : 300,
-                                        decoration: ShapeDecoration(
-                                            shadows: [
-                                              BoxShadow(
-                                                  offset: Offset(0, 4),
-                                                  spreadRadius: 0,
-                                                  blurRadius: 4,
-                                                  color: Colors.grey),
-                                            ],
-                                            color: BlocProvider.of<ThemeCubit>(
-                                                        context)
-                                                    .isDark
-                                                ? Color(0xFF1E1E1E)
-                                                : Color(0xFFE0E0E0),
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(20))),
-                                        child: PartDiagramSensorChart(
-                                            title: LocaleKeys.SensorsState_good
-                                                .tr(),
-                                            percent: boardData['sensors']['Force']['value1']*.01,
-                                            myColor: Color(0xFF7793B7)),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      LocaleKeys.knockSensorPage_topLeft.tr(),
-                                      style: AppStyle.styleRegular20(context)
-                                          .copyWith(
-                                              fontFamily: 'Roboto',
-                                              color:
-                                                  BlocProvider.of<ThemeCubit>(
-                                                              context)
-                                                          .isDark
-                                                      ? Colors.white
-                                                      : Colors.black),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Center(
-                                      child: Container(
-                                        height:
-                                            MediaQuery.sizeOf(context).width >
-                                                    600
-                                                ? 500
-                                                : 300,
-                                        width: MediaQuery.sizeOf(context)
-                                                        .width >
-                                                    600 &&
-                                                MediaQuery.sizeOf(context)
-                                                        .width <
-                                                    1000
-                                            ? 500
-                                            : MediaQuery.sizeOf(context).width >
-                                                    1000
-                                                ? MediaQuery.sizeOf(context)
-                                                        .width *
-                                                    0.5
-                                                : 300,
-                                        decoration: ShapeDecoration(
-                                            shadows: [
-                                              BoxShadow(
-                                                  offset: Offset(0, 4),
-                                                  spreadRadius: 0,
-                                                  blurRadius: 4,
-                                                  color: Colors.grey),
-                                            ],
-                                            color: BlocProvider.of<ThemeCubit>(
-                                                        context)
-                                                    .isDark
-                                                ? Color(0xFF1E1E1E)
-                                                : Color(0xFFE0E0E0),
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(20))),
-                                        child: PartDiagramSensorChart(
-                                            title: LocaleKeys.SensorsState_good
-                                                .tr(),
-                                            percent: boardData['sensors']['Force']['value1']*.01,
-                                            myColor: Color(0xFF7793B7)),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Padding(padding: EdgeInsets.only(left: 0)),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: SizedBox(
-                        height:
-                            MediaQuery.sizeOf(context).width > 600 ? 600 : 400,
-                        child: Row(
-                          children: [
-                            Wrap(
-                              spacing: 20,
-                              children: [
-                                Padding(padding: EdgeInsets.only(left: 0)),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      LocaleKeys.knockSensorPage_bottomRight
-                                          .tr(),
-                                      style: AppStyle.styleRegular20(context)
-                                          .copyWith(
-                                              fontFamily: 'Roboto',
-                                              color:
-                                                  BlocProvider.of<ThemeCubit>(
-                                                              context)
-                                                          .isDark
-                                                      ? Colors.white
-                                                      : Colors.black),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Center(
-                                      child: Container(
-                                        height:
-                                            MediaQuery.sizeOf(context).width >
-                                                    600
-                                                ? 500
-                                                : 300,
-                                        width: MediaQuery.sizeOf(context)
-                                                        .width >
-                                                    600 &&
-                                                MediaQuery.sizeOf(context)
-                                                        .width <
-                                                    1000
-                                            ? 500
-                                            : MediaQuery.sizeOf(context).width >
-                                                    1000
-                                                ? MediaQuery.sizeOf(context)
-                                                        .width *
-                                                    0.5
-                                                : 300,
-                                        decoration: ShapeDecoration(
-                                            shadows: [
-                                              BoxShadow(
-                                                  offset: Offset(0, 4),
-                                                  spreadRadius: 0,
-                                                  blurRadius: 4,
-                                                  color: Colors.grey),
-                                            ],
-                                            color: BlocProvider.of<ThemeCubit>(
-                                                        context)
-                                                    .isDark
-                                                ? Color(0xFF1E1E1E)
-                                                : Color(0xFFE0E0E0),
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(20))),
-                                        child: PartDiagramSensorChart(
-                                            title: LocaleKeys
-                                                .SensorsState_normal.tr(),
-                                            percent: boardData['sensors']['Force']['value1']*.01,
-                                            myColor: Colors.amber),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      LocaleKeys.knockSensorPage_bottomLeft
-                                          .tr(),
-                                      style: AppStyle.styleRegular20(context)
-                                          .copyWith(
-                                              fontFamily: 'Roboto',
-                                              color:
-                                                  BlocProvider.of<ThemeCubit>(
-                                                              context)
-                                                          .isDark
-                                                      ? Colors.white
-                                                      : Colors.black),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Center(
-                                      child: Container(
-                                        height:
-                                            MediaQuery.sizeOf(context).width >
-                                                    600
-                                                ? 500
-                                                : 300,
-                                        width: MediaQuery.sizeOf(context)
-                                                        .width >
-                                                    600 &&
-                                                MediaQuery.sizeOf(context)
-                                                        .width <
-                                                    1000
-                                            ? 500
-                                            : MediaQuery.sizeOf(context).width >
-                                                    1000
-                                                ? MediaQuery.sizeOf(context)
-                                                        .width *
-                                                    0.5
-                                                : 300,
-                                        decoration: ShapeDecoration(
-                                            shadows: [
-                                              BoxShadow(
-                                                  offset: Offset(0, 4),
-                                                  spreadRadius: 0,
-                                                  blurRadius: 4,
-                                                  color: Colors.grey),
-                                            ],
-                                            color: BlocProvider.of<ThemeCubit>(
-                                                        context)
-                                                    .isDark
-                                                ? Color(0xFF1E1E1E)
-                                                : Color(0xFFE0E0E0),
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(20))),
-                                        child: PartDiagramSensorChart(
-                                            title: LocaleKeys
-                                                .SensorsState_normal.tr(),
-                                            percent: boardData['sensors']['Force']['value1']*.01,
-                                            myColor: Colors.amber),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Padding(padding: EdgeInsets.only(left: 0)),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                        height:
-                            MediaQuery.sizeOf(context).width > 600 ? 135 : 75),
-                  ],
-                ),
-              ),
-            );
+
+            final newDataString = jsonEncode(boardData);
+            final oldDataString = CacheHelper().getData(key: 'boardData');
+
+            // لو مفيش كاش أو الكاش مختلف، نحدّثه
+            if (oldDataString == null || oldDataString != newDataString) {
+              CacheHelper().saveData(key: 'boardData', value: newDataString);
+            }
+            return KnockSensorData(boardData: boardData);
           } else if (state is BoardError) {
             return Text("❌ error : ${state.message}");
           }

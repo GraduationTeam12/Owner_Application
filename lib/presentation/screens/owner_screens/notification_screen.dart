@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, avoid_print
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -76,88 +76,91 @@ class _NotificationScreenState extends State<NotificationScreen> {
       ),
       body: BlocBuilder<NotificationCubit, NotificationState>(
         builder: (context, state) {
-           if (state is NotificationInitial) {
-            return Center(child: CircularProgressIndicator()); 
+          if (state is NotificationInitial) {
+            return Center(child: CircularProgressIndicator());
           } else if (state is NotificationLoaded) {
-            
-                                      print(
-                                          "------- ---- ${state.count} ----- ---------");
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: state.notifications.length,
-                      itemBuilder: (context, index) {
-                        return NotificationCard(
-                          title: state.notifications[index].title,
-                          subject: state.notifications[index].subject,
-                          pathIconImage: state.notifications[index].pathIconImage,
-                          backgroundCard: state.notifications[index].backgroundCard,
-                          borderColor: state.notifications[index].borderColor,
-                          backgroundIcon: state.notifications[index].backgroundIcon,
-                          onClose: () {
-                            context.read<NotificationCubit>().removeNotification(index);
-                          },
-                          onClick: () {},
-                        );
-                        // InkWell(
-                        //     onTap: () {},
-                        //     child:
-                        //  Container(
-                        //   margin: EdgeInsets.symmetric(vertical: 10),
-                        //   height:
-                        //       MediaQuery.sizeOf(context).width > 600 ? 200 : 100,
-                        //   decoration: ShapeDecoration(
-                        //       shadows: [
-                        //         BoxShadow(
-                        //           color: Colors.black.withOpacity(0.1),
-                        //           spreadRadius: 0,
-                        //           blurRadius: 4,
-                        //           offset: const Offset(0, 4),
-                        //         )
-                        //       ],
-                        //       color: BlocProvider.of<ThemeCubit>(context).isDark
-                        // ? Color(0xFF263238) : Colors.white,
-                        //       shape: RoundedRectangleBorder(
-                        //           borderRadius: BorderRadius.circular(17))),
-                        //   child: Padding(
-                        //     padding: const EdgeInsets.symmetric(horizontal: 8),
-                        //     child: Row(
-                        //       children: [
-                        //         Image.asset(
-                        //             'assets/images/auth_images/Error.png'),
-                        //         SizedBox(
-                        //           width: 7,
-                        //         ),
-                        //         Expanded(
-                        //           child: Text(
-                        //             LocaleKeys.NotificationsPage_title.tr(),
-                        //             style:
-                        //                 AppStyle.styleRegular20(context).copyWith(
-                        //               color: BlocProvider.of<ThemeCubit>(context).isDark
-                        // ? Colors.white : Colors.black,
-                        //             ),
-                        //             maxLines: null,
-                        //           ),
-                        //         )
-                        //       ],
-                        //     ),
-                        //   ),
-                        // ),
+            print("------- ---- ${state.count} ----- ---------");
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: state.notifications.length,
+                        itemBuilder: (context, index) {
+                          return NotificationCard(
+                            title: state.notifications[index].title,
+                            subject: state.notifications[index].subject,
+                            pathIconImage:
+                                state.notifications[index].pathIconImage,
+                            backgroundCard:
+                                state.notifications[index].backgroundCard,
+                            borderColor: state.notifications[index].borderColor,
+                            backgroundIcon:
+                                state.notifications[index].backgroundIcon,
+                            onClose: () {
+                              context
+                                  .read<NotificationCubit>()
+                                  .removeNotification(index);
+                            },
+                            onClick: () {},
+                          );
+                          // InkWell(
+                          //     onTap: () {},
+                          //     child:
+                          //  Container(
+                          //   margin: EdgeInsets.symmetric(vertical: 10),
+                          //   height:
+                          //       MediaQuery.sizeOf(context).width > 600 ? 200 : 100,
+                          //   decoration: ShapeDecoration(
+                          //       shadows: [
+                          //         BoxShadow(
+                          //           color: Colors.black.withOpacity(0.1),
+                          //           spreadRadius: 0,
+                          //           blurRadius: 4,
+                          //           offset: const Offset(0, 4),
+                          //         )
+                          //       ],
+                          //       color: BlocProvider.of<ThemeCubit>(context).isDark
+                          // ? Color(0xFF263238) : Colors.white,
+                          //       shape: RoundedRectangleBorder(
+                          //           borderRadius: BorderRadius.circular(17))),
+                          //   child: Padding(
+                          //     padding: const EdgeInsets.symmetric(horizontal: 8),
+                          //     child: Row(
+                          //       children: [
+                          //         Image.asset(
+                          //             'assets/images/auth_images/Error.png'),
+                          //         SizedBox(
+                          //           width: 7,
+                          //         ),
+                          //         Expanded(
+                          //           child: Text(
+                          //             LocaleKeys.NotificationsPage_title.tr(),
+                          //             style:
+                          //                 AppStyle.styleRegular20(context).copyWith(
+                          //               color: BlocProvider.of<ThemeCubit>(context).isDark
+                          // ? Colors.white : Colors.black,
+                          //             ),
+                          //             maxLines: null,
+                          //           ),
+                          //         )
+                          //       ],
+                          //     ),
+                          //   ),
+                          // ),
 
-                        // );
-                      }),
-                )
-              ],
-            ),
-          );
-    } 
-    return Container();
-     },
+                          // );
+                        }),
+                  )
+                ],
+              ),
+            );
+          }
+          return Container();
+        },
       ),
     );
   }

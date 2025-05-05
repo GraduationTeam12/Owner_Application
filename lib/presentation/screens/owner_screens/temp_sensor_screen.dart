@@ -1,13 +1,13 @@
 // ignore_for_file: unused_field, deprecated_member_use, library_prefixes, avoid_print
 
+import 'dart:convert';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:user_app/constants/app_images.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
-import 'package:user_app/constants/pages_name.dart';
+import 'package:user_app/core/cache/cache_helper.dart';
 import 'package:user_app/core/logic/board_cubit/board_cubit.dart';
 import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
 import 'package:user_app/generated/locale_keys.g.dart';
@@ -27,30 +27,30 @@ class TempSensorScreen extends StatefulWidget {
 }
 
 class _TempSensorScreenState extends State<TempSensorScreen> {
-  
-  final String notificationsKey = 'cached_notifications';
-
+  // final String notificationsKey = 'cached_notifications';
+  Map<String, dynamic>? cachedData;
 
   @override
   void initState() {
     super.initState();
     final boardCubit = BlocProvider.of<BoardCubit>(context);
     // boardCubit.getBoardData();
+
+    final cachedJson = CacheHelper().getData(key: 'boardData');
+    if (cachedJson != null) {
+      setState(() {
+        cachedData = jsonDecode(cachedJson);
+      });
+    }
     boardCubit.connectToSocket();
   }
-
-  // @override
-  // void dispose() {
-  //   BlocProvider.of<BoardCubit>(context).close(); 
-  //   super.dispose();
-  // }
 
   int _selectedIndex = 0;
 
   final List<Widget> _screens = [
     const CheckCarScrren(),
     const LocationScreen(),
-    const ProfileScreeen(),
+      ProfileScreeen(),
     const SettingsScreen(),
   ];
   @override
@@ -78,24 +78,6 @@ class _TempSensorScreenState extends State<TempSensorScreen> {
             size: MediaQuery.sizeOf(context).width > 600 ? 45 : null,
           ),
         ),
-        actions: [
-          Padding(
-            padding: context.locale.languageCode == 'ar'
-                ? const EdgeInsets.symmetric(horizontal: 20)
-                : const EdgeInsets.only(right: 20),
-            child: InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, notificationScreen);
-              },
-              child: SvgPicture.asset(
-                  width: MediaQuery.sizeOf(context).width > 600 ? 60 : null,
-                  height: MediaQuery.sizeOf(context).width > 600 ? 60 : null,
-                  BlocProvider.of<ThemeCubit>(context).isDark
-                      ? Assets.imagesAuthImagesNotificationDark
-                      : 'assets/images/auth_images/notification_user.svg'),
-            ),
-          ),
-        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Padding(
@@ -165,19 +147,37 @@ class _TempSensorScreenState extends State<TempSensorScreen> {
                   child: Center(
                     child: BlocBuilder<BoardCubit, BoardState>(
                       builder: (context, state) {
-                        if (state is BoardLoading) {
+                        if (state is BoardLoading && cachedData == null) {
                           return CircularProgressIndicator(
                             color: BlocProvider.of<ThemeCubit>(context).isDark
                                 ? Colors.white
                                 : MyColors.premiumColor,
                           );
-                        } else if (state is BoardSuccess) {
-                          final boardData = state.res;
+                        } else if (state is BoardLoading &&
+                            cachedData != null) {
+                          final boardData = cachedData!;
                           return CircularGauge(
                             value: boardData['sensors']['fire']
                                 ['temperature value'],
-                            status: boardData['sensors']['fire']
-                                    ['statusNow'] ??
+                            status: boardData['sensors']['fire']['statusNow'] ??
+                                "N/A",
+                          );
+                        } else if (state is BoardSuccess) {
+                          final boardData = state.res;
+
+                          final newDataString = jsonEncode(boardData);
+                          final oldDataString =
+                              CacheHelper().getData(key: 'boardData');
+
+                          if (oldDataString == null ||
+                              oldDataString != newDataString) {
+                            CacheHelper().saveData(
+                                key: 'boardData', value: newDataString);
+                          }
+                          return CircularGauge(
+                            value: boardData['sensors']['fire']
+                                ['temperature value'],
+                            status: boardData['sensors']['fire']['statusNow'] ??
                                 "N/A",
                           );
                         } else if (state is BoardError) {

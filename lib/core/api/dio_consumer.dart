@@ -73,6 +73,7 @@ class DioConsumer extends ApiConsumer {
     }
   }
 
+  @override
   Future put(
     String path, {
     Object? data,

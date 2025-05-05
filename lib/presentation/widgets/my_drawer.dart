@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,10 +7,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:user_app/constants/app_images.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/pages_name.dart';
+import 'package:user_app/core/cache/cache_helper.dart';
 import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
+import 'package:user_app/core/logic/update_info_cubit/update_info_cubit.dart';
 import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/models/drawer_model.dart';
 import 'package:user_app/presentation/screens/owner_screens/home_screen.dart';
+import 'package:user_app/presentation/screens/owner_screens/settings_screen.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});
@@ -28,20 +33,24 @@ class _MyDrawerState extends State<MyDrawer> {
     );
   }
 
+  // final userName = CacheHelper().getData(key: 'userName');
+  final userEmail = CacheHelper().getData(key: 'email');
   @override
   Widget build(BuildContext context) {
     final List<DrawerModel> items = [
       DrawerModel(
           title: LocaleKeys.Drawer_profile.tr(),
           img: BlocProvider.of<ThemeCubit>(context).isDark
-                      ? Assets.imagesAuthImagesProfileDark : Assets.imagesAuthImagesPersonDrawerBlack,
+              ? Assets.imagesAuthImagesProfileDark
+              : Assets.imagesAuthImagesPersonDrawerBlack,
           onTap: () {
             Navigator.pushNamed(context, editProfileScreen);
           }),
       DrawerModel(
           title: LocaleKeys.Drawer_car.tr(),
           img: BlocProvider.of<ThemeCubit>(context).isDark
-                      ? Assets.imagesAuthImagesGroup441 : Assets.imagesAuthImagesCarDrawerBlack,
+              ? Assets.imagesAuthImagesGroup441
+              : Assets.imagesAuthImagesCarDrawerBlack,
           onTap: () {
             Navigator.push(
                 context,
@@ -53,7 +62,8 @@ class _MyDrawerState extends State<MyDrawer> {
       DrawerModel(
           title: LocaleKeys.Drawer_location.tr(),
           img: BlocProvider.of<ThemeCubit>(context).isDark
-                      ? Assets.imagesAuthImagesLocationDark : Assets.imagesAuthImagesLocationDrawerBlack,
+              ? Assets.imagesAuthImagesLocationDark
+              : Assets.imagesAuthImagesLocationDrawerBlack,
           onTap: () {
             Navigator.push(
                 context,
@@ -65,14 +75,16 @@ class _MyDrawerState extends State<MyDrawer> {
       DrawerModel(
           title: LocaleKeys.Drawer_contact.tr(),
           img: BlocProvider.of<ThemeCubit>(context).isDark
-                      ? Assets.imagesAuthImagesContactDark : Assets.imagesAuthImagesContactDrawerBlack,
+              ? Assets.imagesAuthImagesContactDark
+              : Assets.imagesAuthImagesContactDrawerBlack,
           onTap: () {
             Navigator.pushNamed(context, contactScreen);
           }),
       DrawerModel(
         title: LocaleKeys.Drawer_privacyPolicy.tr(),
         img: BlocProvider.of<ThemeCubit>(context).isDark
-                      ?  Assets.imagesAuthImagesPrivacyDark : Assets.imagesAuthImagesPrivacyDrawerBlack,
+            ? Assets.imagesAuthImagesPrivacyDark
+            : Assets.imagesAuthImagesPrivacyDrawerBlack,
         onTap: () {
           Navigator.pushNamed(context, privacyScreen);
         },
@@ -80,20 +92,26 @@ class _MyDrawerState extends State<MyDrawer> {
       DrawerModel(
           title: LocaleKeys.Drawer_shareApp.tr(),
           img: BlocProvider.of<ThemeCubit>(context).isDark
-                      ? Assets.imagesAuthImagesShareDark : Assets.imagesAuthImagesShareDrawerBlack,
+              ? Assets.imagesAuthImagesShareDark
+              : Assets.imagesAuthImagesShareDrawerBlack,
           onTap: () {}),
       DrawerModel(
           title: LocaleKeys.Drawer_rate.tr(),
           img: BlocProvider.of<ThemeCubit>(context).isDark
-                      ? Assets.imagesAuthImagesStarDark : Assets.imagesAuthImagesRateDrawerBlack,
+              ? Assets.imagesAuthImagesStarDark
+              : Assets.imagesAuthImagesRateDrawerBlack,
           onTap: () {
             Navigator.pushNamed(context, rateScreen);
           }),
       DrawerModel(
           title: LocaleKeys.Drawer_settings.tr(),
           img: BlocProvider.of<ThemeCubit>(context).isDark
-                      ? Assets.imagesAuthImagesSettingDark : Assets.imagesAuthImagesSettingsDrawerBlack,
-          onTap: () {}),
+              ? Assets.imagesAuthImagesSettingDark
+              : Assets.imagesAuthImagesSettingsDrawerBlack,
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => SettingsScreen()));
+          }),
     ];
 
     return Container(
@@ -136,17 +154,23 @@ class _MyDrawerState extends State<MyDrawer> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Ayman Ahmed',
-                          style: AppStyle.styleRegular20(context).copyWith(
-                              color: BlocProvider.of<ThemeCubit>(context).isDark
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontWeight: FontWeight.w700),
-                          overflow: TextOverflow.ellipsis,
+                        BlocBuilder<UpdateInfoCubit, UpdateInfoState>(
+                          builder: (context, state) {
+                            return Text(
+                              BlocProvider.of<UpdateInfoCubit>(context)
+                                  .userName,
+                              style: AppStyle.styleRegular20(context).copyWith(
+                                  color: BlocProvider.of<ThemeCubit>(context)
+                                          .isDark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontWeight: FontWeight.w700),
+                              overflow: TextOverflow.ellipsis,
+                            );
+                          },
                         ),
                         Text(
-                          'ayman.ahmed@gmail.com',
+                          userEmail,
                           style: AppStyle.styleRegular20(context).copyWith(
                               color: BlocProvider.of<ThemeCubit>(context).isDark
                                   ? Colors.white54

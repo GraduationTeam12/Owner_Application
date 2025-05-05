@@ -1,8 +1,9 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_app/core/data/repo/auth_repo.dart';
 import 'package:user_app/core/logic/forgot_password_cubit/cubit/forgot_password_state.dart';
-import 'package:user_app/presentation/widgets/forgot_password_email_field.dart';
 
 class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
   ForgotPasswordCubit(this.authRepository) : super(ForgotPasswordInitial());
@@ -29,21 +30,12 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
         (l) => emit(VerifyCodeError(l)), (r) => emit(VerifyCodeSuccess(r)));
   }
 
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
-  GlobalKey<FormState> resetPasswordKey = GlobalKey();
-
-  void resetPassword(String email) async {
+  void resetPassword(String email, String password) async {
     emit(ResetPasswordLoading());
 
-    if (passwordController.text != confirmPasswordController.text) {
-      emit(ResetPasswordError("Passwords do not match"));
-      return;
-    }
-    print("object ${passwordController.text} $email");
     final res = await authRepository.resetPassword(
       email: email,
-      password: passwordController.text,
+      password: password,
     );
     res.fold((l) => emit(ResetPasswordError(l)),
         (r) => emit(ResetPasswordSuccess(r)));

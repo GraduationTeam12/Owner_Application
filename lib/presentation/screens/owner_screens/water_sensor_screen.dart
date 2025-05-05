@@ -1,12 +1,12 @@
 // ignore_for_file: unused_field, deprecated_member_use
 
+import 'dart:convert';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:user_app/constants/app_images.dart';
 import 'package:user_app/constants/app_style.dart';
-import 'package:user_app/constants/pages_name.dart';
+import 'package:user_app/core/cache/cache_helper.dart';
 import 'package:user_app/core/logic/board_cubit/board_cubit.dart';
 import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
 import 'package:user_app/generated/locale_keys.g.dart';
@@ -31,18 +31,28 @@ class _WaterSensorScreenState extends State<WaterSensorScreen> {
   final List<Widget> _screens = [
     const CheckCarScrren(),
     const LocationScreen(),
-    const ProfileScreeen(),
+      ProfileScreeen(),
     const SettingsScreen(),
   ];
+
+  Map<String, dynamic>? cachedData;
   @override
   void initState() {
     super.initState();
     final boardCubit = BlocProvider.of<BoardCubit>(context);
-    boardCubit.getBoardData(); 
-    boardCubit.connectToSocket(); 
+    // boardCubit.getBoardData();
+
+    final cachedJson = CacheHelper().getData(key: 'boardData');
+    if (cachedJson != null) {
+      setState(() {
+        cachedData = jsonDecode(cachedJson);
+      });
+    }
+    boardCubit.connectToSocket();
   }
+
   //   void dispose() {
-  //   // BlocProvider.of<BoardCubit>(context).close(); 
+  //   // BlocProvider.of<BoardCubit>(context).close();
   //   super.dispose();
   // }
   @override
@@ -70,24 +80,6 @@ class _WaterSensorScreenState extends State<WaterSensorScreen> {
             size: MediaQuery.sizeOf(context).width > 600 ? 45 : null,
           ),
         ),
-        actions: [
-          Padding(
-            padding: context.locale.languageCode == 'ar'
-                ? const EdgeInsets.symmetric(horizontal: 20)
-                : const EdgeInsets.only(right: 20),
-            child: InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, notificationScreen);
-              },
-              child: SvgPicture.asset(
-                  width: MediaQuery.sizeOf(context).width > 600 ? 60 : null,
-                  height: MediaQuery.sizeOf(context).width > 600 ? 60 : null,
-                  BlocProvider.of<ThemeCubit>(context).isDark
-                      ? Assets.imagesAuthImagesNotificationDark
-                      : 'assets/images/auth_images/notification_user.svg'),
-            ),
-          ),
-        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Padding(
@@ -151,14 +143,29 @@ class _WaterSensorScreenState extends State<WaterSensorScreen> {
                     ]),
                 child: BlocBuilder<BoardCubit, BoardState>(
                   builder: (context, state) {
-                
-                    if (state is BoardLoading) {
+                    if (state is BoardLoading && cachedData == null) {
                       return Center(child: CircularProgressIndicator());
-                    } else if (state is BoardSuccess) {
-                      final boardData = state.res;
+                    } else if (state is BoardLoading && cachedData != null) {
+                      final boardData = cachedData!;
                       return SensorChart(
                         percent: boardData['sensors']['Drowning']['level'],
-                        title: LocaleKeys.SensorsState_problem.tr(),
+                        title: boardData['sensors']['Drowning']['statusNow'],
+                      );
+                    } else if (state is BoardSuccess) {
+                      final boardData = state.res;
+
+                      final newDataString = jsonEncode(boardData);
+                      final oldDataString =
+                          CacheHelper().getData(key: 'boardData');
+
+                      if (oldDataString == null ||
+                          oldDataString != newDataString) {
+                        CacheHelper()
+                            .saveData(key: 'boardData', value: newDataString);
+                      }
+                      return SensorChart(
+                        percent: boardData['sensors']['Drowning']['level'],
+                        title: boardData['sensors']['Drowning']['statusNow'],
                       );
                     } else if (state is BoardError) {
                       return Text("❌ error : ${state.message}");

@@ -43,11 +43,10 @@ class ResetPasswordEmailScreen extends StatelessWidget {
                   ),
                 )),
             title: Text(
-                          LocaleKeys.Authentication_resetPassword.tr(),
-                          style: AppStyle.styleRegular30(context),
-                        ),
-
-                        centerTitle: true,
+              LocaleKeys.Authentication_resetPassword.tr(),
+              style: AppStyle.styleRegular30(context),
+            ),
+            centerTitle: true,
           ),
 
           // buildCustomAppBar(context, 'Reset Password'),
@@ -80,17 +79,21 @@ class ResetPasswordEmailScreen extends StatelessWidget {
                       const SizedBox(
                         height: 40,
                       ),
-                       PinCode(email: email,),
+                      PinCode(
+                        email: email,
+                      ),
                       const SizedBox(
                         height: 30,
                       ),
-                      TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            context.locale.languageCode == 'ar' ? 'اعادة الارسال' : "Resend Code",
-                            style: AppStyle.styleRegular17(context)
-                                .copyWith(color: const Color(0xFF3D6498)),
-                          ))
+                      // TextButton(
+                      //     onPressed: () {},
+                      //     child: Text(
+                      //       context.locale.languageCode == 'ar'
+                      //           ? 'اعادة الارسال'
+                      //           : "Resend Code",
+                      //       style: AppStyle.styleRegular17(context)
+                      //           .copyWith(color: const Color(0xFF3D6498)),
+                      //     ))
                     ],
                   ),
                 )

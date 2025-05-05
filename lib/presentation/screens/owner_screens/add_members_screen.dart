@@ -1,12 +1,17 @@
 import 'dart:developer';
 
+import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
+import 'package:user_app/core/api/dio_consumer.dart';
 import 'package:user_app/core/cache/cache_helper.dart';
+import 'package:user_app/core/data/repo/auth_repo.dart';
+import 'package:user_app/core/logic/closeset_member/closest_members_cubit.dart';
 import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/widgets/add_member_form.dart';
 import 'package:user_app/presentation/widgets/local_notifications.dart';
@@ -56,46 +61,53 @@ class AddMembersScreenState extends State<AddMembersScreen> {
     super.initState();
   }
 
+  final userName =  CacheHelper().getData(key: 'userName');
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: MyColors.premiumColor,
-        
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    context.locale.languageCode == 'ar' ?  "مرحباً بك, أحمد" : 'Welcome ,Ahmed',
-                    style: AppStyle.styleSemiBold22(context)
-                        .copyWith(color: Colors.white),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                   LocaleKeys.Authentication_title.tr(),
-                    style: AppStyle.styleRegular20(context)
-                        .copyWith(color: Colors.white),
-                  ),
-                ],
+    return BlocProvider(
+      create: (context) => ClosestMembersCubit(
+          AuthRepository(apiConsumer: DioConsumer(dio: Dio()))),
+      child: SafeArea(
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: MyColors.premiumColor,
+          body: Column(
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      context.locale.languageCode == 'ar'
+                          ? "مرحباً بك,  $userName"
+                          : 'Welcome $userName',
+                      style: AppStyle.styleSemiBold22(context)
+                          .copyWith(color: Colors.white),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      LocaleKeys.Authentication_title.tr(),
+                      style: AppStyle.styleRegular20(context)
+                          .copyWith(color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(
-              height: MediaQuery.sizeOf(context).width > 600 ? 40 : 10,
-            ),
-            Expanded(
-              child: AddMemberForm(),
-            )
-          ],
+              SizedBox(
+                height: MediaQuery.sizeOf(context).width > 600 ? 40 : 10,
+              ),
+              Expanded(
+                child: AddMemberForm(),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
-

@@ -19,7 +19,7 @@ class ResetPasswordText extends StatelessWidget {
       children: context.locale.languageCode == 'ar' ? [
 
         FittedBox(
-          child: Text('الرجاء إدخال الرمز المكون من 4 أرقام المرسل إلى:',
+          child: Text('الرجاء إدخال الرمز المكون من 6 أرقام المرسل إلى:',
           style: AppStyle.styleRegular25(context)
                     .copyWith(fontWeight: FontWeight.w600 , color:  Color(0xFF5C5858)),
           ),
@@ -31,7 +31,7 @@ class ResetPasswordText extends StatelessWidget {
                         color: MyColors.premiumColor))
       ] : [
         FittedBox(
-            child: Text("Please enter the 4 digit code",
+            child: Text("Please enter the 6 digit code",
                 style: AppStyle.styleRegular17(context)
                     .copyWith(fontWeight: FontWeight.w600))),
         FittedBox(
