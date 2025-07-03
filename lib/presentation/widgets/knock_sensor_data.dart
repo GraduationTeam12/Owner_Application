@@ -13,6 +13,19 @@ class KnockSensorData extends StatelessWidget {
   });
 
   final dynamic boardData;
+  String _translateStatus(String status) {
+  switch (status.toLowerCase()) {
+    case 'normal':
+      return 'طبيعي';
+    case 'dangerous':
+      return 'خطر';
+    case 'medium':
+      return 'متوسط';
+    default:
+      return status;
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -80,8 +93,10 @@ class KnockSensorData extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20))),
                 child: PartDiagramSensorChart(
-                    title: boardData['sensors']['Collision']
-                        ['statusNow'],
+                    title: context.locale.languageCode == 'ar'
+    ? _translateStatus(boardData['sensors']['Collision']['statusNow'])
+    : boardData['sensors']['Collision']['statusNow'],
+
                     percent: boardData['sensors']['Collision']
                             ['value1'] *
                         .01,

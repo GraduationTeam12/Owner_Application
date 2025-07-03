@@ -46,11 +46,23 @@ class _TempSensorScreenState extends State<TempSensorScreen> {
   }
 
   int _selectedIndex = 0;
+  String _translateStatus(String status) {
+    switch (status.toLowerCase()) {
+      case 'normal':
+        return 'طبيعي';
+      case 'dangerous':
+        return 'خطر';
+      case 'medium':
+        return 'متوسط';
+      default:
+        return status;
+    }
+  }
 
   final List<Widget> _screens = [
     const CheckCarScrren(),
     const LocationScreen(),
-      ProfileScreeen(),
+    ProfileScreeen(),
     const SettingsScreen(),
   ];
   @override
@@ -159,8 +171,11 @@ class _TempSensorScreenState extends State<TempSensorScreen> {
                           return CircularGauge(
                             value: boardData['sensors']['fire']
                                 ['temperature value'],
-                            status: boardData['sensors']['fire']['statusNow'] ??
-                                "N/A",
+                            status: context.locale.languageCode == 'ar'
+                                ? _translateStatus(
+                                    boardData['sensors']['fire']['statusNow'])
+                                : boardData['sensors']['fire']['statusNow'] ??
+                                    "N/A",
                           );
                         } else if (state is BoardSuccess) {
                           final boardData = state.res;
@@ -177,8 +192,11 @@ class _TempSensorScreenState extends State<TempSensorScreen> {
                           return CircularGauge(
                             value: boardData['sensors']['fire']
                                 ['temperature value'],
-                            status: boardData['sensors']['fire']['statusNow'] ??
-                                "N/A",
+                              status: context.locale.languageCode == 'ar'
+                                ? _translateStatus(
+                                    boardData['sensors']['fire']['statusNow'])
+                                : boardData['sensors']['fire']['statusNow'] ??
+                                    "N/A",
                           );
                         } else if (state is BoardError) {
                           return Text("❌ error : ${state.message}");

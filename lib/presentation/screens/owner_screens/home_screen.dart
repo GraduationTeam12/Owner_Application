@@ -25,6 +25,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
+  
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.index ?? 0;
+  }
 
   final List<Widget> _screens = [
     const CheckCarScrren(),
@@ -36,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    widget.index = _selectedIndex;
+    
     return WillPopScope(
       onWillPop: () async {
         if (widget.index != 0 || _selectedIndex != 0) {
