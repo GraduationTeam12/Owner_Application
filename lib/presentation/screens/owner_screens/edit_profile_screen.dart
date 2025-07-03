@@ -101,6 +101,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             color: Colors.white,
                           ),
                         )),
+                        
                     Positioned(
                         top: MediaQuery.sizeOf(context).height * 0.25 - 60 - 4,
                         left: 40 - 4,
@@ -120,21 +121,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               height: 120,
                               Assets.imagesAuthImagesDrawerphoto),
                         )),
-                    Positioned(
-                        left: 135,
-                        top: MediaQuery.sizeOf(context).height * 0.25 - 60,
-                        child: Container(
-                          padding: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                              color: Color.fromRGBO(224, 224, 224, 1),
-                              borderRadius: BorderRadius.circular(30)),
-                          child: InkWell(
-                              onTap: () {},
-                              child: Icon(
-                                Icons.add_a_photo,
-                                color: Colors.white,
-                              )),
-                        )),
+                    
                     BlocBuilder<UpdateInfoCubit, UpdateInfoState>(
                       builder: (context, state) {
                         return Positioned(
@@ -180,12 +167,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           userNameController.text;
                       BlocProvider.of<UpdateInfoCubit>(context).userAddress =
                           addressController.text;
+                          
                       userName = CacheHelper().getData(
                         key: 'userName',
                       );
+                      CacheHelper().saveData(key: 'userName', value: userNameController.text);
+
                       address = CacheHelper().getData(
                         key: 'address',
                       );
+                      CacheHelper().saveData(key: 'address', value: addressController.text);
                       Fluttertoast.showToast(msg: state.message);
                     }
                     return Form(

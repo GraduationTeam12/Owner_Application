@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
@@ -9,6 +10,18 @@ class SensorChart extends StatelessWidget {
 
   final int percent;
   final String title;
+  String _translateStatus(String title) {
+    switch (title.toLowerCase()) {
+      case 'normal':
+        return 'طبيعي';
+      case 'dangerous':
+        return 'خطر';
+      case 'medium':
+        return 'متوسط';
+      default:
+        return title;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return SfRadialGauge(
@@ -55,7 +68,7 @@ class SensorChart extends StatelessWidget {
                   ),
                   Positioned(
                     top: MediaQuery.sizeOf(context).width > 600 ? 78 : 150,
-                    child: Text(title,
+                    child: Text( context.locale.languageCode == 'ar'?_translateStatus(title):title,
                         style: AppStyle.styleBold40(context).copyWith(
                           color: BlocProvider.of<ThemeCubit>(context).isDark
                       ?  Colors.white: Color(0xFF5C5858),

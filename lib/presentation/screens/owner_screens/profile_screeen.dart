@@ -59,15 +59,7 @@ class ProfileScreeen extends StatelessWidget {
                           height: 120,
                           Assets.imagesAuthImagesDrawerphoto),
                     )),
-                Positioned(
-                    left: 135,
-                    top: MediaQuery.sizeOf(context).height * 0.25 - 60,
-                    child: InkWell(
-                        onTap: () {},
-                        child: Icon(
-                          Icons.add_a_photo,
-                          color: Colors.white,
-                        ))),
+              
                 Positioned(
                     left: 175,
                     top: MediaQuery.sizeOf(context).width > 600

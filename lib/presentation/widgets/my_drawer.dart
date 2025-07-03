@@ -13,6 +13,8 @@ import 'package:user_app/core/logic/update_info_cubit/update_info_cubit.dart';
 import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/models/drawer_model.dart';
 import 'package:user_app/presentation/screens/owner_screens/home_screen.dart';
+import 'package:user_app/presentation/screens/owner_screens/profile_screeen.dart';
+import 'package:user_app/presentation/screens/owner_screens/profile_screen_new.dart';
 import 'package:user_app/presentation/screens/owner_screens/settings_screen.dart';
 
 class MyDrawer extends StatefulWidget {
@@ -23,6 +25,7 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _MyDrawerState extends State<MyDrawer> {
+
   Widget buildDrawerListItemsDivider() {
     return const Divider(
       height: 0,
@@ -33,26 +36,19 @@ class _MyDrawerState extends State<MyDrawer> {
     );
   }
 
-  // final userName = CacheHelper().getData(key: 'userName');
+   final userName = CacheHelper().getData(key: 'userName');
   final userEmail = CacheHelper().getData(key: 'email');
   @override
   Widget build(BuildContext context) {
     final List<DrawerModel> items = [
-      DrawerModel(
-          title: LocaleKeys.Drawer_profile.tr(),
-          img: BlocProvider.of<ThemeCubit>(context).isDark
-              ? Assets.imagesAuthImagesProfileDark
-              : Assets.imagesAuthImagesPersonDrawerBlack,
-          onTap: () {
-            Navigator.pushNamed(context, editProfileScreen);
-          }),
+    
       DrawerModel(
           title: LocaleKeys.Drawer_car.tr(),
           img: BlocProvider.of<ThemeCubit>(context).isDark
               ? Assets.imagesAuthImagesGroup441
               : Assets.imagesAuthImagesCarDrawerBlack,
           onTap: () {
-            Navigator.push(
+            Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                     builder: (context) => HomeScreen(
@@ -65,11 +61,39 @@ class _MyDrawerState extends State<MyDrawer> {
               ? Assets.imagesAuthImagesLocationDark
               : Assets.imagesAuthImagesLocationDrawerBlack,
           onTap: () {
-            Navigator.push(
+            Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                     builder: (context) => HomeScreen(
                           index: 1,
+                        )));
+          }),
+            DrawerModel(
+          title: LocaleKeys.Drawer_profile.tr(),
+          img: BlocProvider.of<ThemeCubit>(context).isDark
+              ? Assets.imagesAuthImagesProfileDark
+              : Assets.imagesAuthImagesPersonDrawerBlack,
+          onTap: () {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => HomeScreen(
+                          index: 2,
+                        )));
+            setState(() {
+            });
+          }),
+            DrawerModel(
+          title: LocaleKeys.Drawer_settings.tr(),
+          img: BlocProvider.of<ThemeCubit>(context).isDark
+              ? Assets.imagesAuthImagesSettingDark
+              : Assets.imagesAuthImagesSettingsDrawerBlack,
+          onTap: () {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => HomeScreen(
+                          index: 3,
                         )));
           }),
       DrawerModel(
@@ -103,15 +127,7 @@ class _MyDrawerState extends State<MyDrawer> {
           onTap: () {
             Navigator.pushNamed(context, rateScreen);
           }),
-      DrawerModel(
-          title: LocaleKeys.Drawer_settings.tr(),
-          img: BlocProvider.of<ThemeCubit>(context).isDark
-              ? Assets.imagesAuthImagesSettingDark
-              : Assets.imagesAuthImagesSettingsDrawerBlack,
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SettingsScreen()));
-          }),
+    
     ];
 
     return Container(
@@ -156,9 +172,7 @@ class _MyDrawerState extends State<MyDrawer> {
                       children: [
                         BlocBuilder<UpdateInfoCubit, UpdateInfoState>(
                           builder: (context, state) {
-                            return Text(
-                              BlocProvider.of<UpdateInfoCubit>(context)
-                                  .userName,
+                            return Text(userName,
                               style: AppStyle.styleRegular20(context).copyWith(
                                   color: BlocProvider.of<ThemeCubit>(context)
                                           .isDark

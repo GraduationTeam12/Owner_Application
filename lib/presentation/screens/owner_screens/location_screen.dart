@@ -14,8 +14,16 @@ class _LocationScreenState extends State<LocationScreen> {
   GoogleMapController? mapController;
   LatLng? carLocation;
 
-  void _onMapCreated(GoogleMapController controller) {
+  Future<void> _onMapCreated(GoogleMapController controller) async {
     mapController = controller;
+    
+  if (Theme.of(context).brightness == Brightness.dark) {
+    String style = await DefaultAssetBundle.of(context)
+        .loadString('assets/map_style/dark_map_style.json');
+    mapController!.setMapStyle(style);
+  } else {
+    mapController!.setMapStyle(null); // Light mode default
+  }
   }
 
   @override
