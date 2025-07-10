@@ -183,6 +183,13 @@ class _TempSensorScreenState extends State<TempSensorScreen> {
                           final newDataString = jsonEncode(boardData);
                           final oldDataString =
                               CacheHelper().getData(key: 'boardData');
+                               if (boardData == null || boardData is! Map<String, dynamic>) {
+    return Center(child: Text(
+    Localizations.localeOf(context).languageCode == 'ar'
+        ? "⚠️ بيانات غير صالحة من السيرفر"
+        : "⚠️ Invalid data received from the server",
+  ),);
+  }
 
                           if (oldDataString == null ||
                               oldDataString != newDataString) {

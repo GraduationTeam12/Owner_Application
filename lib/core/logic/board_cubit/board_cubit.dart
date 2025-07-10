@@ -29,7 +29,7 @@ class BoardCubit extends Cubit<BoardState> {
       final token = CacheHelper().getData(key: ApiKeys.token);
 
       socket = io.io(
-        'https://satars.onrender.com/user-sensors',
+        'https://api.satars.site/user-sensors',
         io.OptionBuilder()
             .setTransports(['websocket'])
             .setExtraHeaders({'Authorization': 'Bearer $token'})

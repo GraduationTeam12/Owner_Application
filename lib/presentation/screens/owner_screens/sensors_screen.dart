@@ -48,7 +48,7 @@ class _SensorsScreenState extends State<SensorsScreen> {
 
   void _connectToSocket() {
     socket = IO.io(
-      'https://satars.onrender.com/',
+      'https://api.satars.site/',
       IO.OptionBuilder()
           .setTransports(['websocket'])
           .setExtraHeaders({'Authorization': 'Bearer $token'})
@@ -60,23 +60,28 @@ class _SensorsScreenState extends State<SensorsScreen> {
       print('Connected to server');
       print(token);
     });
+socket.on('board-data-updated', (data) {
+  print('📩 Received updated data: $data');
 
-    socket.on('board-data-updated', (data) async {
-      print('Data received: $data');
+  if (data == null) {
+    print('🚫 Received null data from socket');
 
-      setState(() {
-        locationData = data['Location'] ?? {};
-        sensorData = data['sensors'] ?? {};
-        status = data['status'] ?? 'Unknown';
-      });
-      // if (!_areNotificationsEqual(notifications, boardData)) {
-      //   setState(() {
-      //     notifications = boardData;
-      //   });
+    
+    return;
+  }
 
-      //   // await _saveNotificationsToCache(notifications);
-      // }
+  // تأكد إن البيانات فعلاً Map قبل الاستخدام
+  if (data is Map<String, dynamic>) {
+    setState(() {
+      locationData = data['Location'] ?? {};
+      sensorData = data['sensors'] ?? {};
+      status = data['status'] ?? 'Unknown';
     });
+  } else {
+    print('⚠️ Unexpected data format: $data');
+  }
+});
+
 
     socket.onDisconnect((_) {
       print('Disconnected from server');

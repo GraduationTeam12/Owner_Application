@@ -47,6 +47,16 @@ class _LocationScreenState extends State<LocationScreen> {
       builder: (context, state) {
         if (state is BoardSuccess) {
           final data = state.res;
+if (data == null || data is! Map<String, dynamic>) {
+  return Center(
+    child: Text(
+      Localizations.localeOf(context).languageCode == 'ar'
+          ? "⚠️ بيانات غير صالحة من السيرفر"
+          : "⚠️ Invalid data received from the server",
+    ),
+  );
+}
+
 
           if (data['Location'] != null &&
               data['Location']['Latitude'] != null &&

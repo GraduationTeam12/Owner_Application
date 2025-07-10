@@ -102,7 +102,7 @@ class CheckCarScrren extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 10,
+                                  height: 5,
                                 ),
                                 Image.asset(
                                     fit: BoxFit.contain,
@@ -156,7 +156,7 @@ class CheckCarScrren extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 10,
+                                  height: 5,
                                 ),
                                 Image.asset(
                                     fit: BoxFit.contain,
@@ -210,7 +210,7 @@ class CheckCarScrren extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 10,
+                                  height: 5,
                                 ),
                                 Image.asset(
                                     fit: BoxFit.contain,

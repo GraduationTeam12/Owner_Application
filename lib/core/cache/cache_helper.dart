@@ -7,7 +7,9 @@ class CacheHelper {
   init() async {
     sharedPreferences = await SharedPreferences.getInstance();
   }
-
+ Future<void> clear() async {
+    await sharedPreferences.clear();
+  }
   String? getDataString({required String key}) {
     return sharedPreferences.getString(key);
   }

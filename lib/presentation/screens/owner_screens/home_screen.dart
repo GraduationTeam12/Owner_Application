@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:user_app/constants/app_images.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
+import 'package:user_app/core/logic/update_info_cubit/update_info_cubit.dart';
 import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/screens/owner_screens/check_car_scrren.dart';
 import 'package:user_app/presentation/screens/owner_screens/location_screen.dart';
@@ -30,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _selectedIndex = widget.index ?? 0;
+
   }
 
   final List<Widget> _screens = [

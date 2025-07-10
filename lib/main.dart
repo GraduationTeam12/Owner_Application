@@ -38,39 +38,36 @@ Future<void> main() async {
     PushNotificationsService.init(),
     AddMembersScreenState.init(),
   ]);
-  runApp(DevicePreview(
-    enabled: true,
-    builder: (context) => MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => LogoutCubit(
-            AuthRepository(apiConsumer: DioConsumer(dio: Dio())),
-          ),
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider(
+        create: (context) => LogoutCubit(
+          AuthRepository(apiConsumer: DioConsumer(dio: Dio())),
         ),
-        BlocProvider(
-          create: (context) => ThemeCubit()..getTheme(),
-        ),
-        // BlocProvider(create: (_) => NotificationCubit()..loadNotifications()),
-        BlocProvider(
-            create: (_) =>
-                BoardCubit(AuthRepository(apiConsumer: DioConsumer(dio: Dio())))
-                   ),
-
-                   BlocProvider(
-            create: (context) =>
-                UpdateInfoCubit(AuthRepository(apiConsumer: DioConsumer(dio: Dio())))
-                   ),
-      ],
-      child: EasyLocalization(
-        supportedLocales: [Locale('ar'), Locale('en')],
-        path:
-            'assets/translations', // <-- change the path of the translation files
-        // fallbackLocale: Locale('ar'),
-        startLocale: Locale(AppConstants.lang),
-        assetLoader: CodegenLoader(),
-        child: MyApp(
-          appRouter: AppRouter(),
-        ),
+      ),
+      BlocProvider(
+        create: (context) => ThemeCubit()..getTheme(),
+      ),
+      // BlocProvider(create: (_) => NotificationCubit()..loadNotifications()),
+      BlocProvider(
+          create: (_) =>
+              BoardCubit(AuthRepository(apiConsumer: DioConsumer(dio: Dio())))
+                 ),
+  
+                 BlocProvider(
+          create: (context) =>
+              UpdateInfoCubit(AuthRepository(apiConsumer: DioConsumer(dio: Dio())))
+                 ),
+    ],
+    child: EasyLocalization(
+      supportedLocales: [Locale('ar'), Locale('en')],
+      path:
+          'assets/translations', // <-- change the path of the translation files
+      // fallbackLocale: Locale('ar'),
+      startLocale: Locale(AppConstants.lang),
+      assetLoader: CodegenLoader(),
+      child: MyApp(
+        appRouter: AppRouter(),
       ),
     ),
   ));

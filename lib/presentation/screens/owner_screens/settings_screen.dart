@@ -283,7 +283,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               onChanged: (bool value) {
                                 setState(() {
                                   BlocProvider.of<ThemeCubit>(context)
-                                      .changeTheme();
+                                      .changeTheme(context);
                                 });
                               })
                         ],
