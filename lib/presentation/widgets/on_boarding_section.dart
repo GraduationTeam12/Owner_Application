@@ -1,16 +1,19 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:user_app/constants/app_images.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
 import 'package:user_app/constants/pages_name.dart';
+import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/widgets/dots_indicator.dart';
 import 'package:user_app/presentation/widgets/on_boarding_pageview.dart';
 
 class OnBoardingSection extends StatefulWidget {
-  const OnBoardingSection({super.key,  });
+  const OnBoardingSection({
+    super.key,
+  });
 
-   
   @override
   State<OnBoardingSection> createState() => _OnBoardingSectionState();
 }
@@ -72,13 +75,15 @@ class _OnBoardingSectionState extends State<OnBoardingSection> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextButton(
-                  onPressed: goToPreviousPage,
-                  child: currentIndex == 0? Text('') : Text(
-                    "Back",
-                    style: AppStyle.styleSemiBold18(context)
-                        .copyWith(color: const Color(0xFF5C5858)),
-                  )),
+              currentIndex == 0
+                  ? Text('')
+                  : TextButton(
+                      onPressed: goToPreviousPage,
+                      child: Text(
+                        LocaleKeys.onBoarding_back.tr(),
+                        style: AppStyle.styleSemiBold18(context)
+                            .copyWith(color: const Color(0xFF5C5858)),
+                      )),
               currentIndex == 2
                   ? SizedBox(
                       // width: 111,
@@ -89,13 +94,13 @@ class _OnBoardingSectionState extends State<OnBoardingSection> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25))),
                           onPressed: () {
-                              Navigator.pushNamed(context, signInScreen);
+                            Navigator.pushNamed(context, signInScreen);
                           },
                           child: FittedBox(
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                "Start",
+                                LocaleKeys.onBoarding_start.tr(),
                                 style: AppStyle.styleRegular16(context)
                                     .copyWith(color: Colors.white),
                               ),
@@ -109,7 +114,13 @@ class _OnBoardingSectionState extends State<OnBoardingSection> {
                               MediaQuery.sizeOf(context).width > 600 ? 65 : 35,
                           width:
                               MediaQuery.sizeOf(context).width > 600 ? 65 : 35,
-                          child: SvgPicture.asset(
+                          child: context.locale.languageCode == 'ar' ? Container(
+                             decoration: ShapeDecoration(
+                              color: MyColors.premiumColor,
+                              shape: CircleBorder()),
+                            child: Icon(Icons.arrow_forward ,color: Colors.white,
+                            size: MediaQuery.sizeOf(context).width > 600 ? 45 : null,
+                            )) :  SvgPicture.asset(
                             Assets.imagesAuthImagesNext,
                             // fit: BoxFit.contain,
                           )),

@@ -28,11 +28,38 @@ abstract class AppStyle {
     );
   }
 
-  static TextStyle styleBold25(BuildContext context) {
+  static TextStyle styleBold30(BuildContext context) {
     return  TextStyle(
       color: const Color(0xFF5C5858),
       fontSize: getResponsiveFontSize(context , fontSize: 30),
       fontFamily: 'Inter',
+      fontWeight: FontWeight.w700,
+    );
+  }
+
+  static TextStyle styleBold40(BuildContext context) {
+    return  TextStyle(
+      color: const Color(0xFF5C5858),
+      fontSize: getResponsiveFontSize(context , fontSize: 40),
+      fontFamily: 'Inter',
+      fontWeight: FontWeight.w700,
+    );
+  }
+
+  static TextStyle styleBold25(BuildContext context) {
+    return  TextStyle(
+      color: const Color(0xFF5C5858),
+      fontSize: getResponsiveFontSize(context , fontSize: 25),
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w700,
+    );
+  }
+
+  static TextStyle styleBold22(BuildContext context) {
+    return  TextStyle(
+      color: const Color(0xFF5C5858),
+      fontSize: getResponsiveFontSize(context , fontSize: 22),
+      fontFamily: 'Roboto',
       fontWeight: FontWeight.w700,
     );
   }
@@ -68,6 +95,15 @@ abstract class AppStyle {
     return TextStyle(
       color: const Color(0xFFFFFFFF),
       fontSize: getResponsiveFontSize(context , fontSize: 18),
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w600,
+    );
+  }
+
+  static TextStyle styleSemiBold22(BuildContext context) {
+    return TextStyle(
+      color: const Color(0xFFFFFFFF),
+      fontSize: getResponsiveFontSize(context , fontSize: 22),
       fontFamily: 'Roboto',
       fontWeight: FontWeight.w600,
     );
@@ -131,6 +167,15 @@ abstract class AppStyle {
     return TextStyle(
       color: const Color(0xFF5C5858),
       fontSize: getResponsiveFontSize(context , fontSize: 20),
+      fontFamily: 'Inter',
+      fontWeight: FontWeight.w400,
+    );
+  }
+
+  static TextStyle styleRegular22(BuildContext context) {
+    return TextStyle(
+      color: const Color(0xFF5C5858),
+      fontSize: getResponsiveFontSize(context , fontSize: 22),
       fontFamily: 'Inter',
       fontWeight: FontWeight.w400,
     );

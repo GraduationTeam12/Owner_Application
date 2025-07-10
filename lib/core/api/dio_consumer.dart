@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:user_app/core/error/error_model.dart';
 import 'package:user_app/core/error/exception_response.dart';
 import 'package:user_app/core/error/exceptions.dart';
- 
 
 import 'api_consumer.dart';
 import 'api_interceptors.dart';
@@ -28,13 +27,12 @@ class DioConsumer extends ApiConsumer {
     String path, {
     Object? data,
     Map<String, dynamic>? queryParameters,
+    Map<String, String>? headers,
   }) async {
     try {
-      var res = await dio.delete(
-        path,
-        data: data,
-        queryParameters: queryParameters,
-      );
+      var options = Options(headers: headers);
+      var res = await dio.delete(path,
+          data: data, queryParameters: queryParameters, options: options);
       return res.data;
     } on DioException catch (e) {
       handleDioException(e);
@@ -46,13 +44,12 @@ class DioConsumer extends ApiConsumer {
     String path, {
     Object? data,
     Map<String, dynamic>? queryParameters,
+    Map<String, String>? headers,
   }) async {
     try {
-      var res = await dio.get(
-        path,
-        data: data,
-        queryParameters: queryParameters,
-      );
+      var options = Options(headers: headers);
+      var res = await dio.get(path,
+          data: data, queryParameters: queryParameters, options: options);
       return res.data;
     } on DioException catch (e) {
       handleDioException(e);
@@ -64,13 +61,29 @@ class DioConsumer extends ApiConsumer {
     String path, {
     Object? data,
     Map<String, dynamic>? queryParameters,
+    Map<String, String>? headers,
   }) async {
     try {
-      var res = await dio.patch(
-        path,
-        data: data,
-        queryParameters: queryParameters,
-      );
+      var options = Options(headers: headers);
+      var res = await dio.patch(path,
+          data: data, queryParameters: queryParameters, options: options);
+      return res.data;
+    } on DioException catch (e) {
+      handleDioException(e);
+    }
+  }
+
+  @override
+  Future put(
+    String path, {
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+    Map<String, String>? headers,
+  }) async {
+    try {
+      var options = Options(headers: headers);
+      var res = await dio.put(path,
+          data: data, queryParameters: queryParameters, options: options);
       return res.data;
     } on DioException catch (e) {
       handleDioException(e);
@@ -82,13 +95,12 @@ class DioConsumer extends ApiConsumer {
     String path, {
     Object? data,
     Map<String, dynamic>? queryParameters,
+    Map<String, String>? headers,
   }) async {
     try {
-      var res = await dio.post(
-        path,
-        data: data,
-        queryParameters: queryParameters,
-      );
+      var options = Options(headers: headers);
+      var res = await dio.post(path,
+          data: data, queryParameters: queryParameters, options: options);
       return res.data;
     } on DioException catch (e) {
       handleDioException(e);
@@ -109,7 +121,8 @@ class DioConsumer extends ApiConsumer {
       case DioExceptionType.badResponse:
         switch (e.response?.statusCode) {
           case 400: //bad request
-            throw BadRequestExceptionResponse(ErrorResponse.fromJson(e.response!.data));
+            throw BadRequestExceptionResponse(
+                ErrorResponse.fromJson(e.response!.data));
 
           case 401: //unauthorized
             throw UnauthorizedException(ErrorModel.fromJson(e.response!.data));
@@ -122,6 +135,9 @@ class DioConsumer extends ApiConsumer {
 
           case 409: //conflict
             throw ConflictException(ErrorModel.fromJson(e.response!.data));
+
+          case 500:
+            throw BadRequestException(ErrorModel.fromJson(e.response!.data));
 
           case 504:
             throw BadRequestException(ErrorModel.fromJson(e.response!.data));

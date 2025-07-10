@@ -1,9 +1,15 @@
+// ignore_for_file: deprecated_member_use
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
 import 'package:user_app/constants/pages_name.dart';
+import 'package:user_app/core/cache/cache_helper.dart';
 import 'package:user_app/core/logic/login_cubit/login_cubit.dart';
+import 'package:user_app/generated/locale_keys.g.dart';
+import 'package:user_app/presentation/widgets/loading_dialog.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({super.key});
@@ -20,18 +26,23 @@ class _SignInFormState extends State<SignInForm> {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginLoadingState) {
-          const Center(
-            child: CircularProgressIndicator(
-              backgroundColor: Colors.amber,
-            ),
-          );
+          showLoadingDialog(context);
         }
         if (state is LoginSuccessState) {
-          String message = state.message;
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(message)));
+          // String message = state.message;
+          // ScaffoldMessenger.of(context)
+          //     .showSnackBar(SnackBar(content: Text(message)));
+
+          Navigator.pop(context);
+          final visitedPage = CacheHelper().getData(key: 'AddMemberScreen');
+          visitedPage == null
+              ? Navigator.pushNamedAndRemoveUntil(
+                  context, addMembersScreen, (route) => false)
+              : Navigator.pushNamedAndRemoveUntil(
+                  context, homePageScreen, (route) => false);
         }
         if (state is LoginErrorState) {
+          Navigator.pop(context);
           String message = state.errMsg;
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(message)));
@@ -43,12 +54,14 @@ class _SignInFormState extends State<SignInForm> {
           child: Column(
             children: [
               TextFormField(
-                style: AppStyle.styleRegular16(context).copyWith(color: Colors.black),
+                style: AppStyle.styleRegular16(context)
+                    .copyWith(color: Colors.black),
                 keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.done,
                 controller: BlocProvider.of<LoginCubit>(context).signInEmail,
                 decoration: InputDecoration(
-                    errorStyle: AppStyle.styleRegular16(context).copyWith(color: Colors.red),
+                    errorStyle: AppStyle.styleRegular16(context)
+                        .copyWith(color: Colors.red),
                     prefixIcon: Padding(
                       padding: MediaQuery.sizeOf(context).width > 600
                           ? const EdgeInsets.symmetric(horizontal: 20)
@@ -59,7 +72,7 @@ class _SignInFormState extends State<SignInForm> {
                         size: MediaQuery.sizeOf(context).width > 600 ? 40 : 25,
                       ),
                     ),
-                    labelText: "E-mail",
+                    labelText: LocaleKeys.Authentication_email.tr(),
                     labelStyle: AppStyle.styleRegular16(context),
                     focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
@@ -79,7 +92,9 @@ class _SignInFormState extends State<SignInForm> {
                     border: buildBorder()),
                 validator: (email) {
                   if (email!.isEmpty) {
-                    return "Please enter your email";
+                    return context.locale.languageCode == 'ar'
+                        ? 'من فضلك ادخل بريدك الالكتروني'
+                        : "Please enter your email";
                   }
                   return null;
                 },
@@ -88,14 +103,15 @@ class _SignInFormState extends State<SignInForm> {
                 height: 40,
               ),
               TextFormField(
-            
-                style: AppStyle.styleRegular16(context).copyWith(color: Colors.black),
+                style: AppStyle.styleRegular16(context)
+                    .copyWith(color: Colors.black),
                 keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.done,
                 obscureText: isVisable ? true : false,
                 controller: BlocProvider.of<LoginCubit>(context).signInPassword,
                 decoration: InputDecoration(
-                    errorStyle: AppStyle.styleRegular16(context).copyWith(color: Colors.red),
+                    errorStyle: AppStyle.styleRegular16(context)
+                        .copyWith(color: Colors.red),
                     prefixIcon: Padding(
                       padding: MediaQuery.sizeOf(context).width > 600
                           ? const EdgeInsets.symmetric(horizontal: 20)
@@ -125,7 +141,7 @@ class _SignInFormState extends State<SignInForm> {
                                     ? 45
                                     : 25,
                               )),
-                    labelText: "Password",
+                    labelText: LocaleKeys.Authentication_password.tr(),
                     labelStyle: AppStyle.styleRegular16(context),
                     focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
@@ -143,11 +159,11 @@ class _SignInFormState extends State<SignInForm> {
                         borderSide: const BorderSide(
                             width: 2, color: MyColors.premiumColor)),
                     border: buildBorder()),
-
-               
                 validator: (password) {
                   if (password!.isEmpty) {
-                    return "Please enter your password";
+                    return context.locale.languageCode == 'ar'
+                        ? 'من فضلك ادخل كلمة المرور'
+                        : "Please enter your password";
                   }
                   return null;
                 },
@@ -163,7 +179,7 @@ class _SignInFormState extends State<SignInForm> {
                           context, forgotPasswordEmailScreen);
                     },
                     child: Text(
-                      "Forgot Password?",
+                      LocaleKeys.Authentication_forgotPassword.tr(),
                       style: AppStyle.styleSemiBold16(context)
                           .copyWith(color: MyColors.premiumColor),
                     )),
@@ -190,7 +206,7 @@ class _SignInFormState extends State<SignInForm> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15))),
                     child: Text(
-                      "Log In",
+                      LocaleKeys.Authentication_login.tr(),
                       style: AppStyle.styleSemiBold18(context),
                     ),
                   )),

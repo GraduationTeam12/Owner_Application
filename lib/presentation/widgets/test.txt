@@ -1,0 +1,14 @@
+ElevatedButton(
+          onPressed: () {
+            if (context.locale.languageCode == 'en') {
+              context.setLocale(Locale('ar'));
+            } else {
+              context.setLocale(Locale('en'));
+            }
+
+            AppConstants.lang = context.locale.languageCode;
+          },
+          child: Icon(
+            Icons.language,
+            size: 40,
+          )),

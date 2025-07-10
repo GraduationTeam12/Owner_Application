@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:user_app/constants/app_images.dart';
 import 'package:user_app/constants/app_style.dart';
+import 'package:user_app/generated/locale_keys.g.dart';
 import 'package:user_app/presentation/models/on_board_model_pageview.dart';
 
 class OnBoardingBody extends StatelessWidget {
@@ -11,28 +13,43 @@ class OnBoardingBody extends StatelessWidget {
   });
 
   final int index;
-  static List<OnBoardModelPageview> items = [
-    OnBoardModelPageview(
-        img: Assets.imagesAuthImagesOnBoarding1,
-        title: "Team",
-        description1: "We are a cohesive team striving to achieve and",
-        discription2: "ensure safety for everyone."),
-    OnBoardModelPageview(
-        img: Assets.imagesAuthImagesOnBoarding2,
-        title: "Goal",
-        description1: "The goal is to facilitate the prompt arrival of",
-        discription2: "rescue teams at the nearest hospital or",
-        discription3: "emergency center."),
-    OnBoardModelPageview(
-        img: Assets.imagesAuthImagesOnBoarding3,
-        title: "Vision",
-        description1: "Improvement Project using sensors is to",
-        discription2: "revolutionize how road accidents are managed",
-        discription3: "by integrating advanced technology"),
-  ];
 
   @override
   Widget build(BuildContext context) {
+    List<OnBoardModelPageview> items = [
+      OnBoardModelPageview(
+          img: Assets.imagesAuthImagesOnBoarding1,
+          title: LocaleKeys.onBoarding_team.tr(),
+          description1: context.locale.languageCode == 'ar'
+              ? "نحن فريق متماسك يسعى لتحقيق وضمان السلامة للجميع."
+              : "We are a cohesive team striving to achieve and",
+          discription2: context.locale.languageCode == 'ar'
+              ? ''
+              : "ensure safety for everyone."),
+      OnBoardModelPageview(
+          img: Assets.imagesAuthImagesOnBoarding2,
+          title: LocaleKeys.onBoarding_goal.tr(),
+          description1: context.locale.languageCode == 'ar'
+              ? 'الهدف هو تسهيل الوصول الفوري لفرق الإنقاذ'
+              : "The goal is to facilitate the prompt arrival of",
+          discription2: context.locale.languageCode == 'ar'
+              ? 'إلى أقرب مستشفى أو مركز طوارئ.'
+              : "rescue teams at the nearest hospital or",
+          discription3:
+              context.locale.languageCode == 'ar' ? '' : "emergency center."),
+      OnBoardModelPageview(
+          img: Assets.imagesAuthImagesOnBoarding3,
+          title: LocaleKeys.onBoarding_vision.tr(),
+          description1: context.locale.languageCode == 'ar'
+              ? 'يهدف مشروع التحسين باستخدام أجهزة الاستشعار إلى إحداث ثورة في'
+              : "Improvement Project using sensors is to",
+          discription2: context.locale.languageCode == 'ar'
+              ? 'كيفية إدارة حوادث الطرق من خلال دمج التكنولوجيا المتقدمة'
+              : "revolutionize how road accidents are managed",
+          discription3: context.locale.languageCode == 'ar'
+              ? ''
+              : "by integrating advanced technology"),
+    ];
     return Column(
       children: [
         Center(
@@ -53,7 +70,7 @@ class OnBoardingBody extends StatelessWidget {
         Center(
           child: Text(
             items[index].title,
-            style: AppStyle.styleBold25(context),
+            style: AppStyle.styleBold30(context),
           ),
         ),
         const SizedBox(height: 15),

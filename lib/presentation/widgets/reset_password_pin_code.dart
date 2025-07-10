@@ -1,16 +1,20 @@
+import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
-import 'package:user_app/constants/pages_name.dart';
+import 'package:user_app/core/api/dio_consumer.dart';
+import 'package:user_app/core/data/repo/auth_repo.dart';
 import 'package:user_app/core/logic/forgot_password_cubit/cubit/forgot_password_cubit.dart';
 import 'package:user_app/core/logic/forgot_password_cubit/cubit/forgot_password_state.dart';
+import 'package:user_app/presentation/screens/owner_screens/change_password.dart';
 import 'package:user_app/presentation/widgets/custom_elevated_button.dart';
 
 class PinCode extends StatelessWidget {
-  const PinCode({super.key});
-
+  const PinCode({super.key, required this.email});
+  final String email;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
@@ -22,7 +26,13 @@ class PinCode extends StatelessWidget {
         }
 
         if (state is VerifyCodeSuccess) {
-          Navigator.pushReplacementNamed(context, changePasswordScreen);
+          Navigator.pushReplacement(context, MaterialPageRoute(
+            builder: (_) => BlocProvider(
+                  create: (BuildContext context) => ForgotPasswordCubit(
+                      AuthRepository(apiConsumer: DioConsumer(dio: Dio()))),
+                  child:  ChangePassword(email: email,),
+                )));
+          // Navigator.pushReplacementNamed(context, changePasswordScreen);
         }
 
         if (state is VerifyCodeError) {
@@ -54,7 +64,7 @@ class PinCode extends StatelessWidget {
                 ),
                 errorTextStyle: AppStyle.styleRegular16(context)
                     .copyWith(color: Colors.red),
-                length: 4,
+                length: 6,
                 controller: BlocProvider.of<ForgotPasswordCubit>(context)
                     .codeController,
                 focusNode: FocusNode(),
@@ -75,7 +85,9 @@ class PinCode extends StatelessWidget {
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return "Please enter 4 digit code to reset your password";
+                    return context.locale.languageCode == 'ar'
+                        ? 'الرجاء إدخال الرمز المكون من 6 أرقام لإعادة تعيين كلمة المرور الخاصة بك'
+                        : "Please enter 6 digit code to reset your password";
                   }
                   return null;
                 },
@@ -84,7 +96,9 @@ class PinCode extends StatelessWidget {
                 height: 25,
               ),
               CustomElevatedButton(
-                  title: 'Verify Code',
+                  title: context.locale.languageCode == 'ar'
+                      ? 'التحقق من الرمز'
+                      : 'Verify Code',
                   onPressed: () {
                     if (!BlocProvider.of<ForgotPasswordCubit>(context)
                         .verifyCodeKey
@@ -93,7 +107,7 @@ class PinCode extends StatelessWidget {
                       return;
                     } else {
                       BlocProvider.of<ForgotPasswordCubit>(context)
-                          .verifyCode();
+                          .verifyCode(email);
                     }
                   }),
             ],
