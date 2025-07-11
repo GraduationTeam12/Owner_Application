@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_app/constants/app_style.dart';
 import 'package:user_app/constants/colors.dart';
+import 'package:user_app/core/cache/cache_helper.dart';
 import 'package:user_app/core/data/model/closest_people_model.dart';
 import 'package:user_app/core/logic/closeset_member/closest_members_cubit.dart';
 import 'package:user_app/core/logic/theme_cubit/theme_cubit.dart';
@@ -119,10 +120,12 @@ class _EditClosestPeopleState extends State<EditClosestPeople> {
                 if (state is ClosestMembersSuccess && !isDataInitialized) {
                   closestPeople = state.closestMembers;
 
-                  firstNameController.text = closestPeople![0].name;
-                  firstPhoneController.text = closestPeople![0].phone;
-                  secondNameController.text = closestPeople![1].name;
-                  secondPhoneController.text = closestPeople![1].phone;
+                  if (closestPeople != null && closestPeople!.length >= 2) {
+                    firstNameController.text = closestPeople![0].name;
+                    firstPhoneController.text = closestPeople![0].phone;
+                    secondNameController.text = closestPeople![1].name;
+                    secondPhoneController.text = closestPeople![1].phone;
+                  }
 
                   isDataInitialized = true;
                 }
@@ -149,6 +152,7 @@ class _EditClosestPeopleState extends State<EditClosestPeople> {
                 }
                 if (state is AddClosestMembersSuccess) {
                   final message = state.message;
+                  CacheHelper().saveData(key: 'AddMemberScreen', value: true);
 
                   // إعادة التحميل بعد بناء الـ UI
                   WidgetsBinding.instance.addPostFrameCallback((_) {

@@ -42,6 +42,20 @@ class LoginCubit extends Cubit<LoginState> {
 
       await CacheHelper()
           .saveData(key: 'email', value: r.email);
+    final contactsRes = await authRepo.getEmergencyContacts();
+
+    contactsRes.fold(
+      (error) async {
+        await CacheHelper().removeData(key: "AddMemberScreen");
+      },
+      (contacts) async {
+        if (contacts.length >= 2) {
+          await CacheHelper().saveData(key: "AddMemberScreen", value: true);
+        } else {
+          await CacheHelper().removeData(key: "AddMemberScreen");
+        }
+      },
+    );
           log("Dataaaaaaaaaaaaaaaa  ${r.userName} ${r.address} ${r.email}");
       loginModel = r;
       emit(LoginSuccessState(message: r.message));
